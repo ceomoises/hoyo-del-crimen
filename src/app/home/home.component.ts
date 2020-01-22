@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../services/peticiones.service';
 import { Crimen } from '../models/crimen';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _peticionesService: PeticionesService
-  ){ }
+  ){}
 
   ngOnInit(){
     // long: -99.0627 , lat: 19.3568
