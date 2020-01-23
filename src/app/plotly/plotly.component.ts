@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+declare var Plotly: any;
 
 @Component({
   selector: 'app-plotly',
@@ -6,35 +7,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plotly.component.css']
 })
 
+export class PlotlyComponent implements OnInit{
+  public data:any;
+  public layout:any;
 
-export class PlotlyComponent {
-  public graph = {
-      data: [
-          { x: [1, 2, 3], y: [2, 6, 3], type: 'scatter', mode: 'lines+points', marker: {color: 'red'} },
-          { x: [1, 2, 3], y: [2, 5, 3], type: 'bar' },
-      ],
-      layout: {width: 320, height: 240, title: 'A Fancy Plot'}
-  };
+  @ViewChild("Graph",{static:true})
+  private Graph:ElementRef
+
+  ngOnInit(){
+    this.data = [{
+      x: [1,2,3,4,5],
+      y: [5,4,3,2,1],
+      name: "Data Transformation",
+      type: "scatter",
+      mode: "markers",
+      marker: {size:12}
+    }]
+
+    this.layout = {
+      xaxis:{range: [Math.min(1,2,3,4,5,0)-2, Math.max(1,2,3,4,5, 0)+2]},
+      yaxis:{range: [Math.min(5,4,3,2,1,0)-2, Math.max(5,4,3,2,1, 0)+2]},
+      title:'Transformacion de Datos'
+    };
+
+    this.Graph =  Plotly.newPlot(this.Graph.nativeElement, this.data, this.layout);
+  }
 }
 
-
-    // // long: -99.0627 , lat: 19.3568
-    // // this._peticionesService.getCrimes('-99.0627','19.3568','200').subscribe(
-    // //   result => {
-    // //       this.crimenes = result;
-    // //       console.log(this.crimenes);
-    // //   },
-    // //   error => {
-    // //     console.log(<any>error);
-    // //   }
-    // // );
-    // // Funcion para obtener latitud y longitud
-    // function recuperarUbicacion(position){
-    //   graficar(position.coords.latitude, position.coords.longitude);
-    // }
-    // if(navigator.geolocation){ // Validar si hay acceso web a la ubicación
-    //   navigator.geolocation.getCurrentPosition(recuperarUbicacion);
-    // }
+    // graficar(position.coords.latitude, position.coords.longitude);
 
     // function graficar(latitude,longitude){
     //     var trace1 = {
