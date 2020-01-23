@@ -20,17 +20,6 @@ export class HomeComponent implements OnInit {
   ){}
 
   ngOnInit(){
-    // long: -99.0627 , lat: 19.3568
-    // this._peticionesService.getCrimes('-99.0627','19.3568','200').subscribe(
-    //   result => {
-    //       this.crimenes = result;
-    //       console.log(this.crimenes);
-    //   },
-    //   error => {
-    //     console.log(<any>error);
-    //   }
-    // );
-    //Funcion para obtener latitud y longitud
     function recuperarUbicacion(position){
       graficar(position.coords.latitude, position.coords.longitude);
     }
