@@ -7,11 +7,13 @@ import { HomeComponent } from './home/home.component';
 
 //Modulos importantes de Http
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
