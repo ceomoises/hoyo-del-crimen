@@ -15,70 +15,54 @@ export class PlotlyComponent implements OnInit{
   private Graph:ElementRef
 
   ngOnInit(){
-    this.data = [{
-      x: [1,2,3,4,5],
-      y: [5,4,3,2,1],
+    var lat = [1,2,3,4,5];
+    var long = [50,4,3,2,1];
+    var distance = 10;
+
+    var trace1 = {
+      x: [0],
+      y: [0],
+      name: "My location",
+      type: "scatter",
+      mode: "markers",
+      marker: {size:10}
+    };
+
+    var trace2 = {
+      x: lat,
+      y: long,
       name: "Data Transformation",
       type: "scatter",
       mode: "markers",
       marker: {size:12}
-    }]
+    };
+
+    this.data = [trace1, trace2];
+
+    var maxLat = Math.max(Math.abs (Math.min(...lat,0)), Math.abs (Math.max(...lat,0)));
+    var maxLong = Math.max(Math.abs (Math.min(...long,0)), Math.abs (Math.max(...long,0)));
+    var layoutSize = Math.max(maxLat, maxLong, distance);
 
     this.layout = {
-      xaxis:{range: [Math.min(1,2,3,4,5,0)-2, Math.max(1,2,3,4,5, 0)+2]},
-      yaxis:{range: [Math.min(5,4,3,2,1,0)-2, Math.max(5,4,3,2,1, 0)+2]},
-      title:'Transformacion de Datos'
+      xaxis:{range: [-layoutSize-2, layoutSize+2]},
+      yaxis:{range: [-layoutSize-2, layoutSize+2]},
+      title:'Transformacion de Datos',
+      width: 900,
+      height: 800,
+      shapes: [ {
+        type: 'circle',
+        xref: 'x',
+        yref: 'y',
+        x0: -distance,
+        y0: -distance,
+        x1: distance,
+        y1: distance,
+        line: {
+          color: 'rgba(50, 171, 96, 1)'
+        }
+      }]
     };
 
     this.Graph =  Plotly.newPlot(this.Graph.nativeElement, this.data, this.layout);
   }
 }
-
-    // graficar(position.coords.latitude, position.coords.longitude);
-
-    // function graficar(latitude,longitude){
-    //     var trace1 = {
-    //         x: [0],
-    //         y: [0],
-    //         mode: 'markers',
-    //         type: 'scatter',
-    //         name: 'Mi ubicación',
-    //         text: ['(0,0)'],
-    //         marker: { size: 12 }
-    //     };
-
-    //     var myArrayX = [];
-    //     var myArrayY = [];
-    //     var myLabels = [];
-    //     for (var i = 0; i < 10; i++){
-    //         myArrayX.push(i-latitude);
-    //         myArrayY.push(i-longitude);
-    //         myLabels.push("("+(i-latitude)+","+(i-longitude)+")")
-    //     }
-
-    //     var trace2 = {
-    //         x: myArrayX,
-    //         y: myArrayY,
-    //         mode: 'markers',
-    //         type: 'scatter',
-    //         name: 'Zona insegura',
-    //         text: myLabels,
-    //         marker: { size: 12 }
-    //     };
-
-
-    //     var data = [ trace1, trace2];
-
-    //     /*Dimensiones del plano*/
-    //     var layout = {
-    //     xaxis: {
-    //         range: [Math.min(...myArrayX, 0)-2, Math.max(...myArrayX, 0)+2]
-    //     },
-    //     yaxis: {
-    //         range: [Math.min(...myArrayY, 0)-2, Math.max(...myArrayY, 0)+2]
-    //     },
-    //     title:'Transformacion de Datos'
-    //     };
-
-    //     Plotly.newPlot('grafica', data, layout);
-    // }
