@@ -15,8 +15,8 @@ export class PlotlyComponent implements OnInit{
   private Graph:ElementRef
 
   ngOnInit(){
-    var lat = [1,2,3,4,5];
-    var long = [50,4,3,2,1];
+    var arrayLat = [1,2,3,4,5];
+    var arrayLong = [50,4,3,2,1];
     var distance = 10;
 
     var trace1 = {
@@ -29,8 +29,8 @@ export class PlotlyComponent implements OnInit{
     };
 
     var trace2 = {
-      x: lat,
-      y: long,
+      x: arrayLat,
+      y: arrayLong,
       name: "Data Transformation",
       type: "scatter",
       mode: "markers",
@@ -39,9 +39,9 @@ export class PlotlyComponent implements OnInit{
 
     this.data = [trace1, trace2];
 
-    var maxLat = Math.max(Math.abs (Math.min(...lat,0)), Math.abs (Math.max(...lat,0)));
-    var maxLong = Math.max(Math.abs (Math.min(...long,0)), Math.abs (Math.max(...long,0)));
-    var layoutSize = Math.max(maxLat, maxLong, distance);
+    var maxArrayLat = Math.max(Math.abs (Math.min(...arrayLat,0)), Math.abs (Math.max(...arrayLat,0)));
+    var maxArrayLong = Math.max(Math.abs (Math.min(...arrayLong,0)), Math.abs (Math.max(...arrayLong,0)));
+    var layoutSize = Math.max(maxArrayLat, maxArrayLong, distance);
 
     this.layout = {
       xaxis:{range: [-layoutSize-2, layoutSize+2]},
