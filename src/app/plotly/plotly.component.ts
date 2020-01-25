@@ -51,7 +51,9 @@ export class PlotlyComponent implements OnInit{
               this.arrayLong.push(Number (this.crimenes[i].long))
               this.arrayLat.push(Number (this.crimenes[i].lat))
             }
-          console.log (this.arrayLat);
+
+          // console.log (this.arrayLat);
+          // console.log(this.arrayLong);
 
           var trace1 = {
             x: [1000],
@@ -61,7 +63,7 @@ export class PlotlyComponent implements OnInit{
             mode: "markers",
             marker: {size:10}
           };
-      
+
           var trace2 = {
             x: this.arrayLat,
             y: this.arrayLong,
@@ -70,11 +72,11 @@ export class PlotlyComponent implements OnInit{
             mode: "markers",
             marker: {size:12}
           };
-      
+
           this.data = [trace1, trace2];
           var dist = Number (this.distance);
           console.log (dist);
-      
+
           var maxArrayLat = Math.max(Math.abs (Math.min(...this.arrayLat,0)), Math.abs (Math.max(...this.arrayLat,0)));
           var maxArrayLong = Math.max(Math.abs (Math.min(...this.arrayLong,0)), Math.abs (Math.max(...this.arrayLong,0)));
           var layoutSize = Math.max(maxArrayLat, maxArrayLong, dist);
