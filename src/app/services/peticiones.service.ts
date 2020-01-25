@@ -16,7 +16,7 @@ export class PeticionesService {
     this.url = "https://hoyodecrimen.com/api/v1";
   }
 
-  //.pipe(map(res => res.json()));
+  //Regresa un arreglo de crimenes
   getCrimes(long,lat,distance):Observable<any>{
     const crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${distance}`
     return this.http.jsonp(crimesUrl,'callback').pipe(
