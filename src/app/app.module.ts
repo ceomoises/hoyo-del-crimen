@@ -7,14 +7,20 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PlotlyComponent } from './plotly/plotly.component';
 
-//Modulos importantes de Http
+// Librerias
+import { AgmCoreModule } from '@agm/core';
+
+
+// Modulos importantes de Http
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PlotlyComponent
+    PlotlyComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +28,9 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule, // Modulos importantes de Http
     HttpClientJsonpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDHIYS8Q_XGg1K99dNSkGK7eljU4oeZexE'
+    })// importación de modulos de mapa
   ],
   providers: [],
   bootstrap: [AppComponent]
