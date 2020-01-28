@@ -25,7 +25,7 @@ export class PeticionesService {
           return new Crimen(
             item.crime,
             item.long,
-            item.lat
+            item.lat,
           )
         })
       })
