@@ -24,8 +24,10 @@ export class PeticionesService {
         return res["rows"].map(item =>{
           return new Crimen(
             item.crime,
-            item.long,
+            item.date,
+            item.hour,
             item.lat,
+            item.long,
           )
         })
       })

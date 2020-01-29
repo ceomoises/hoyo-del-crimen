@@ -5,16 +5,24 @@ import { Injectable } from '@angular/core';
 })
 export class LocationService {
 
-  constructor() { }
+  private options : any;
+
+  constructor() {
+    this.options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    }
+  }
 
   getPosition():Promise<any>{
     return new Promise((resolve,reject)=>{
-      navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.watchPosition(
         res=>{
-          resolve({long:res.coords.longitude,lat:res.coords.latitude});
+          resolve({long:res.coords.longitude,lat:res.coords.latitude,aprox:res.coords.accuracy});
         },err=>{
           reject("Ocurrio un erro al obtener la ubicación");
-        })
+        },this.options)
     })
   }
 

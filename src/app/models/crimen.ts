@@ -1,7 +1,9 @@
 export class Crimen {
   constructor(
     public name: string,
-    public long: number,
-    public lat: number
+    public date: string,
+    public time: string,
+    public lat: number,
+    public long: number
   ) {}
 }
