@@ -1,7 +1,28 @@
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 <!-- <input type="text" [(ngModel)]="distance"/> -->
+<ng-template #nocrimes>
+  <p>No hay crimenes cercanos!!!</p>
+</ng-template>
+
 <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-    <agm-marker [label]="labelOptions" [latitude]="latitude" [longitude]="longitude">
-    </agm-marker>
+    <agm-marker [latitude]="latitude" [longitude]="longitude"
+      [label]="myMarker"></agm-marker>
+    <agm-circle
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [radius]="distance"
+      [fillColor]="'red'"
+      [circleDraggable]="false"
+      [editable]="false"
+      >
+    </agm-circle>
+    <div *ngIf="crimes.length > 0 else nocrimes">
+        <agm-marker
+          *ngFor="let crim of crimes"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [label]="myCrimes">
+        </agm-marker>
+    </div>
 </agm-map>

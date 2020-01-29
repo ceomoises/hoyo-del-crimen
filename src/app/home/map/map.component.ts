@@ -16,22 +16,19 @@ export class MapComponent implements OnInit {
   public distance: number;
   public zoom: number;
   public crimes: Array<Crimen>; // Marcadores de crimenes
-  public labelOptions: any;
+  public myMarker: any;
+  public myCrimes: any;
 
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService
   ){
     //Primero configuramos el texto de nuestros marcadores
-    this.labelOptions = {
-      color: '#EE4646',
-      fontFamily: '',
-      fontSize: '10px',
-      fontWeight: 'bold',
-      letterSpacing: '0.5px',
-      text: 'Mi Ubicación'
-    };
-    this.distance = 200;
+    this.myMarker = {color:'white',fontSize:'8px',fontWeight:'bold',text:':v'};
+    this.myCrimes = {color:'white',fontSize:'8px',fontWeight:'bold',text:'x_x'};
+
+    this.crimes = []
+    this.distance = 250;
     this.zoom = 16;
   }
 
