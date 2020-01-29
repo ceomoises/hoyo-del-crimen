@@ -8,9 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
-// Modulo de Map
-import { AgmCoreModule } from '@agm/core';
-
 // Modulos importantes de Http
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { NoPageComponent } from './no-page/no-page.component';

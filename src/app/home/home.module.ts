@@ -7,7 +7,7 @@ import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [MapComponent],
-  exports: [MapComponent,AgmCoreModule],
+  exports: [MapComponent, AgmCoreModule],
   imports: [
     CommonModule,
     AgmCoreModule.forRoot({
