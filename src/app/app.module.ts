@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 import { routes } from './app.router';
 
 import { AppRoutingModule } from './app-routing.module';
