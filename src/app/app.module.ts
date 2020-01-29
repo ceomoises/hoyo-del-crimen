@@ -5,21 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { PlotlyComponent } from './plotly/plotly.component';
+import { MapComponent } from './map/map.component';
 
-// Librerias
+// Modulo de Map
 import { AgmCoreModule } from '@agm/core';
-
 
 // Modulos importantes de Http
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PlotlyComponent,
     MapComponent
   ],
   imports: [
