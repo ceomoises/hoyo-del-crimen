@@ -23,51 +23,49 @@ export class MapComponent implements OnInit {
     private _peticionesService: PeticionesService,
     private _locationService: LocationService
   ){
-    // Primero configuramos el texto de nuestros marcadores
-    this.myMarker = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: ':v'};
-    this.myCrimes = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: 'x_x'};
+    //Primero configuramos el texto de nuestros marcadores
+    this.myMarker = {color:'white',fontSize:'8px',fontWeight:'bold',text:':v'};
+    this.myCrimes = {color:'white',fontSize:'8px',fontWeight:'bold',text:'x_x'};
 
-    this.crimes = [];
+    this.crimes = []
     this.distance = 250;
     this.zoom = 16;
   }
 
-  // Iniciamos con nuestra ubicación
+  //Iniciamos con nuestra ubicación
   ngOnInit() {
-      this.getCrimes();
+    //Obtenemos nuestra ubicación
+    this._locationService.getPosition().then(
+      pos=>{
+        this.latitude = pos.lat;
+        this.longitude = pos.long;
+
+        console.log(this.longitude);
+        console.log(this.latitude);
+        console.log(pos.aprox);
+
+        //Petición para obtener un arreglo de crimenes
+        let plotData$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+          result => {
+            this.crimes = result;
+            //agregamos longitudes y latitudes a los arreglos
+            // for(let i in this.crimenes){
+            //   this.arrayLong.push(Number(this.crimenes[i].long))
+            //   this.arrayLat.push(Number(this.crimenes[i].lat))
+            // }
+            console.log(this.crimes);
+
+          // plotData$.unsubscribe();
+          },
+          error => {
+            console.log(<any>error);
+          }
+        )//fin del subscribe
+      }//promesa ubicación
+    )//fin de promesa ubicación
   }
 
-  public getCrimes(){
-       // Obtenemos nuestra ubicación
-       this._locationService.getPosition().then(
-        pos => {
-          this.latitude = pos.lat;
-          this.longitude = pos.long;
-          console.log(this.longitude);
-          console.log(this.latitude);
-          console.log(pos.aprox);
-          // Petición para obtener un arreglo de crimenes
-          let plotData$ = this._peticionesService.getCrimes(this.longitude, this.latitude, this.distance).subscribe(
-            result => {
-              this.crimes = result;
-              // agregamos longitudes y latitudes a los arreglos
-              // for(let i in this.crimenes){
-              //   this.arrayLong.push(Number(this.crimenes[i].long))
-              //   this.arrayLat.push(Number(this.crimenes[i].lat))
-              // }
-              console.log(this.crimes);
-            // plotData$.unsubscribe();
-            },
-            error => {
-              console.log(error as any);
-            }
-          ); // fin del subscribe
-        } // promesa ubicación
-      ); // fin de promesa ubicación
-
-  }
-
-  // Dibujamos con respecto al tiempo
+  //Dibujamos con respecto al tiempo
 
 
 
