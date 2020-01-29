@@ -15,13 +15,15 @@ export class MapComponent implements OnInit {
   public crimes: Array<Crimen>; // Marcadores de crimenes
   // Primero configuramos el texto de nuestros marcadores
   public labelOptions = {
-    color: '#ee4646',
     fontFamily: '',
     fontSize: '10px',
     fontWeight: 'bold',
     letterSpacing: '0.5px',
     text: 'Plan Pagado/No pagado'
   };
+  public iconMap = {
+    iconUrl:'http://localhost:4200/assets/Img/ninja.webp',
+  }
 
   constructor() {
     // intanciamos nuestras clases
