@@ -7,7 +7,9 @@
 
 <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
     <agm-marker [latitude]="latitude" [longitude]="longitude"
-      [label]="myMarker"></agm-marker>
+      [label]="myMarker"
+    ></agm-marker>
+    
     <agm-circle
       [latitude]="latitude"
       [longitude]="longitude"
@@ -15,13 +17,13 @@
       [fillColor]="'red'"
       [circleDraggable]="false"
       [editable]="false"
-      >
-    </agm-circle>
+    ></agm-circle>
+
     <div *ngIf="crimes.length > 0 else nocrimes">
         <agm-marker
           *ngFor="let crim of crimes"
-          [latitude]="crim.lat"
           [longitude]="crim.long"
+          [latitude]="crim.lat"
           [label]="myCrimes">
         </agm-marker>
     </div>

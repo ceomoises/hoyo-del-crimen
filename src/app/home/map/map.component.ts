@@ -30,6 +30,8 @@ export class MapComponent implements OnInit {
     this.crimes = [];
     this.distance = 250;
     this.zoom = 16;
+    this.latitude = 0;
+    this.longitude = 0;
   }
 
   // Iniciamos con nuestra ubicación
@@ -45,7 +47,7 @@ export class MapComponent implements OnInit {
         console.log(pos.aprox);
 
         // Petición para obtener un arreglo de crimenes
-        let plotData$ = this._peticionesService.getCrimes(this.longitude, this.latitude, this.distance).subscribe(
+        let plotData$ = this._peticionesService.getCrimes(this.longitude.toString (), this.latitude.toString (), this.distance.toString ()).subscribe(
           result => {
             this.crimes = result;
             // agregamos longitudes y latitudes a los arreglos

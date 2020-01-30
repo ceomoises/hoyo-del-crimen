@@ -26,8 +26,8 @@ export class PeticionesService {
             item.crime,
             item.date,
             item.hour,
-            item.lat,
-            item.long,
+            Number (item.lat),
+            Number (item.long)
           )
         })
       })
