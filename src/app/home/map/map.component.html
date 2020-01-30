@@ -1,28 +1,37 @@
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<!-- <input type="text" [(ngModel)]="distance"/> -->
 <ng-template #nocrimes>
   <p>No hay crimenes cercanos!!!</p>
 </ng-template>
+<p>Tu ubicación puede tener un error de {{aprox}}m</p>
+<span>Criemes entre: </span>
+<input type="text" [(ngModel)]="time1"/>
+<input type="text" [(ngModel)]="time2"/>
+<button (click)="nextHour()">Siguiente Hora</button>
+<br/><br/>
 
-<agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"
+<agm-map *ngIf="latitude!=null && longitude!=null" [zoom]="zoom"
+  [latitude]="latitude" [longitude]="longitude">
+    <agm-marker
+      [latitude]="latitude"
+      [longitude]="longitude"
       [label]="myMarker"></agm-marker>
+
     <agm-circle
       [latitude]="latitude"
       [longitude]="longitude"
       [radius]="distance"
       [fillColor]="'red'"
       [circleDraggable]="false"
-      [editable]="false"
-      >
-    </agm-circle>
+      [editable]="false"></agm-circle>
+
+<!-- *ngIf=" Number(crim.time.substr(0,1))>=time. " -->
     <div *ngIf="crimes.length > 0 else nocrimes">
+      <div *ngFor="let crim of crimes">
         <agm-marker
-          *ngFor="let crim of crimes"
           [latitude]="crim.lat"
           [longitude]="crim.long"
-          [label]="myCrimes">
-        </agm-marker>
+          [label]="myCrimes"></agm-marker>
+      </div>
     </div>
 </agm-map>
