@@ -27,7 +27,7 @@ export class MapComponent implements OnInit {
     this.myMarker = {color:'white',fontSize:'8px',fontWeight:'bold',text:':v'};
     this.myCrimes = {color:'white',fontSize:'8px',fontWeight:'bold',text:'x_x'};
 
-    this.crimes = []
+    this.crimes = [];
     this.distance = 250;
     this.zoom = 16;
   }
@@ -37,12 +37,8 @@ export class MapComponent implements OnInit {
     //Obtenemos nuestra ubicación
     this._locationService.getPosition().then(
       pos=>{
-        this.latitude = pos.lat;
-        this.longitude = pos.long;
-
-        console.log(this.longitude);
-        console.log(this.latitude);
-        console.log(pos.aprox);
+        this.latitude = parseFloat(pos.lat);
+        this.longitude = parseFloat(pos.long);
 
         //Petición para obtener un arreglo de crimenes
         let plotData$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
@@ -60,9 +56,9 @@ export class MapComponent implements OnInit {
           error => {
             console.log(<any>error);
           }
-        )//fin del subscribe
+        );//fin del subscribe
       }//promesa ubicación
-    )//fin de promesa ubicación
+    );//fin de promesa ubicación
   }
 
   //Dibujamos con respecto al tiempo
