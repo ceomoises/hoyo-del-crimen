@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   public crimes: Array<Crimen>; // Marcadores de crimenes
   public myMarker: any;
   public myCrimes: any;
+  public iconUrl: string;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -26,7 +27,7 @@ export class MapComponent implements OnInit {
     // Primero configuramos el texto de nuestros marcadores
     this.myMarker = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: ':v'};
     this.myCrimes = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: 'x_x'};
-
+    this.iconUrl = "http://localhost:4200/assets/Img/Crime-D.png";
     this.crimes = [];
     this.distance = 250;
     this.zoom = 16;
