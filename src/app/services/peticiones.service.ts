@@ -17,8 +17,9 @@ export class PeticionesService {
   }
 
   //Regresa un arreglo de crimenes
-  getCrimes(long: number, lat: number, distance): Observable<any>{
-    const crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${distance}`
+  getCrimes(long,lat,distance,query?):Observable<any>{
+    
+    const crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${distance}?`
     return this.http.jsonp(crimesUrl,'callback').pipe(
       map(res => {
         return res["rows"].map(item =>{

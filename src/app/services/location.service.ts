@@ -17,7 +17,7 @@ export class LocationService {
 
   getPosition():Promise<any>{
     return new Promise((resolve,reject)=>{
-      navigator.geolocation.watchPosition(
+      navigator.geolocation.getCurrentPosition(
         res=>{
           resolve({long:res.coords.longitude,lat:res.coords.latitude,aprox:res.coords.accuracy});
         },err=>{
