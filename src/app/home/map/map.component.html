@@ -10,7 +10,7 @@
 <button (click)="nextHour()">Siguiente Hora</button>
 <br/><br/>
 
-<agm-map *ngIf="latitude!=null && longitude!=null" [zoom]="zoom"
+<agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom"
   [latitude]="latitude" [longitude]="longitude">
     <agm-marker
       [latitude]="latitude"
@@ -25,13 +25,11 @@
       [circleDraggable]="false"
       [editable]="false"></agm-circle>
 
-<!-- *ngIf=" Number(crim.time.substr(0,1))>=time. " -->
-    <div *ngIf="crimes.length > 0 else nocrimes">
-      <div *ngFor="let crim of crimes">
-        <agm-marker
-          [latitude]="crim.lat"
-          [longitude]="crim.long"
-          [label]="myCrimes"></agm-marker>
-      </div>
+    <div *ngIf="crimesShown.length > 0 else nocrimes">
+      <agm-marker
+        *ngFor="let crim of crimesShown"
+        [latitude]="crim.lat"
+        [longitude]="crim.long"
+        [label]="myCrimes"></agm-marker>
     </div>
 </agm-map>

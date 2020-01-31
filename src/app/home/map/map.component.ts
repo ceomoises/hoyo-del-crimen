@@ -18,7 +18,8 @@ export class MapComponent implements OnInit {
   public distance: number;
   public aprox: number;
   public zoom: number;
-  public crimes: Array<Crimen>; // Marcadores de crimenes
+  public crimes: Array<Crimen>;
+  public crimesShown: Array<Crimen>;
   public myMarker: any;
   public myCrimes: any;
   public time1: string;
@@ -35,7 +36,8 @@ export class MapComponent implements OnInit {
     this.time1 = "00:00";
     this.time2 = "01:00";
 
-    this.crimes = [];
+    this.crimesShown = [];
+
     this.distance = 250;
     this.zoom = 17;
   }
@@ -48,11 +50,14 @@ export class MapComponent implements OnInit {
         this.latitude = pos.lat;
         this.longitude = pos.long;
         this.aprox = pos.aprox;
+        console.log("longitude: "+this.longitude);
+        console.log("latitude: "+this.latitude);
 
         // Petición para obtener un arreglo de crimenes
         let plotData$ = this._peticionesService.getCrimes(this.longitude, this.latitude, this.distance).subscribe(
           result => {
             this.crimes = result;
+            this.crimesShown = this.crimes;
             console.log(this.crimes);
           plotData$.unsubscribe();
           },
@@ -66,11 +71,34 @@ export class MapComponent implements OnInit {
   // Dibujamos con respecto al tiempo
   nextHour(){
     //obtenemos los minutos y agregamos 60min
-    let time1min = moment.duration(this.time1).asMinutes()+60;
-    let time2min = moment.duration(this.time2).asMinutes()+60;
+    let time1 = moment.duration(this.time1).asMinutes()+60;
+    let time2 = moment.duration(this.time2).asMinutes()+60;
     //pasamos nuestros minutos al formato de "horas y minutos"
-    this.time1 = moment.duration({m:time1min}).format("HH:mm");
-    this.time2 = moment.duration({m:time2min}).format("HH:mm");
+    this.time1 = moment.duration({m:time1}).format("HH:mm");
+    this.time2 = moment.duration({m:time2}).format("HH:mm");
+
+    this.filterCrimes();
   }
+
+  filterCrimes(){
+    let crimesAux: Array<Crimen> = [];
+    // Convertimos el tiempo 1 y 2 en horas
+    let time1 = moment.duration(this.time1).asHours();
+    let time2 = moment.duration(this.time2).asHours();
+    // Filtramos los crimenes
+    for(let i in this.crimes){
+      // Obtenemos la hora del crimen
+      let crimeHour = moment.duration(this.crimes[i].time).asHours();
+      // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
+      if(crimeHour>=time1 && crimeHour<=time2){
+        crimesAux.push(this.crimes[i]);
+      }
+    }
+    console.log(crimesAux);
+    this.crimesShown = crimesAux;
+  } //filter
+
+
+
 
 }
