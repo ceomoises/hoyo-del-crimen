@@ -10,16 +10,18 @@ import { Crimen } from '../models/crimen';
   providedIn: 'root'
 })
 export class PeticionesService {
-  public url: string;
+  private url: string;
+  private params:string;
 
   constructor( private http: HttpClient){
     this.url = "https://hoyodecrimen.com/api/v1";
+    this.params = "";
   }
 
   //Regresa un arreglo de crimenes
-  getCrimes(long,lat,distance,query?):Observable<any>{
-    
-    const crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${distance}?`
+  getCrimes(long:number,lat:number,dist:number,query?):Observable<any>{
+    this.params = (query!=null)?`?start_date=${query.start_date}&end_date=${query.end_date}`:"";
+    const crimesUrl=`${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${dist}${this.params}`;
     return this.http.jsonp(crimesUrl,'callback').pipe(
       map(res => {
         return res["rows"].map(item =>{
