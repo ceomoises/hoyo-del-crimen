@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../../services/peticiones.service';
 import { LocationService } from '../../services/location.service';
 import { Crimen } from 'src/app/models/crimen';
+import * as moment from 'moment';
+import 'moment-duration-format';
 
 @Component({
   selector: 'app-map',
@@ -14,11 +16,14 @@ export class MapComponent implements OnInit {
   public latitude: number;
   public longitude: number;
   public distance: number;
+  public aprox: number;
   public zoom: number;
-  public crimes: Array<Crimen>; // Marcadores de crimenes
+  public crimes: Array<Crimen>;
+  public crimesShown: Array<Crimen>;
   public myMarker: any;
   public myCrimes: any;
-  public iconUrl: string;
+  public time1: string;
+  public time2:string;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -27,12 +32,14 @@ export class MapComponent implements OnInit {
     // Primero configuramos el texto de nuestros marcadores
     this.myMarker = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: ':v'};
     this.myCrimes = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: 'x_x'};
-    this.iconUrl = "http://localhost:4200/assets/Img/Crime-D.png";
-    this.crimes = [];
+
+    this.time1 = "00:00";
+    this.time2 = "01:00";
+
+    this.crimesShown = [];
+
     this.distance = 250;
-    this.zoom = 16;
-    this.latitude = 0;
-    this.longitude = 0;
+    this.zoom = 17;
   }
 
   // Iniciamos con nuestra ubicación
@@ -42,33 +49,55 @@ export class MapComponent implements OnInit {
       pos => {
         this.latitude = pos.lat;
         this.longitude = pos.long;
-
-        console.log(this.longitude);
-        console.log(this.latitude);
-        console.log(pos.aprox);
+        this.aprox = pos.aprox;
+        console.log("longitude: "+this.longitude);
+        console.log("latitude: "+this.latitude);
 
         // Petición para obtener un arreglo de crimenes
         let plotData$ = this._peticionesService.getCrimes(this.longitude.toString (), this.latitude.toString (), this.distance.toString ()).subscribe(
           result => {
             this.crimes = result;
-            // agregamos longitudes y latitudes a los arreglos
-            // for(let i in this.crimenes){
-            //   this.arrayLong.push(Number(this.crimenes[i].long))
-            //   this.arrayLat.push(Number(this.crimenes[i].lat))
-            // }
+            this.crimesShown = this.crimes;
             console.log(this.crimes);
-
-          // plotData$.unsubscribe();
+          plotData$.unsubscribe();
           },
           error => {
             console.log(<any> error);
           }
         ); // fin del subscribe
-      }// promesa ubicación
+      } // promesa ubicación
     ); // fin de promesa ubicación
   }
-
   // Dibujamos con respecto al tiempo
+  nextHour(){
+    //obtenemos los minutos y agregamos 60min
+    let time1 = moment.duration(this.time1).asMinutes()+60;
+    let time2 = moment.duration(this.time2).asMinutes()+60;
+    //pasamos nuestros minutos al formato de "horas y minutos"
+    this.time1 = moment.duration({m:time1}).format("HH:mm");
+    this.time2 = moment.duration({m:time2}).format("HH:mm");
+
+    this.filterCrimes();
+  }
+
+  filterCrimes(){
+    let crimesAux: Array<Crimen> = [];
+    // Convertimos el tiempo 1 y 2 en horas
+    let time1 = moment.duration(this.time1).asHours();
+    let time2 = moment.duration(this.time2).asHours();
+    // Filtramos los crimenes
+    for(let i in this.crimes){
+      // Obtenemos la hora del crimen
+      let crimeHour = moment.duration(this.crimes[i].time).asHours();
+      // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
+      if(crimeHour>=time1 && crimeHour<=time2){
+        crimesAux.push(this.crimes[i]);
+      }
+    }
+    console.log(crimesAux);
+    this.crimesShown = crimesAux;
+  } //filter
+
 
 
 
