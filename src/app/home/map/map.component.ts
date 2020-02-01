@@ -24,6 +24,7 @@ export class MapComponent implements OnInit {
   public myCrimes: any;
   public time1: string;
   public time2:string;
+  public query:any;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -37,6 +38,7 @@ export class MapComponent implements OnInit {
     this.time2 = "01:00";
 
     this.crimesShown = [];
+    this.query = { start_date:"2015-01", end_date:"2016-12" }
 
     this.distance = 250;
     this.zoom = 17;
@@ -54,7 +56,7 @@ export class MapComponent implements OnInit {
         console.log("latitude: "+this.latitude);
 
         // Petición para obtener un arreglo de crimenes
-        let plotData$ = this._peticionesService.getCrimes(this.longitude.toString (), this.latitude.toString (), this.distance.toString ()).subscribe(
+        let plotData$ = this._peticionesService.getCrimes(this.longitude, this.latitude, this.distance, this.query).subscribe(
           result => {
             this.crimes = result;
             this.crimesShown = this.crimes;
