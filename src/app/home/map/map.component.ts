@@ -12,11 +12,10 @@ import 'moment-duration-format';
   providers: [PeticionesService, LocationService]
 })
 export class MapComponent implements OnInit {
-  // Atributos del mapa
-  public latitude: number;
   public longitude: number;
+  public latitude: number;
   public distance: number;
-  public aprox: number;
+  public accuracy: number;
   public zoom: number;
   public crimes: Array<Crimen>;
   public crimesShown: Array<Crimen>;
@@ -25,51 +24,55 @@ export class MapComponent implements OnInit {
   public time1: string;
   public time2:string;
   public query:any;
+  public options:any;
 
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService
   ){
     // Primero configuramos el texto de nuestros marcadores
-    this.myMarker = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: ':v'};
-    this.myCrimes = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: 'x_x'};
+    this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
+    this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
-    this.time1 = "00:00";
-    this.time2 = "01:00";
+    this.time1 = "00:00"; this.time2 = "01:00";
+
+    this.query = { start_date:"2019-01", end_date:"2019-12" }
+    this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
     this.crimesShown = [];
-    this.query = { start_date:"2015-01", end_date:"2016-12" }
-
     this.distance = 250;
     this.zoom = 17;
   }
 
-  // Iniciamos con nuestra ubicación
   ngOnInit() {
-    // Obtenemos nuestra ubicación
-    this._locationService.getPosition().then(
-      pos => {
-        this.latitude = pos.lat;
-        this.longitude = pos.long;
-        this.aprox = pos.aprox;
-        console.log("longitude: "+this.longitude);
-        console.log("latitude: "+this.latitude);
-
-        // Petición para obtener un arreglo de crimenes
-        let plotData$ = this._peticionesService.getCrimes(this.longitude, this.latitude, this.distance, this.query).subscribe(
-          result => {
-            this.crimes = result;
-            this.crimesShown = this.crimes;
-            console.log(this.crimes);
-          plotData$.unsubscribe();
-          },
-          error => {
-            console.log(<any> error);
-          }
-        ); // fin del subscribe
-      } // promesa ubicación
-    ); // fin de promesa ubicación
+    // Obtenemos nuestra ubicación por 5s
+    let pos$ = this._locationService.getCurrenPosition(this.options).subscribe(
+      position => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.accuracy = position.coords.accuracy;
+      },
+      error => {
+        console.log(`CrimeZone: ${error}`);
+        pos$.unsubscribe();
+        // Obtenemos un arreglo de crimenes cercanos
+        if(error=="Service timeout has been reached"){
+          let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+            result => {
+              this.crimes = result;
+              this.crimesShown = this.crimes;
+              console.log(this.crimes);
+            crim$.unsubscribe();
+            },
+            error => {
+              console.log(<any> error);
+            }
+          );
+        }
+      }
+    );
   }
+
   // Dibujamos con respecto al tiempo
   nextHour(){
     //obtenemos los minutos y agregamos 60min
@@ -98,9 +101,5 @@ export class MapComponent implements OnInit {
     }
     console.log(crimesAux);
     this.crimesShown = crimesAux;
-  } //filter
-
-
-
-
+  }
 }
