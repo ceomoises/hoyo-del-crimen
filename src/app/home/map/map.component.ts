@@ -12,48 +12,88 @@ import 'moment-duration-format';
   providers: [PeticionesService, LocationService]
 })
 export class MapComponent implements OnInit {
-  // Atributos del mapa
-  public latitude: number;
   public longitude: number;
+  public latitude: number;
   public distance: number;
-  public aprox: number;
+  public accuracy: number;
   public zoom: number;
   public crimes: Array<Crimen>;
   public crimesShown: Array<Crimen>;
   public myMarker: any;
   public myCrimes: any;
   public time1: string;
+<<<<<<< HEAD
   public time2:string;
   public query:any;
+  public options:any;
+=======
+  public time2: string;
+  public query: any;
+>>>>>>> c9021cd629d89c7380a041fe1b41b64c5713dbe9
 
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService
   ){
     // Primero configuramos el texto de nuestros marcadores
-    this.myMarker = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: ':v'};
-    this.myCrimes = {color: 'white', fontSize: '8px', fontWeight: 'bold', text: 'x_x'};
+    this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
+    this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
-    this.time1 = "00:00";
-    this.time2 = "01:00";
+<<<<<<< HEAD
+    this.time1 = "00:00"; this.time2 = "01:00";
+
+    this.query = { start_date:"2019-01", end_date:"2019-12" }
+    this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
+=======
+    this.time1 = '00:00';
+    this.time2 = '01:00';
 
     this.crimesShown = [];
-    this.query = { start_date:"2015-01", end_date:"2016-12" }
+    this.query = { start_date:'2016-01', end_date:'2016-12' }
+>>>>>>> c9021cd629d89c7380a041fe1b41b64c5713dbe9
 
+    this.crimesShown = [];
     this.distance = 250;
     this.zoom = 17;
   }
 
-  // Iniciamos con nuestra ubicación
   ngOnInit() {
+<<<<<<< HEAD
+    // Obtenemos nuestra ubicación por 5s
+    let pos$ = this._locationService.getCurrenPosition(this.options).subscribe(
+      position => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.accuracy = position.coords.accuracy;
+      },
+      error => {
+        console.log(`CrimeZone: ${error}`);
+        pos$.unsubscribe();
+        // Obtenemos un arreglo de crimenes cercanos
+        if(error=="Service timeout has been reached"){
+          let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+            result => {
+              this.crimes = result;
+              this.crimesShown = this.crimes;
+              console.log(this.crimes);
+            crim$.unsubscribe();
+            },
+            error => {
+              console.log(<any> error);
+            }
+          );
+        }
+      }
+    );
+=======
     // Obtenemos nuestra ubicación
     this._locationService.getPosition().then(
       pos => {
         this.latitude = pos.lat;
         this.longitude = pos.long;
         this.aprox = pos.aprox;
-        console.log("longitude: "+this.longitude);
-        console.log("latitude: "+this.latitude);
+        console.log('longitude: ' + this.longitude);
+        console.log('latitude: ' + this.latitude);
 
         // Petición para obtener un arreglo de crimenes
         let plotData$ = this._peticionesService.getCrimes(this.longitude, this.latitude, this.distance, this.query).subscribe(
@@ -69,15 +109,17 @@ export class MapComponent implements OnInit {
         ); // fin del subscribe
       } // promesa ubicación
     ); // fin de promesa ubicación
+>>>>>>> c9021cd629d89c7380a041fe1b41b64c5713dbe9
   }
+
   // Dibujamos con respecto al tiempo
   nextHour(){
-    //obtenemos los minutos y agregamos 60min
-    let time1 = moment.duration(this.time1).asMinutes()+60;
-    let time2 = moment.duration(this.time2).asMinutes()+60;
-    //pasamos nuestros minutos al formato de "horas y minutos"
-    this.time1 = moment.duration({m:time1}).format("HH:mm");
-    this.time2 = moment.duration({m:time2}).format("HH:mm");
+    // obtenemos los minutos y agregamos 60min
+    let time1 = moment.duration(this.time1).asMinutes() + 60;
+    let time2 = moment.duration(this.time2).asMinutes() + 60;
+    // pasamos nuestros minutos al formato de "horas y minutos"
+    this.time1 = moment.duration({m:time1}).format( 'HH:mm' );
+    this.time2 = moment.duration({m:time2}).format( 'HH:mm' );
 
     this.filterCrimes();
   }
@@ -92,15 +134,19 @@ export class MapComponent implements OnInit {
       // Obtenemos la hora del crimen
       let crimeHour = moment.duration(this.crimes[i].time).asHours();
       // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
-      if(crimeHour>=time1 && crimeHour<=time2){
+      if(crimeHour>=time1 && crimeHour<=time2) {
         crimesAux.push(this.crimes[i]);
       }
     }
     console.log(crimesAux);
     this.crimesShown = crimesAux;
-  } //filter
+<<<<<<< HEAD
+  }
+=======
+  } // filter
 
 
 
 
+>>>>>>> c9021cd629d89c7380a041fe1b41b64c5713dbe9
 }
