@@ -59,17 +59,24 @@ export class MapComponent implements OnInit {
         console.log(this.accuracy);
         if(this.latitude!=null && this.longitude!=null){
           // Obtenemos un arreglo de crimenes cercanos
-          let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
-            result => {
-              this.crimes = result;
-              this.crimesShown = this.crimes;
-              console.log(this.crimes);
-              crim$.unsubscribe();
-            },
-            error => {
-              console.log(`HoyoDeCrimen: ${error}`);
+          let coords$ = this._locationService.validateCoordinates(this.latitude, this.longitude).subscribe(state =>{
+            if (state === "Ciudad de México"){
+              let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+                result => {
+                  this.crimes = result;
+                  this.crimesShown = this.crimes;
+                  console.log(this.crimes);
+                  crim$.unsubscribe();
+                  coords$.unsubscribe ();
+                },
+                error => {
+                  console.log(`HoyoDeCrimen: ${error}`);
+                }
+              );
+            }else{
+              console.log ("Localización fuera del rango");
             }
-          );
+          });
         }
       },
       error=>{

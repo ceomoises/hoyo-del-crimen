@@ -51,39 +51,10 @@ export class LocationService {
       }
     });
   }
-
+  //Valida las coordenadas
   public validateCoordinates(lat:number, long:number):Observable<any>{
     return this._http.get(`${this.urlNominatim}&lat=${lat}&lon=${long}`).pipe(
-      map( res =>{
-        console.log("DIRECCION");
-        console.log(res);
-        return res["address"].country;
-      })
+      map( res => res["address"].state)
     ) 
   }
-  
-
-  public validateCoordinates2(lat:number, long:number){
-    var value=true;
-    this._http.get(`${this.urlNominatim}&lat=${lat}&lon=${long}`).subscribe(
-      result => {
-        let address = <Object>result["address"];
-        let country = <string> (address["country"]);
-        let county = <string> (address["county"]);
-        console.log(address);
-        if (!(country==="México")){
-          value = false;
-          console.log("COORDENADA INVALIDATE");
-        }
-        if (!(county==="Benito Juárez")){
-          value = false;
-          console.log("COORDENADA INVALIDATE 2");
-
-        }
-      },
-      error => {
-          console.log(<any>error);
-    });
-  }
-
 }
