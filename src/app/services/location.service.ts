@@ -8,21 +8,20 @@ export class LocationService {
 
   public getPosition(options?):Promise<any>{
     return new Promise((resolve,reject)=>{
-      navigator.geolocation.getCurrentPosition(
+      window.navigator.geolocation.getCurrentPosition(
         res=>{
           resolve(res);
         },
         err=>{
           reject("Unable to determine your location");
-        },options
-      )
+        },options);
     })
   }
 
-  public getCurrenPosition(options?):Observable<any>{
+  public getCurrenPosition(options?:any):Observable<any>{
     return Observable.create( observer =>{
       if(window.navigator && window.navigator.geolocation){
-        window.navigator.geolocation.watchPosition(
+        let watchId = window.navigator.geolocation.watchPosition(
           (position)=>{
             observer.next(position);
           },
@@ -32,14 +31,17 @@ export class LocationService {
               case 2:observer.error("Unable to determine your location");break;
               case 3:observer.error("Service timeout has been reached"); break;
             }
-          },options
-        );
+          },options);
+        // PATCH: Con el timeout nos aseguramos de dejar de obtener la ubicación
+        // en google chrome después de cierto tiempo.
+        let timeout = setTimeout(()=>{
+          console.log("stop watching...");
+          observer.complete();
+          window.navigator.geolocation.clearWatch( watchId );
+        },options.timeout);
       }else{
-          observer.error("Browser doesn't support location service");
+        observer.error("Browser doesn't support location service");
       }
     });
   }
-
-
-
 }

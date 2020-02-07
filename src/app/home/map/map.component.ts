@@ -35,8 +35,7 @@ export class MapComponent implements OnInit {
     this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
-    this.time1 = "00:00"; this.time2 = "01:00";
-
+    this.time1 = "00:00"; this.time2 = "24:00";
     this.query = { start_date:"2019-01", end_date:"2019-12" }
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
@@ -46,32 +45,33 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Obtenemos nuestra ubicación por 5s
-    let pos$ = this._locationService.getCurrenPosition(this.options).subscribe(
-      position => {
+    this._locationService.getPosition(this.options).then(
+      position=>{
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.accuracy = position.coords.accuracy;
-      },
-      error => {
-        console.log(`CrimeZone: ${error}`);
-        pos$.unsubscribe();
-        // Obtenemos un arreglo de crimenes cercanos
-        if(error=="Service timeout has been reached"){
+        console.log(this.latitude);
+        console.log(this.longitude);
+        console.log(this.accuracy);
+        if(this.latitude!=null && this.longitude!=null){
+          // Obtenemos un arreglo de crimenes cercanos
           let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
             result => {
               this.crimes = result;
               this.crimesShown = this.crimes;
               console.log(this.crimes);
-            crim$.unsubscribe();
+              crim$.unsubscribe();
             },
             error => {
-              console.log(<any> error);
+              console.log(`HoyoDeCrimen: ${error}`);
             }
           );
         }
+      },
+      error=>{
+        console.log(`CrimeZone: ${error}`);
       }
-    );
+    )
   }
 
   // Dibujamos con respecto al tiempo
@@ -103,4 +103,5 @@ export class MapComponent implements OnInit {
     console.log(crimesAux);
     this.crimesShown = crimesAux;
   }
+
 }
