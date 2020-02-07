@@ -62,31 +62,37 @@ export class MapComponent implements OnInit {
         pos$.unsubscribe();
         // Obtenemos un arreglo de crimenes cercanos
         if(error=="Service timeout has been reached"){
-          this._http.get(`${this.urlNominatim}&lat=${this.latitude}&lon=${this.longitude}`).subscribe(
-            result => {
-              let address = <Object>result["address"];
-              let state = <string> (address["state"]);
-              //let county = <string> (address["county"]); console.log(address);
-              if (state==="Ciudad de México"){
-                let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
-                  result => {
-                    this.crimes = result;
-                    this.crimesShown = this.crimes;
-                    console.log(this.crimes);
-                  crim$.unsubscribe();
-                  },
-                  error => {
-                    console.log(<any> error);
+          this._locationService.validateCoordinates(this.latitude, this.longitude).subscribe(x => {
+            if (x === "Méxic"){
+              this._http.get(`${this.urlNominatim}&lat=${this.latitude}&lon=${this.longitude}`).subscribe(
+                result => {
+                  let address = <Object>result["address"];
+                  let state = <string> (address["state"]);
+                  //let county = <string> (address["county"]); console.log(address);
+                  if (state==="Ciudad de México"){
+                    let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+                      result => {
+                        this.crimes = result;
+                        this.crimesShown = this.crimes;
+                        console.log(this.crimes);
+                      crim$.unsubscribe();
+                      },
+                      error => {
+                        console.log(<any> error);
+                      }
+                    );
+                  }else{
+                    console.log("Se encuentra fuera de la Ciudad de Mexico")
                   }
-                );
-              }else{
-                console.log("Se encuentra fuera de la Ciudad de Mexico")
-              }
-              // if (!(county==="Benito Juárez"))
-              //   console.log("Condado invalido");
-            },
-            error => {
-                console.log(<any>error);
+                  // if (!(county==="Benito Juárez"))
+                  //   console.log("Condado invalido");
+                },
+                error => {
+                    console.log(<any>error);
+              });
+            }else{
+              console.log("Se ecnuentra fuera de la Ciudad de México.")
+            }
           });
         }
       }
