@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../../services/peticiones.service';
 import { LocationService } from '../../services/location.service';
 import { Crimen } from 'src/app/models/crimen';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as moment from 'moment';
 import 'moment-duration-format';
 
@@ -13,6 +14,7 @@ import 'moment-duration-format';
 })
 
 export class MapComponent implements OnInit {
+  private urlNominatim:string;
   public longitude: number;
   public latitude: number;
   public distance: number;
@@ -29,9 +31,11 @@ export class MapComponent implements OnInit {
 
   constructor(
     private _peticionesService: PeticionesService,
-    private _locationService: LocationService
+    private _locationService: LocationService,
+    private _http: HttpClient
   ){
     // Primero configuramos el texto de nuestros marcadores
+    this.urlNominatim = "https://nominatim.openstreetmap.org/reverse?format=jsonv2";
     this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
@@ -58,17 +62,32 @@ export class MapComponent implements OnInit {
         pos$.unsubscribe();
         // Obtenemos un arreglo de crimenes cercanos
         if(error=="Service timeout has been reached"){
-          let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+          this._http.get(`${this.urlNominatim}&lat=${this.latitude}&lon=${this.longitude}`).subscribe(
             result => {
-              this.crimes = result;
-              this.crimesShown = this.crimes;
-              console.log(this.crimes);
-            crim$.unsubscribe();
+              let address = <Object>result["address"];
+              let state = <string> (address["state"]);
+              //let county = <string> (address["county"]); console.log(address);
+              if (state==="Ciudad de México"){
+                let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+                  result => {
+                    this.crimes = result;
+                    this.crimesShown = this.crimes;
+                    console.log(this.crimes);
+                  crim$.unsubscribe();
+                  },
+                  error => {
+                    console.log(<any> error);
+                  }
+                );
+              }else{
+                console.log("Se encuentra fuera de la Ciudad de Mexico")
+              }
+              // if (!(county==="Benito Juárez"))
+              //   console.log("Condado invalido");
             },
             error => {
-              console.log(<any> error);
-            }
-          );
+                console.log(<any>error);
+          });
         }
       }
     );

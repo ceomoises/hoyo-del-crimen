@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
+  private urlNominatim:string;
+
+  constructor (private _http: HttpClient){
+    this.urlNominatim = "https://nominatim.openstreetmap.org/reverse?format=jsonv2";
+  }
 
   public getPosition(options?):Promise<any>{
     return new Promise((resolve,reject)=>{
@@ -40,6 +47,38 @@ export class LocationService {
     });
   }
 
+  public validateCoordinates(lat:number, long:number):Observable<any>{
+    return this._http.get(`${this.urlNominatim}&lat=${lat}&lon=${long}`).pipe(
+      map( res =>{
+        console.log("DIRECCION");
+        console.log(res);
+        return res["address"].country;
+      })
+    ) 
+  }
+  
 
+  public validateCoordinates2(lat:number, long:number){
+    var value=true;
+    this._http.get(`${this.urlNominatim}&lat=${lat}&lon=${long}`).subscribe(
+      result => {
+        let address = <Object>result["address"];
+        let country = <string> (address["country"]);
+        let county = <string> (address["county"]);
+        console.log(address);
+        if (!(country==="México")){
+          value = false;
+          console.log("COORDENADA INVALIDATE");
+        }
+        if (!(county==="Benito Juárez")){
+          value = false;
+          console.log("COORDENADA INVALIDATE 2");
+
+        }
+      },
+      error => {
+          console.log(<any>error);
+    });
+  }
 
 }
