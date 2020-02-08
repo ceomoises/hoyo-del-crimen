@@ -9,6 +9,7 @@
 <input type="text" [(ngModel)]="time2"/>
 <button (click)="nextHour()">Siguiente Hora</button>
 <br/><br/>
+<button (click)="getPosition()">Actualizar Posición</button>
 
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom"
   [latitude]="latitude" [longitude]="longitude">
