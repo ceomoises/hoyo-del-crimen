@@ -28,6 +28,7 @@ export class MapComponent implements OnInit {
   public time2:string;
   public query:any;
   public options:any;
+  public daysSelected:Array<Object>;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -39,9 +40,19 @@ export class MapComponent implements OnInit {
     this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
-    this.time1 = "00:00"; this.time2 = "24:00";
+    this.time1 = "00:00"; this.time2 = "01:00";
     this.query = { start_date:"2019-01", end_date:"2019-12" }
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
+
+    this.daysSelected = [
+      {day:"Lunes", value:true},
+      {day: "Martes", value:true},
+      {day: "Miercoles" , value:false},
+      {day: "Jueves" , value:false},
+      {day: "Viernes" , value:false},
+      {day: "Sabado" , value:false},
+      {day: "Domingo" , value:false},
+    ];
 
     this.crimesShown = [];
     this.distance = 250;
@@ -54,27 +65,31 @@ export class MapComponent implements OnInit {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.accuracy = position.coords.accuracy;
-
-        // Obtenemos un arreglo de crimenes cercanos
-        let coords$ = this._locationService.validateCoordinates(this.latitude, this.longitude).subscribe(state =>{
-          if (state === "Ciudad de México"){
-            let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
-              result => {
-                this.crimes = result;
-                this.crimesShown = this.crimes;
-                console.log(this.crimes);
-                crim$.unsubscribe();
-                coords$.unsubscribe ();
-              },
-              error => {
-                console.log(`HoyoDeCrimen: ${error}`);
-              }
-            );
-          }else{
-            console.log ("Localización fuera del rango");
-          }
-        });
-
+        console.log(this.latitude);
+        console.log(this.longitude);
+        console.log(this.accuracy);
+        if(this.latitude!=null && this.longitude!=null){
+          //Verificamos si esta dentro de la Ciudad de Mexico
+          let coords$ = this._locationService.validateCoordinates(this.latitude, this.longitude).subscribe(state =>{
+            if (state === "Ciudad de México"){
+              // Obtenemos un arreglo de crimenes cercanos
+              let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+                result => {
+                  this.crimes = result;
+                  this.crimesShown = this.crimes;
+                  console.log(this.crimes);
+                  crim$.unsubscribe();
+                  coords$.unsubscribe ();
+                },
+                error => {
+                  console.log(`HoyoDeCrimen: ${error}`);
+                }
+              );
+            }else{
+              console.log ("Localización fuera del rango");
+            }
+          });
+        }
       },
       error=>{
         console.log(`CrimeZone: ${error}`);
@@ -105,7 +120,8 @@ export class MapComponent implements OnInit {
       let crimeHour = moment.duration(this.crimes[i].time).asHours();
       // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
       if(crimeHour>=time1 && crimeHour<=time2){
-        crimesAux.push(this.crimes[i]);
+        if (this.validateMounthCrime(this.crimes[i].date))
+          crimesAux.push(this.crimes[i]);
       }
     }
     console.log(crimesAux);
@@ -142,6 +158,25 @@ export class MapComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  validateMounthCrime(date:string):boolean{
+    //Dias de la semana
+    let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
+    let diysAvaible = [];
+    for (let i in this.daysSelected){
+      if (this.daysSelected[i] ['value'])
+      diysAvaible.push(this.daysSelected[i] ['day']);
+    }
+    // Obtenemos el dia del crimen
+    let crimeDate = new Date (date);
+    let day = days[crimeDate.getDay()];
+    // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
+    for (let index in diysAvaible){
+      if (diysAvaible[index]===day)
+        return true;
+    }
+    return false;
   }
 
 
