@@ -128,6 +128,38 @@ export class MapComponent implements OnInit {
     this.crimesShown = crimesAux;
   }
 
+  public sendRequest(){
+    const crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
+      result => {
+        this.crimes = result;
+        this.crimesShown = this.crimes;
+        console.log(this.crimes);
+        crim$.unsubscribe();
+      },
+      error => {
+        console.log(`HoyoDeCrimen: ${error}`);
+      }
+    );
+  }
+
+  async getPosition(){
+    try {
+      const position = await this._locationService.getPosition(this.options);
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.accuracy = position.coords.accuracy;
+      const state = await this._locationService.validateCoordinates(this.latitude,this.longitude).toPromise();
+      if(state==="Ciudad de México"){
+        const crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).toPromise();
+        console.log(crimes);
+      }else{
+        console.log ("CrimeZone: Location outside");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   validateMounthCrime(date:string):boolean{
     //Dias de la semana
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
@@ -146,4 +178,6 @@ export class MapComponent implements OnInit {
     }
     return false;
   }
+
+
 }

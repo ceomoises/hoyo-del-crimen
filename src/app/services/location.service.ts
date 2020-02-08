@@ -20,7 +20,7 @@ export class LocationService {
           resolve(res);
         },
         err=>{
-          reject("Unable to determine your location");
+          reject("Unable to determine your location :V");
         },options);
     })
   }
@@ -54,7 +54,7 @@ export class LocationService {
   //Valida las coordenadas
   public validateCoordinates(lat:number, long:number):Observable<any>{
     return this._http.get(`${this.urlNominatim}&lat=${lat}&lon=${long}`).pipe(
-      map( res => res["address"].state)
-    ) 
+      map( res => res["address"].state )
+    )
   }
 }
