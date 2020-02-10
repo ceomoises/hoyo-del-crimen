@@ -14,6 +14,22 @@
 <br/><br/>
 <button (click)="getPosition()">Actualizar Posición</button>
 
+<table>
+  <tr>
+    <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
+  </tr>
+  <tr>
+    <td *ngFor="let daySelected of daysSelecteds">
+      <input type="checkbox" [(ngModel)]="daySelected.value"/>
+    </td>
+  </tr>
+</table>
+
+<div *ngFor="let mounthSelected of mounthsSelecteds">
+  <input type="checkbox" [(ngModel)]="mounthSelected.value"/>
+  {{ mounthSelected.mounth }}
+</div>
+
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom"
   [latitude]="latitude" [longitude]="longitude">
     <agm-marker

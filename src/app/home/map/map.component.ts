@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../../services/peticiones.service';
 import { LocationService } from '../../services/location.service';
 import { Crimen } from 'src/app/models/crimen';
+import { DaySelected } from '../../models/daySelected';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as moment from 'moment';
 import 'moment-duration-format';
+import { MounthSelected } from '../../models/mounthSelected';
 
 @Component({
   selector: 'app-map',
@@ -28,7 +30,8 @@ export class MapComponent implements OnInit {
   public time2:string;
   public query:any;
   public options:any;
-  public daysSelected:Array<Object>;
+  public daysSelecteds:Array<DaySelected>;
+  public mounthsSelecteds:Array<MounthSelected>;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -44,14 +47,29 @@ export class MapComponent implements OnInit {
     this.query = { start_date:"2019-01", end_date:"2019-12" }
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
-    this.daysSelected = [
-      {day:"Lunes", value:true},
-      {day: "Martes", value:true},
-      {day: "Miercoles" , value:false},
-      {day: "Jueves" , value:false},
-      {day: "Viernes" , value:false},
-      {day: "Sabado" , value:false},
-      {day: "Domingo" , value:false},
+    this.daysSelecteds = [
+      new DaySelected("Lunes", false),
+      new DaySelected("Martes", false),
+      new DaySelected("Miercoles", false),
+      new DaySelected("Jueves", false),
+      new DaySelected("Viernes", false),
+      new DaySelected("Sabado", false),
+      new DaySelected("Domingo", false)
+    ];
+
+    this.mounthsSelecteds = [
+      new MounthSelected("Enero", false),
+      new MounthSelected("Febrero", false),
+      new MounthSelected("Marzo", false),
+      new MounthSelected("Abril", false),
+      new MounthSelected("Mayo", false),
+      new MounthSelected("Junio", false),
+      new MounthSelected("Julio", false),
+      new MounthSelected("Agosto", false),
+      new MounthSelected("Septiembre", false),
+      new MounthSelected("Octubre", false),
+      new MounthSelected("Noviembre", false),
+      new MounthSelected("Diciembre", false)
     ];
 
     this.crimesShown = [];
@@ -110,6 +128,8 @@ export class MapComponent implements OnInit {
   }
 
   filterCrimes(){
+    console.log(this.mounthsSelecteds);
+    console.log(this.daysSelecteds);
     let crimesAux: Array<Crimen> = [];
     // Convertimos el tiempo 1 y 2 en horas
     let time1 = moment.duration(this.time1).asHours();
@@ -120,7 +140,7 @@ export class MapComponent implements OnInit {
       let crimeHour = moment.duration(this.crimes[i].time).asHours();
       // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
       if(crimeHour>=time1 && crimeHour<=time2){
-        if (this.validateMounthCrime(this.crimes[i].date))
+        if (this.validateCrimeDate(this.crimes[i].date))
           crimesAux.push(this.crimes[i]);
       }
     }
@@ -160,21 +180,38 @@ export class MapComponent implements OnInit {
     }
   }
 
-  validateMounthCrime(date:string):boolean{
-    //Dias de la semana
+  validateCrimeDate(date:string):boolean{
+    //Dias de la semana y meses de año
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
-    let diysAvaible = [];
-    for (let i in this.daysSelected){
-      if (this.daysSelected[i] ['value'])
-      diysAvaible.push(this.daysSelected[i] ['day']);
+    let mounth = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    let daysAvailables = [];
+    let mounthsAvaibles = [];
+
+    //Obtenemos los dias seleccionados por el usuario
+    for (let i in this.daysSelecteds){
+      if (this.daysSelecteds[i].value)
+        daysAvailables.push(this.daysSelecteds[i].day);
     }
-    // Obtenemos el dia del crimen
+
+    //Obtenemos los meses selccionado por el usuario
+    for (let j in this.mounthsSelecteds){
+      if (this.mounthsSelecteds[j].value)
+        mounthsAvaibles.push(this.mounthsSelecteds[j].mounth);
+    }
+
+    // Obtenemos el dia y mes del crimen
     let crimeDate = new Date (date);
-    let day = days[crimeDate.getDay()];
-    // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
-    for (let index in diysAvaible){
-      if (diysAvaible[index]===day)
-        return true;
+    let crimeDay = days[crimeDate.getDay()];
+    let crimeMounth = mounth[crimeDate.getMonth()];
+
+    // Filtramos por dias y meses seleccionados
+    for (let dayNum in daysAvailables){
+      if (daysAvailables[dayNum]===crimeDay){
+        for (let mounthNum in mounthsAvaibles){
+          if (mounthsAvaibles[mounthNum]==crimeMounth)
+            return true;
+        }
+      }
     }
     return false;
   }
