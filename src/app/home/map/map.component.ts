@@ -77,42 +77,22 @@ export class MapComponent implements OnInit {
     this.zoom = 17;
   }
 
-  ngOnInit() {
-    this._locationService.getPosition(this.options).then(
-      position=>{
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.accuracy = position.coords.accuracy;
-        console.log(this.latitude);
-        console.log(this.longitude);
-        console.log(this.accuracy);
-        if(this.latitude!=null && this.longitude!=null){
-          //Verificamos si esta dentro de la Ciudad de Mexico
-          let coords$ = this._locationService.validateCoordinates(this.latitude, this.longitude).subscribe(state =>{
-            if (state === "Ciudad de México"){
-              // Obtenemos un arreglo de crimenes cercanos
-              let crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
-                result => {
-                  this.crimes = result;
-                  this.crimesShown = this.crimes;
-                  console.log(this.crimes);
-                  crim$.unsubscribe();
-                  coords$.unsubscribe ();
-                },
-                error => {
-                  console.log(`HoyoDeCrimen: ${error}`);
-                }
-              );
-            }else{
-              console.log ("Localización fuera del rango");
-            }
-          });
-        }
-      },
-      error=>{
-        console.log(`CrimeZone: ${error}`);
+  async ngOnInit(){
+    try {
+      const position = await this._locationService.getPosition(this.options);
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.accuracy = position.coords.accuracy;
+      const state = await this._locationService.validateCoordinates(this.latitude,this.longitude).toPromise();
+      if(state==="Ciudad de México"){
+        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).toPromise();
+        this.crimesShown = this.crimes;
+      }else{
+        console.log ("CrimeZone: Location outside");
       }
-    )
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // Dibujamos con respecto al tiempo
