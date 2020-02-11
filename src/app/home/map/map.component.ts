@@ -80,10 +80,11 @@ export class MapComponent implements OnInit {
   async ngOnInit(){
     try {
       const position = await this._locationService.getPosition(this.options);
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.accuracy = position.coords.accuracy;
-      const state = await this._locationService.validateCoordinates(this.latitude,this.longitude).toPromise();
+      this.latitude = position.lat;
+      this.longitude = position.long;
+      this.accuracy = position.accy;
+      const state = await this._locationService.getState(this.latitude,this.longitude);
+      console.log(state);
       if(state==="Ciudad de México"){
         this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).toPromise();
         this.crimesShown = this.crimes;
@@ -140,24 +141,6 @@ export class MapComponent implements OnInit {
         console.log(`HoyoDeCrimen: ${error}`);
       }
     );
-  }
-
-  async getPosition(){
-    try {
-      const position = await this._locationService.getPosition(this.options);
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.accuracy = position.coords.accuracy;
-      const state = await this._locationService.validateCoordinates(this.latitude,this.longitude).toPromise();
-      if(state==="Ciudad de México"){
-        const crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).toPromise();
-        console.log(crimes);
-      }else{
-        console.log ("CrimeZone: Location outside");
-      }
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   validateCrimeDate(date:string):boolean{
