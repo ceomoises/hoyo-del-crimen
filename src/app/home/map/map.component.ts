@@ -44,7 +44,7 @@ export class MapComponent implements OnInit {
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
     this.time1 = "00:00"; this.time2 = "01:00";
-    this.query = { start_date:"2019-01", end_date:"2019-12" }
+    this.query = { start_date:2019, end_date:2019}
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
     this.daysSelecteds = [
@@ -106,10 +106,32 @@ export class MapComponent implements OnInit {
 
     this.filterCrimes();
   }
+  
+  previousHour(){
+    //obtenemos los minutos y le quitamos 60min
+    let time1 = moment.duration(this.time1).asMinutes()-60;
+    let time2 = moment.duration(this.time2).asMinutes()-60;
+    //pasamos nuestros minutos al formato de "horas y minutos"
+    if (time1 != 0)
+      this.time1 = moment.duration({m:time1}).format("HH:mm");
+    else
+      this.time1 = "00:00";
+    this.time2 = moment.duration({m:time2}).format("HH:mm");
+
+    this.filterCrimes();
+  }
+
+  nextYear (){
+    this.query.start_date++;
+    this.query.end_date++;
+  }
+
+  previousYear (){
+    this.query.start_date--;
+    this.query.end_date--;
+  }
 
   filterCrimes(){
-    console.log(this.mounthsSelecteds);
-    console.log(this.daysSelecteds);
     let crimesAux: Array<Crimen> = [];
     // Convertimos el tiempo 1 y 2 en horas
     let time1 = moment.duration(this.time1).asHours();
@@ -160,6 +182,21 @@ export class MapComponent implements OnInit {
     }
   }
 
+  async getRequest (){
+    try {
+      const state = await this._locationService.validateCoordinates(this.latitude,this.longitude).toPromise();
+      if(state==="Ciudad de México"){
+        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query).toPromise();
+        this.crimesShown = this.crimes;
+        console.log (this.crimes);
+      }else{
+        console.log ("CrimeZone: Location outside");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   validateCrimeDate(date:string):boolean{
     //Dias de la semana y meses de año
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
@@ -195,6 +232,4 @@ export class MapComponent implements OnInit {
     }
     return false;
   }
-
-
 }

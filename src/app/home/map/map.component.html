@@ -4,15 +4,28 @@
   <p>No hay crimenes cercanos!!!</p>
 </ng-template>
 <p>Tu ubicación puede tener un error de {{accuracy}}m</p>
-<span>Criemes entre: </span>
+<span>Crimenes entre: </span>
+<br/>
+<button (click)="previousHour()" *ngIf="time1 != '00:00'">-</button>
+<button (click)="previousHour()" *ngIf="time1 === '00:00'" disabled>-</button>
 <input type="text" [(ngModel)]="time1"/>
 <input type="text" [(ngModel)]="time2"/>
+<button (click)="nextHour()" *ngIf="time2 != '24:00'" >+</button>
+<button (click)="nextHour()" *ngIf="time2 === '24:00'" disabled>+</button>
 <br/>
+
+<button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
+<button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
+<input type="text" [(ngModel)]="query.start_date"/>
+<input type="text" [(ngModel)]="query.end_date"/>
+<button (click)="nextYear()" *ngIf="query.end_date < 2019" >+</button>
+<button (click)="nextYear()" *ngIf="query.end_date === 2019" disabled>+</button>
+<br/>
+
 <input type="text" [(ngModel)]="latitude"/>
 <input type="text" [(ngModel)]="longitude"/>
-<button (click)="nextHour()">Siguiente Hora</button>
 <br/><br/>
-<button (click)="getPosition()">Actualizar Posición</button>
+<button (click)="getRequest()">Actualizar datos</button>
 
 <table>
   <tr>
