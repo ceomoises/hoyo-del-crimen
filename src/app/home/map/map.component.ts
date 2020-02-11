@@ -151,10 +151,21 @@ export class MapComponent implements OnInit {
     this.crimesShown = crimesAux;
   }
 
-  public sendRequest(){
 
+  async getRequest (){
+    try {
+      const state = await this._locationService.getState(this.latitude,this.longitude);
+      if(state==="Ciudad de México"){
+        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
+        this.crimesShown = this.crimes;
+        console.log (this.crimes);
+      }else{
+        console.log ("CrimeZone: Location outside");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-
 
   validateCrimeDate(date:string):boolean{
     //Dias de la semana y meses de año
