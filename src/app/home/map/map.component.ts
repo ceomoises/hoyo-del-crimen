@@ -51,8 +51,8 @@ export class MapComponent implements OnInit {
 
     this.iconsMap ={
       subway_d:  "",
-      subway: "",
-      bus_d: "",
+      subway: "http://localhost:4200/assets/img/subway.svg",
+      bus_d: "http://localhost:4200/assets/img/subway_d.svg",
       bus: "",
       taxi: "",
       house: "",
@@ -60,8 +60,8 @@ export class MapComponent implements OnInit {
       store: "",
       deliver: "",
       deliver_d: "",
-      crime: "http://localhost:4200/assets/img/Crime.png",
-      crime_d: "http://localhost:4200/assets/img/Crime_d.png",
+      crime: "http://localhost:4200/assets/img/crime.svg",
+      crime_d: "http://localhost:4200/assets/img/crime_d.svg",
       vehicle: "",
       vehicle_d: "",
       kidnapping: "",

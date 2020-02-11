@@ -50,6 +50,11 @@
         *ngFor="let crim of crimesShown"
         [latitude]="crim.lat"
         [longitude]="crim.long"
-        [label]="myCrimes"></agm-marker>
+        [iconUrl]="{
+          url: iconsMap.crime,
+          scaledSize: {
+            width: 23,
+            height: 30
+        } }"></agm-marker>
     </div>
 </agm-map>
