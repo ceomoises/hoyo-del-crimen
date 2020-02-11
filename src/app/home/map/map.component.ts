@@ -50,17 +50,17 @@ export class MapComponent implements OnInit {
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
     this.iconsMap ={
-      subway_d:  "",
+      subway_d:  "http://localhost:4200/assets/img/subway_d.svg",
       subway: "http://localhost:4200/assets/img/subway.svg",
-      bus_d: "http://localhost:4200/assets/img/subway_d.svg",
-      bus: "",
-      taxi: "",
-      house: "",
+      bus_d: "http://localhost:4200/assets/img/bus_d.svg",
+      bus: "http://localhost:4200/assets/img/bus.svg",
+      taxi: "http://localhost:4200/assets/img/taxi.svg",
+      house: "http://localhost:4200/assets/img/house.svg",
       account: "",
       store: "",
       deliver: "",
       deliver_d: "",
-      crime: "http://localhost:4200/assets/img/bus.svg",
+      crime: "http://localhost:4200/assets/img/house.svg",
       crime_d: "http://localhost:4200/assets/img/crime_d.svg",
       vehicle: "",
       vehicle_d: "",
