@@ -165,6 +165,39 @@ export class MapComponent implements OnInit {
     );
   }
 
+  async getPosition(){
+    try {
+      const position = await this._locationService.getPosition(this.options);
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.accuracy = position.coords.accuracy;
+      const state = await this._locationService.getState(this.latitude,this.longitude);
+      if(state==="Ciudad de México"){
+        const crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).toPromise();
+        console.log(crimes);
+      }else{
+        console.log ("CrimeZone: Location outside");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getRequest (){
+    try {
+      const state = await this._locationService.getState(this.latitude,this.longitude);
+      if(state==="Ciudad de México"){
+        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query).toPromise();
+        this.crimesShown = this.crimes;
+        console.log (this.crimes);
+      }else{
+        console.log ("CrimeZone: Location outside");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   validateCrimeDate(date:string):boolean{
     //Dias de la semana y meses de año
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
