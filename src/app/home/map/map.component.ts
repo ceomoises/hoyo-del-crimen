@@ -60,7 +60,7 @@ export class MapComponent implements OnInit {
       store: "",
       deliver: "",
       deliver_d: "",
-      crime: "http://localhost:4200/assets/img/crime.svg",
+      crime: "http://localhost:4200/assets/img/bus.svg",
       crime_d: "http://localhost:4200/assets/img/crime_d.svg",
       vehicle: "",
       vehicle_d: "",
