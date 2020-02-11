@@ -16,23 +16,27 @@ export class PeticionesService {
     this.url = "https://hoyodecrimen.com/api/v1";
   }
 
-  //Regresa un arreglo de crimenes
-  public getCrimes(long:number,lat:number,dist:number,query?):Observable<any>{
-    let params = (query!=null)?`?start_date=${query.start_date}&end_date=${query.end_date}`:``;
-    let crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${dist}${params}`;
-    return this.http.jsonp(crimesUrl,'callback').pipe(
-      map(res => {
-        return res["rows"].map(item =>{
-          return new Crimen(
-            item.crime,
-            item.date,
-            item.hour,
-            Number (item.lat),
-            Number (item.long)
-          )
+  // Regresa un arreglo de crimenes por fecha { start_date:"2019-01", end_date:"2019-12" }
+  async getCrimes(long:number,lat:number,dist:number,date?):Promise<any>{
+    try {
+      const params = (date!=null)?`?start_date=${date.start_date}&end_date=${date.end_date}`:``;
+      const crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${dist}${params}`;
+      return await this.http.jsonp(crimesUrl,'callback').pipe(
+        map(res => {
+          return res["rows"].map(item =>{
+            return new Crimen(
+              item.crime,
+              item.date,
+              item.hour,
+              Number (item.lat),
+              Number (item.long)
+            )
+          })
         })
-      })
-    )
+      ).toPromise();
+    } catch (error) {
+      throw new Error("Unable to get crimes in your zone")
+    }
   };
 
 }

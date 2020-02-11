@@ -86,10 +86,10 @@ export class MapComponent implements OnInit {
       const state = await this._locationService.getState(this.latitude,this.longitude);
       console.log(state);
       if(state==="Ciudad de México"){
-        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).toPromise();
+        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance);
         this.crimesShown = this.crimes;
       }else{
-        console.log ("CrimeZone: Location outside");
+        console.log ("CrimeZone: Location out of range");
       }
     } catch (error) {
       console.log(error);
@@ -130,17 +130,7 @@ export class MapComponent implements OnInit {
   }
 
   public sendRequest(){
-    const crim$ = this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance).subscribe(
-      result => {
-        this.crimes = result;
-        this.crimesShown = this.crimes;
-        console.log(this.crimes);
-        crim$.unsubscribe();
-      },
-      error => {
-        console.log(`HoyoDeCrimen: ${error}`);
-      }
-    );
+
   }
 
   validateCrimeDate(date:string):boolean{
