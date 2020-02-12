@@ -34,6 +34,7 @@ export class MapComponent implements OnInit {
   public daysSelecteds:Array<DaySelected>;
   public mounthsSelecteds:Array<MounthSelected>;
   public iconsMap:IconsMap;
+  public crimesList:IconsMap;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -66,6 +67,24 @@ export class MapComponent implements OnInit {
       vehicle_d: "http://localhost:4200/assets/img/vehicle_d.svg",
       kidnapping: "http://localhost:4200/assets/img/kidnapping.svg",
       rape: "http://localhost:4200/assets/img/rape.svg",
+    } 
+    this.crimesList ={
+      subway_d: "ROBO A BORDO DE METRO S.V.",
+      subway: "ROBO A BORDO DE METRO C.V.",
+      bus_d: "",
+      bus: "",
+      taxi: "",
+      house: "",
+      account: "",
+      store: "",
+      deliver: "",
+      deliver_d: "",
+      crime: "ROBO A TRANSEUNTE S.V.",
+      crime_d: "ROBO A TRANSEUNTE C.V.",
+      vehicle: "ROBO DE VEHICULO AUTOMOTOR S.V.",
+      vehicle_d: "ROBO DE VEHICULO AUTOMOTOR C.V.",
+      kidnapping: "",
+      rape: "",
     } 
     this.daysSelecteds = [
       new DaySelected("Lunes", false),

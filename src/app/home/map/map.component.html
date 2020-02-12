@@ -59,15 +59,25 @@
       [editable]="false"></agm-circle>
 
     <div *ngIf="crimesShown.length > 0 else nocrimes">
-      <agm-marker
-        *ngFor="let crim of crimesShown"
-        [latitude]="crim.lat"
-        [longitude]="crim.long"
-        [iconUrl]="{
-          url: iconsMap.crime,
-          scaledSize: {
-            width: 23,
-            height: 30
-        } }"></agm-marker>
+      <div *ngFor="let crim of crimesShown">
+          <agm-marker *ngIf="crim.name == 'ROBO DE VEHICULO AUTOMOTOR C.V.'"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: iconsMap.vehicle_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == 'ROBO DE VEHICULO AUTOMOTOR S.V.'"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: iconsMap.vehicle,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+      </div>
     </div>
 </agm-map>
