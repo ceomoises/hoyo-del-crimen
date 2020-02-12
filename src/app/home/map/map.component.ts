@@ -48,23 +48,23 @@ export class MapComponent implements OnInit {
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
     this.daysSelecteds = [
-      new DaySelected("Lunes", false),
-      new DaySelected("Martes", false),
-      new DaySelected("Miercoles", false),
-      new DaySelected("Jueves", false),
-      new DaySelected("Viernes", false),
-      new DaySelected("Sabado", false),
-      new DaySelected("Domingo", false)
+      new DaySelected("Lunes", true),
+      new DaySelected("Martes", true),
+      new DaySelected("Miercoles", true),
+      new DaySelected("Jueves", true),
+      new DaySelected("Viernes", true),
+      new DaySelected("Sabado", true),
+      new DaySelected("Domingo", true)
     ];
 
     this.mounthsSelecteds = [
-      new MounthSelected("Enero", false),
-      new MounthSelected("Febrero", false),
-      new MounthSelected("Marzo", false),
-      new MounthSelected("Abril", false),
-      new MounthSelected("Mayo", false),
-      new MounthSelected("Junio", false),
-      new MounthSelected("Julio", false),
+      new MounthSelected("Enero", true),
+      new MounthSelected("Febrero", true),
+      new MounthSelected("Marzo", true),
+      new MounthSelected("Abril", true),
+      new MounthSelected("Mayo", true),
+      new MounthSelected("Junio", true),
+      new MounthSelected("Julio", true),
       new MounthSelected("Agosto", false),
       new MounthSelected("Septiembre", false),
       new MounthSelected("Octubre", false),

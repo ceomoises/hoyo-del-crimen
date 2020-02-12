@@ -27,16 +27,18 @@
 <br/><br/>
 <button (click)="getRequest()">Actualizar datos</button>
 
-<table>
-  <tr>
-    <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
-  </tr>
-  <tr>
-    <td *ngFor="let daySelected of daysSelecteds">
-      <input type="checkbox" [(ngModel)]="daySelected.value"/>
-    </td>
-  </tr>
-</table>
+<form>
+  <table>
+    <tr>
+      <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
+    </tr>
+    <tr>
+      <td *ngFor="let daySelected of daysSelecteds">
+        <input type="checkbox" [(ngModel)]="daySelected.value" checked>
+      </td>
+    </tr>
+  </table>
+</form>
 
 <div *ngFor="let mounthSelected of mounthsSelecteds">
   <input type="checkbox" [(ngModel)]="mounthSelected.value"/>
