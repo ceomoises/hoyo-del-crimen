@@ -1,0 +1,18 @@
+export interface IconsMap{
+    subway_d:string,
+    subway:string,
+    bus_d:string,
+    bus:string,
+    taxi:string,
+    house:string,
+    account:string,
+    store:string,
+    deliver:string,
+    deliver_d:string,
+    crime:string,
+    crime_d:string,
+    vehicle:string,
+    vehicle_d:string,
+    kidnapping:string,
+    rape:string,
+}

@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as moment from 'moment';
 import 'moment-duration-format';
 import { MounthSelected } from '../../models/mounthSelected';
+import { IconsMap } from 'src/app/models/iconsMap';
 
 @Component({
   selector: 'app-map',
@@ -32,6 +33,7 @@ export class MapComponent implements OnInit {
   public options:any;
   public daysSelecteds:Array<DaySelected>;
   public mounthsSelecteds:Array<MounthSelected>;
+  public iconsMap:IconsMap;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -47,6 +49,24 @@ export class MapComponent implements OnInit {
     this.query = { start_date:2019, end_date:2019}
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
 
+    this.iconsMap ={
+      subway_d:  "http://localhost:4200/assets/img/subway_d.svg",
+      subway: "http://localhost:4200/assets/img/subway.svg",
+      bus_d: "http://localhost:4200/assets/img/bus_d.svg",
+      bus: "http://localhost:4200/assets/img/bus.svg",
+      taxi: "http://localhost:4200/assets/img/taxi.svg",
+      house: "http://localhost:4200/assets/img/house.svg",
+      account: "http://localhost:4200/assets/img/account.svg",
+      store: "",
+      deliver: "",
+      deliver_d: "",
+      crime: "http://localhost:4200/assets/img/store_d.svg",
+      crime_d: "http://localhost:4200/assets/img/crime_d.svg",
+      vehicle: "",
+      vehicle_d: "",
+      kidnapping: "",
+      rape: "",
+    } 
     this.daysSelecteds = [
       new DaySelected("Lunes", false),
       new DaySelected("Martes", false),
