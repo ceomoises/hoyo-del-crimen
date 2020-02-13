@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.router';
 
@@ -26,6 +26,7 @@ import { HomeModule } from './home/home.module';
     AppRoutingModule,
     HttpClientModule, // Modulos importantes de Http
     HttpClientJsonpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
   ],
   providers: [],

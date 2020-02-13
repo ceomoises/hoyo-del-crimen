@@ -13,7 +13,7 @@ import { IconsMap } from 'src/app/models/iconsMap';
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
-  providers: [PeticionesService, LocationService]
+  providers: [PeticionesService, LocationService]
 })
 
 export class MapComponent implements OnInit {
@@ -85,11 +85,11 @@ export class MapComponent implements OnInit {
       new MounthSelected("Mayo", true),
       new MounthSelected("Junio", true),
       new MounthSelected("Julio", true),
-      new MounthSelected("Agosto", false),
-      new MounthSelected("Septiembre", false),
-      new MounthSelected("Octubre", false),
-      new MounthSelected("Noviembre", false),
-      new MounthSelected("Diciembre", false)
+      new MounthSelected("Agosto", true),
+      new MounthSelected("Septiembre", true),
+      new MounthSelected("Octubre", true),
+      new MounthSelected("Noviembre", true),
+      new MounthSelected("Diciembre", true)
     ];
 
     this.crimesShown = [];

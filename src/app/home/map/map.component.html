@@ -6,44 +6,44 @@
 <p>Tu ubicación puede tener un error de {{accuracy}}m</p>
 <span>Crimenes entre: </span>
 <br/>
-<button (click)="previousHour()" *ngIf="time1 != '00:00'">-</button>
-<button (click)="previousHour()" *ngIf="time1 === '00:00'" disabled>-</button>
-<input type="text" [(ngModel)]="time1"/>
-<input type="text" [(ngModel)]="time2"/>
-<button (click)="nextHour()" *ngIf="time2 != '24:00'" >+</button>
-<button (click)="nextHour()" *ngIf="time2 === '24:00'" disabled>+</button>
-<br/>
-
-<button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
-<button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
-<input type="text" [(ngModel)]="query.start_date"/>
-<input type="text" [(ngModel)]="query.end_date"/>
-<button (click)="nextYear()" *ngIf="query.end_date < 2019" >+</button>
-<button (click)="nextYear()" *ngIf="query.end_date === 2019" disabled>+</button>
-<br/>
-
-<input type="text" [(ngModel)]="latitude"/>
-<input type="text" [(ngModel)]="longitude"/>
-<br/><br/>
-<button (click)="getRequest()">Actualizar datos</button>
-
-<form>
-  <table>
-    <tr>
-      <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
-    </tr>
-    <tr>
-      <td *ngFor="let daySelected of daysSelecteds">
-        <input type="checkbox" [(ngModel)]="daySelected.value" checked>
-      </td>
-    </tr>
-  </table>
-</form>
-
-<div *ngFor="let mounthSelected of mounthsSelecteds">
-  <input type="checkbox" [(ngModel)]="mounthSelected.value"/>
-  {{ mounthSelected.mounth }}
-</div>
+  <form #form="ngForm">
+    <button (click)="previousHour()" *ngIf="time1 != '00:00'">-</button>
+    <button (click)="previousHour()" *ngIf="time1 === '00:00'" disabled>-</button>
+    <input type="text" [(ngModel)]="time1" name="time1" />
+    <input type="text" [(ngModel)]="time2" name="time2" />
+    <button (click)="nextHour()" *ngIf="time2 != '24:00'" >+</button>
+    <button (click)="nextHour()" *ngIf="time2 === '24:00'" disabled>+</button>
+    <br/>
+    
+    <button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
+    <button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
+    <input type="text" [(ngModel)]="query.start_date" name="date1"/>
+    <input type="text" [(ngModel)]="query.end_date" name="date2"/>
+    <button (click)="nextYear()" *ngIf="query.end_date < 2019" >+</button>
+    <button (click)="nextYear()" *ngIf="query.end_date === 2019" disabled>+</button>
+    <br/>
+    
+    <input type="text" [(ngModel)]="latitude" name="inputLat"/>
+    <input type="text" [(ngModel)]="longitude" name="inputLong"/>
+    <br/><br/>
+    <button (click)="getRequest()">Actualizar datos</button>
+    
+    <table>
+      <tr>
+        <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
+      </tr>
+      <tr>
+        <td *ngFor="let daySelected of daysSelecteds">
+          <input type="checkbox" [(ngModel)]="daySelected.value" name="daySelected.day"/>
+        </td>
+      </tr>
+    </table>
+    
+    <div *ngFor="let mounthSelected of mounthsSelecteds">
+      <input type="checkbox" [(ngModel)]="mounthSelected.value" name="mounthSelected.mounth" />
+      {{ mounthSelected.mounth }}
+    </div>
+  </form>
 
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom"
   [latitude]="latitude" [longitude]="longitude">
