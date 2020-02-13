@@ -1,0 +1,20 @@
+export const CrimesList:Object = {
+    subway_d: "ROBO A BORDO DE METRO S.V.",
+    subway: "ROBO A BORDO DE METRO C.V.",
+    bus_d: "ROBO A BORDO DE MICROBUS C.V.",
+    bus: "ROBO A BORDO DE MICROBUS S.V.",
+    taxi: "ROBO A BORDO DE TAXI C.V.",
+    house: "ROBO A CASA HABITACION C.V.",
+    account: "ROBO A CUENTAHABIENTE C.V.",
+    store: "ROBO A NEGOCIO S.V.",
+    deliver: "ROBO A REPARTIDOR C.V.",
+    deliver_d: "ROBO A REPARTIDOR C.V.",
+    crime: "ROBO A TRANSEUNTE S.V.",
+    crime_d: "ROBO A TRANSEUNTE C.V.",
+    vehicle: "ROBO DE VEHICULO AUTOMOTOR S.V.",
+    vehicle_d: "ROBO DE VEHICULO AUTOMOTOR C.V.",
+    kidnapping: "SECUESTRO",
+    rape: "VIOLACION",
+    gun: "LESIONES POR ARMA DE FUEGO",
+}
+

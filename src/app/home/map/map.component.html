@@ -60,20 +60,147 @@
 
     <div *ngIf="crimesShown.length > 0 else nocrimes">
       <div *ngFor="let crim of crimesShown">
-          <agm-marker *ngIf="crim.name == 'ROBO DE VEHICULO AUTOMOTOR C.V.'"
+          
+          <agm-marker *ngIf="crim.name == CrimesList.subway_d"
           [latitude]="crim.lat"
           [longitude]="crim.long"
           [iconUrl]="{
-            url: iconsMap.vehicle_d,
+            url: IconsMap.subway_d,
             scaledSize: {
               width: 23,
               height: 30
           } }"></agm-marker>
-          <agm-marker *ngIf="crim.name == 'ROBO DE VEHICULO AUTOMOTOR S.V.'"
+          <agm-marker *ngIf="crim.name == CrimesList.subway"
           [latitude]="crim.lat"
           [longitude]="crim.long"
           [iconUrl]="{
-            url: iconsMap.vehicle,
+            url: IconsMap.subway,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.bus_d"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.bus_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.taxi"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.taxi,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.house"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.house,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.account"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.account,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.store"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.store,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.deliver"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.deliver_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.deliver_d"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.deliver_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.crime"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.crime,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.crime_d"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.crime_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.vehicle"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.vehicle_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.vehicle_d"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.vehicle_d,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.kidnapping"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.kidnapping,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.rape"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.rape,
+            scaledSize: {
+              width: 23,
+              height: 30
+          } }"></agm-marker>
+          <agm-marker *ngIf="crim.name == CrimesList.gun"
+          [latitude]="crim.lat"
+          [longitude]="crim.long"
+          [iconUrl]="{
+            url: IconsMap.gun,
             scaledSize: {
               width: 23,
               height: 30
