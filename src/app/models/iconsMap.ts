@@ -1,4 +1,4 @@
-export const IconsMap:Object = {
+export const IconsMap = {
     subway_d:  "http://localhost:4200/assets/img/subway_d.svg",
     subway: "http://localhost:4200/assets/img/subway.svg",
     bus_d: "http://localhost:4200/assets/img/bus_d.svg",

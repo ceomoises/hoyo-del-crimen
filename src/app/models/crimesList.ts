@@ -1,4 +1,4 @@
-export const CrimesList:Object = {
+export const CrimesList = {
     subway_d: "ROBO A BORDO DE METRO S.V.",
     subway: "ROBO A BORDO DE METRO C.V.",
     bus_d: "ROBO A BORDO DE MICROBUS C.V.",
