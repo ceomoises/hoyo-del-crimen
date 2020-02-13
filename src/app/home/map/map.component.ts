@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import 'moment-duration-format';
 import { MounthSelected } from '../../models/mounthSelected';
 import { IconsMap } from 'src/app/models/iconsMap';
+import { CrimesList } from 'src/app/models/crimesList';
 
 @Component({
   selector: 'app-map',
@@ -33,8 +34,8 @@ export class MapComponent implements OnInit {
   public options:any;
   public daysSelecteds:Array<DaySelected>;
   public mounthsSelecteds:Array<MounthSelected>;
-  public iconsMap:IconsMap;
-
+  public CrimesList:Object;
+  public IconsMap:Object;
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService,
@@ -48,25 +49,8 @@ export class MapComponent implements OnInit {
     this.time1 = "00:00"; this.time2 = "01:00";
     this.query = { start_date:2019, end_date:2019}
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
-
-    this.iconsMap ={
-      subway_d:  "http://localhost:4200/assets/img/subway_d.svg",
-      subway: "http://localhost:4200/assets/img/subway.svg",
-      bus_d: "http://localhost:4200/assets/img/bus_d.svg",
-      bus: "http://localhost:4200/assets/img/bus.svg",
-      taxi: "http://localhost:4200/assets/img/taxi.svg",
-      house: "http://localhost:4200/assets/img/house.svg",
-      account: "http://localhost:4200/assets/img/account.svg",
-      store: "http://localhost:4200/assets/img/store.svg",
-      deliver: "http://localhost:4200/assets/img/deliver.svg",
-      deliver_d: "http://localhost:4200/assets/img/deliver_d.svg",
-      crime: "http://localhost:4200/assets/img/gun.svg",
-      crime_d: "http://localhost:4200/assets/img/crime_d.svg",
-      vehicle: "http://localhost:4200/assets/img/vehicle.svg",
-      vehicle_d: "http://localhost:4200/assets/img/vehicle_d.svg",
-      kidnapping: "http://localhost:4200/assets/img/kidnapping.svg",
-      rape: "http://localhost:4200/assets/img/rape.svg",
-    } 
+    this.CrimesList = CrimesList;
+    this.IconsMap = IconsMap;
     this.daysSelecteds = [
       new DaySelected("Lunes", true),
       new DaySelected("Martes", true),
