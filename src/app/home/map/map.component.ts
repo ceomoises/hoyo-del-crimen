@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import 'moment-duration-format';
 import { MounthSelected } from '../../models/mounthSelected';
 import { IconsMap } from 'src/app/models/iconsMap';
-import { CrimesList } from 'src/app/models/crimeList';
+import { CrimesList } from 'src/app/models/crimesList';
 
 @Component({
   selector: 'app-map',
