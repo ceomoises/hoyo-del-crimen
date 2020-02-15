@@ -3,7 +3,40 @@
 <ng-template #nocrimes>
   <p>No hay crimenes cercanos!!!</p>
 </ng-template>
-<p>Tu ubicación puede tener un error de {{accuracy}}m</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <strong>Información Importante</strong>
+      <ul>
+        <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
+      </ul>
+      <form class="my-form">
+        <mat-slide-toggle labelPosition='before' [checked]="swap"
+        (input)="swap = $event.target.checked">Cambiar Ubicación</mat-slide-toggle>
+        <br/>
+        <mat-form-field>
+          <mat-label>Longitude:</mat-label>
+          <input matInput [disabled]="!swap" placeholder="Ex. -99.0888" [value]="longitude"
+          (input)="longitude = $event.target.value"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Latitude:</mat-label>
+          <input matInput [disabled]="!swap" placeholder="Ex. 19.3804" [value]="latitude"
+          (input)="latitude = $event.target.value"/>
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <mat-label>Seleccionar Años</mat-label>
+          <mat-select [formControl]="ages" [disabled]="!swap" multiple>
+            <mat-option *ngFor="let age of agesList" [value]="age">{{age}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</div>
+
 <span>Crimenes entre: </span>
 <br/>
   <form #form="ngForm">
@@ -14,7 +47,7 @@
     <button (click)="nextHour()" *ngIf="time2 != '24:00'" >+</button>
     <button (click)="nextHour()" *ngIf="time2 === '24:00'" disabled>+</button>
     <br/>
-    
+
     <button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
     <button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
     <input type="text" [(ngModel)]="query.start_date" name="date1"/>
@@ -22,12 +55,12 @@
     <button (click)="nextYear()" *ngIf="query.end_date < 2019" >+</button>
     <button (click)="nextYear()" *ngIf="query.end_date === 2019" disabled>+</button>
     <br/>
-    
+
     <input type="text" [(ngModel)]="latitude" name="inputLat"/>
     <input type="text" [(ngModel)]="longitude" name="inputLong"/>
     <br/><br/>
     <button (click)="getRequest()">Actualizar datos</button>
-    
+
     <table>
       <tr>
         <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
@@ -38,7 +71,7 @@
         </td>
       </tr>
     </table>
-    
+
     <div *ngFor="let mounthSelected of mounthsSelecteds">
       <input type="checkbox" [(ngModel)]="mounthSelected.value" name="mounthSelected.mounth" />
       {{ mounthSelected.mounth }}
@@ -62,7 +95,7 @@
 
     <div *ngIf="crimesShown.length > 0 else nocrimes">
       <div *ngFor="let crim of crimesShown">
-          
+
           <agm-marker *ngIf="crim.name == CrimesList.subway_d"
           [latitude]="crim.lat"
           [longitude]="crim.long"

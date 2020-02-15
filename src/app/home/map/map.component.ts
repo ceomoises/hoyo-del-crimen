@@ -10,6 +10,8 @@ import { MounthSelected } from '../../models/mounthSelected';
 import { IconsMap } from 'src/app/models/iconsMap';
 import { CrimesList } from 'src/app/models/crimesList';
 
+import { FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -36,6 +38,10 @@ export class MapComponent implements OnInit {
   public mounthsSelecteds:Array<MounthSelected>;
   public CrimesList:any;
   public IconsMap:any;
+  public swap:boolean;
+  public ages:any;
+  public agesList:any;
+
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService,
@@ -79,6 +85,14 @@ export class MapComponent implements OnInit {
     this.crimesShown = [];
     this.distance = 250;
     this.zoom = 17;
+
+    this.longitude = 0;
+    this.latitude = 0;
+    this.swap = false;
+
+    this.ages = new FormControl();
+    this.agesList = ['2015', '2016', '2017', '2018', '2019'];
+    this.ages.setValue(['2019']);
   }
 
   async ngOnInit(){
