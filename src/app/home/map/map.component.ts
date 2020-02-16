@@ -41,6 +41,9 @@ export class MapComponent implements OnInit {
   public swap:boolean;
   public ages:any;
   public agesList:any;
+  public months:any;
+  public monthsList:any;
+  public formControl:any;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -90,9 +93,16 @@ export class MapComponent implements OnInit {
     this.latitude = 0;
     this.swap = false;
 
+    this.formControl = new FormControl({value:'', disabled: true})
+
     this.ages = new FormControl();
-    this.agesList = ['2015', '2016', '2017', '2018', '2019'];
+    this.agesList = ['2019', '2018', '2017', '2016', '2015'];
     this.ages.setValue(['2019']);
+
+    this.months = new FormControl();
+    this.monthsList = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio',
+    'Agosto', 'Septiembre', 'Octubre','Noviembre','Diciembre'];
+    this.months.setValue(this.monthsList);
   }
 
   async ngOnInit(){
