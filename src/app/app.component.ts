@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = '"Detector de Zonas Peligrosas"';
+  title = 'Detector de Zonas Peligrosas';
 }

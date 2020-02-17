@@ -3,7 +3,88 @@
 <ng-template #nocrimes>
   <p>No hay crimenes cercanos!!!</p>
 </ng-template>
-<p>Tu ubicación puede tener un error de {{accuracy}}m</p>
+
+<div class="container">
+  <div class="row">
+    <form class="my-form1 col-lg-6">
+      <p><strong>Información Importante</strong></p>
+      <ul>
+        <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
+        <li>Google Chrome puede generar problemas de ubicación</li>
+      </ul>
+      <mat-slide-toggle labelPosition='before' [checked]="swap"
+      (input)="swap = $event.target.checked"><b>Cambiar Ubicación</b></mat-slide-toggle>
+      <br/>
+      <!-- COMPONENTE DE LONGITUD matInput -->
+      <mat-form-field appearance="outline" class="mt-3">
+        <mat-label>Longitude:</mat-label>
+        <input matInput [disabled]="!swap" placeholder="Ex. -99.0888" [value]="longitude"
+        (input)="longitude = $event.target.value"/>
+      </mat-form-field>
+      <!-- COMPONENTE DE LATITUD matInput -->
+      <mat-form-field appearance="outline" class="ml-lg-3">
+        <mat-label>Latitude:</mat-label>
+        <input matInput [disabled]="!swap" placeholder="Ex. 19.3804" [value]="latitude"
+        (input)="latitude = $event.target.value"/>
+      </mat-form-field>
+      <!-- COMPONENTE DE AÑOS CON mat-select -->
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccionar Años</mat-label>
+        <mat-select [formControl]="ages" [disabled]="!swap" multiple>
+          <mat-option *ngFor="let age of agesList" [value]="age">{{age}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- COMPONENTE DE MESES CON mat-select -->
+      <mat-form-field appearance="outline" class="ml-lg-3">
+        <mat-label>Seleccionar Meses</mat-label>
+        <mat-select [formControl]="months" multiple>
+          <mat-select-trigger>
+            {{months.value ? months.value[0] : ''}}
+            <span *ngIf="months.value?.length > 1" class="additional-selection">
+              (+{{months.value.length - 1}} {{months.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let month of monthsList" [value]="month">{{month}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <form class="my-form2 col-lg-6">
+      <strong>Filtrar por hora</strong><br/>
+      <span class="lead">Diferencia por </span>
+      <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
+      <mat-form-field appearance="standard" style="width:40px" class="ml-lg-2">
+        <mat-label>horas</mat-label>
+        <input type="number" value="24" min="1" max="24" matInput/>
+      </mat-form-field>
+      <button mat-raised-button class="ml-lg-3">Siguiente hora</button>
+      <br/>
+      <!-- COMPONENTE INICIO DE HORAS CON matInput -->
+      <span class="lead">Inicio</span>
+      <mat-form-field appearance="outline" style="width:100px" class="ml-lg-2">
+        <mat-label>hora:min</mat-label>
+        <input type="time" value="00:00" matInput/>
+      </mat-form-field>
+      <span class="lead ml-lg-3">Fin</span>
+      <!-- COMPONENTE FIN DE HORAS CON matInput -->
+      <mat-form-field appearance="outline" style="width:100px" class="ml-lg-2">
+        <mat-label>hora:min</mat-label>
+        <input type="time" value="23:59" matInput/>
+      </mat-form-field>
+      <p><b>Filtrar por día</b></p>
+      <table class="table" style="width:350px" >
+        <tr>
+          <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
+        </tr>
+        <tr>
+          <td *ngFor="let daySelected of daysSelecteds">
+            <mat-checkbox [(ngModel)]="daySelected.value" name="daySelected.day"></mat-checkbox>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+
 <span>Crimenes entre: </span>
 <br/>
   <form #form="ngForm">
@@ -14,7 +95,7 @@
     <button (click)="nextHour()" *ngIf="time2 != '24:00'" >+</button>
     <button (click)="nextHour()" *ngIf="time2 === '24:00'" disabled>+</button>
     <br/>
-    
+
     <button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
     <button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
     <input type="text" [(ngModel)]="query.start_date" name="date1"/>
@@ -22,12 +103,12 @@
     <button (click)="nextYear()" *ngIf="query.end_date < 2019" >+</button>
     <button (click)="nextYear()" *ngIf="query.end_date === 2019" disabled>+</button>
     <br/>
-    
+
     <input type="text" [(ngModel)]="latitude" name="inputLat"/>
     <input type="text" [(ngModel)]="longitude" name="inputLong"/>
     <br/><br/>
     <button (click)="getRequest()">Actualizar datos</button>
-    
+
     <table>
       <tr>
         <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
@@ -38,7 +119,7 @@
         </td>
       </tr>
     </table>
-    
+
     <div *ngFor="let mounthSelected of mounthsSelecteds">
       <input type="checkbox" [(ngModel)]="mounthSelected.value" name="mounthSelected.mounth" />
       {{ mounthSelected.mounth }}
@@ -62,7 +143,7 @@
 
     <div *ngIf="crimesShown.length > 0 else nocrimes">
       <div *ngFor="let crim of crimesShown">
-          
+
           <agm-marker *ngIf="crim.name == CrimesList.subway_d"
           [latitude]="crim.lat"
           [longitude]="crim.long"
