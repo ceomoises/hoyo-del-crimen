@@ -36,8 +36,8 @@ export class MapComponent implements OnInit {
   public options:any;
   public daysSelecteds:Array<DaySelected>;
   public mounthsSelecteds:Array<MounthSelected>;
-  public CrimesList:any;
-  public IconsMap:any;
+  public CrimesList:Array<string>;
+  public IconsMap:Array<string>;
   public swap:boolean;
   public ages:any;
   public agesList:any;
