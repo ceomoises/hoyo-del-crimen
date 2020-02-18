@@ -108,8 +108,12 @@ export class MapComponent implements OnInit {
   infoWindowOpened = null
   previous_info_window = null
   
+  current_location(a){
+    this.latitude = a.coords.lat;
+    this.longitude = a.coords.lng;
+ 
+  }
   close_window(){
-  console.log("hola");
   if (this.previous_info_window != null ) {
     this.previous_info_window.close()
     

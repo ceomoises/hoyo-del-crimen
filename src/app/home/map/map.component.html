@@ -127,7 +127,7 @@
   </form>
 
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom"
-  [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
+  [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
     <agm-marker
       [latitude]="latitude"
       [longitude]="longitude"
