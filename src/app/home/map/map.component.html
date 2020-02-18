@@ -30,7 +30,7 @@
       <!-- COMPONENTE DE AÑOS CON mat-select -->
       <mat-form-field appearance="outline">
         <mat-label>Seleccionar Años</mat-label>
-        <mat-select [formControl]="ages" [disabled]="!swap" multiple>
+        <mat-select [formControl]="ages" [disablecontrol]="swap" multiple>
           <mat-option *ngFor="let age of agesList" [value]="age">{{age}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -107,7 +107,7 @@
     <input type="text" [(ngModel)]="latitude" name="inputLat"/>
     <input type="text" [(ngModel)]="longitude" name="inputLong"/>
     <br/><br/>
-    <button (click)="getRequest()">Actualizar datos</button>
+    <button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
 
     <table>
       <tr>
@@ -115,13 +115,13 @@
       </tr>
       <tr>
         <td *ngFor="let daySelected of daysSelecteds">
-          <input type="checkbox" [(ngModel)]="daySelected.value" name="daySelected.day"/>
+          <input type="checkbox" [(ngModel)]="daySelected.value" name="daySelected.day" (change)="filterCrimes ()" />
         </td>
       </tr>
     </table>
 
     <div *ngFor="let mounthSelected of mounthsSelecteds">
-      <input type="checkbox" [(ngModel)]="mounthSelected.value" name="mounthSelected.mounth" />
+      <input type="checkbox" [(ngModel)]="mounthSelected.value" name="mounthSelected.mounth" (change)="filterCrimes ()" />
       {{ mounthSelected.mounth }}
     </div>
   </form>

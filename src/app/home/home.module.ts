@@ -5,9 +5,10 @@ import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 
 import { MaterialModule } from './material.module';
+import { DisableControlDirective } from '../directives/disablecontroldirective';
 
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [MapComponent, DisableControlDirective],
   exports: [MapComponent, AgmCoreModule],
   imports: [
     FormsModule,
