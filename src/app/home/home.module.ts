@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 
+import { DisableControlDirective } from '../directives/disablecontroldirective';
 import { MaterialModule } from './material.module';
 
+
 @NgModule({
-  declarations: [MapComponent],
+  declarations: [MapComponent, DisableControlDirective],
   exports: [MapComponent, AgmCoreModule],
   imports: [
     FormsModule,

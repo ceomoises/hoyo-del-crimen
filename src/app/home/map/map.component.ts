@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { PeticionesService } from '../../services/peticiones.service';
 import { LocationService } from '../../services/location.service';
 import { Crimen } from 'src/app/models/crimen';
-import { DaySelected } from '../../models/daySelected';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as moment from 'moment';
 import 'moment-duration-format';
-import { MounthSelected } from '../../models/mounthSelected';
 import { IconsMap } from 'src/app/models/iconsMap';
 import { CrimesList } from 'src/app/models/crimesList';
 
 import { FormControl } from '@angular/forms';
+import { weekDays, yearMounths } from '../../models/dateStruct';
 
 @Component({
   selector: 'app-map',
@@ -34,16 +33,18 @@ export class MapComponent implements OnInit {
   public time2:string;
   public query:any;
   public options:any;
-  public daysSelecteds:Array<DaySelected>;
-  public mounthsSelecteds:Array<MounthSelected>;
   public CrimesList:Array<string>;
   public IconsMap:Array<string>;
+  public daysSelecteds:Array<any>;
+  public mounthsSelecteds:Array<any>;
+  public requestOption:boolean;
   public swap:boolean;
   public ages:any;
   public agesList:any;
   public months:any;
   public monthsList:any;
-  public formControl:any;
+  public formLat:any;
+  public formLong:any;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -60,31 +61,8 @@ export class MapComponent implements OnInit {
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
     this.CrimesList = CrimesList;
     this.IconsMap = IconsMap;
-    this.daysSelecteds = [
-      new DaySelected("Lunes", true),
-      new DaySelected("Martes", true),
-      new DaySelected("Miercoles", true),
-      new DaySelected("Jueves", true),
-      new DaySelected("Viernes", true),
-      new DaySelected("Sabado", true),
-      new DaySelected("Domingo", true)
-    ];
-
-    this.mounthsSelecteds = [
-      new MounthSelected("Enero", true),
-      new MounthSelected("Febrero", true),
-      new MounthSelected("Marzo", true),
-      new MounthSelected("Abril", true),
-      new MounthSelected("Mayo", true),
-      new MounthSelected("Junio", true),
-      new MounthSelected("Julio", true),
-      new MounthSelected("Agosto", true),
-      new MounthSelected("Septiembre", true),
-      new MounthSelected("Octubre", true),
-      new MounthSelected("Noviembre", true),
-      new MounthSelected("Diciembre", true)
-    ];
-    
+    this.daysSelecteds = weekDays;
+    this.mounthsSelecteds = yearMounths;
 
     this.crimesShown = [];
     this.distance = 250;
@@ -94,11 +72,13 @@ export class MapComponent implements OnInit {
     this.latitude = 0;
     this.swap = false;
 
-    this.formControl = new FormControl({value:'', disabled: true})
+    this.formLat = new FormControl();
+    this.formLong = new FormControl();
 
     this.ages = new FormControl();
     this.agesList = ['2019', '2018', '2017', '2016', '2015'];
     this.ages.setValue(['2019']);
+    this.requestOption = true;
 
     this.months = new FormControl();
     this.monthsList = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio',
@@ -147,6 +127,7 @@ export class MapComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+    this.requestOption = false;
   }
 
   // Dibujamos con respecto al tiempo
@@ -206,6 +187,7 @@ export class MapComponent implements OnInit {
 
 
   async getRequest (){
+    this.requestOption = true;
     try {
       const state = await this._locationService.getState(this.latitude,this.longitude);
       if(state==="Ciudad de México"){
@@ -215,6 +197,7 @@ export class MapComponent implements OnInit {
       }else{
         console.log ("CrimeZone: Location outside");
       }
+      this.requestOption = false;
     } catch (error) {
       console.log(error);
     }
