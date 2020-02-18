@@ -43,7 +43,8 @@ export class MapComponent implements OnInit {
   public agesList:any;
   public months:any;
   public monthsList:any;
-  public formControl:any;
+  public formLat:any;
+  public formLong:any;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -71,7 +72,8 @@ export class MapComponent implements OnInit {
     this.latitude = 0;
     this.swap = false;
 
-    this.formControl = new FormControl({value:'', disabled: true})
+    this.formLat = new FormControl();
+    this.formLong = new FormControl();
 
     this.ages = new FormControl();
     this.agesList = ['2019', '2018', '2017', '2016', '2015'];
