@@ -84,6 +84,7 @@ export class MapComponent implements OnInit {
       new MounthSelected("Noviembre", true),
       new MounthSelected("Diciembre", true)
     ];
+    
 
     this.crimesShown = [];
     this.distance = 250;
@@ -103,6 +104,26 @@ export class MapComponent implements OnInit {
     this.monthsList = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio',
     'Agosto', 'Septiembre', 'Octubre','Noviembre','Diciembre'];
     this.months.setValue(this.monthsList);
+  }
+  infoWindowOpened = null
+  previous_info_window = null
+  
+  close_window(){
+  console.log("hola");
+  if (this.previous_info_window != null ) {
+    this.previous_info_window.close()
+    
+    }    
+  }
+
+  select_marker(infoWindow){
+    if (this.previous_info_window == null)
+    this.previous_info_window = infoWindow;
+    else{
+      this.infoWindowOpened = infoWindow
+      this.previous_info_window.close()
+    }
+    this.previous_info_window = infoWindow
   }
 
   async ngOnInit(){

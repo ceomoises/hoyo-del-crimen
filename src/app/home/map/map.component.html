@@ -127,7 +127,7 @@
   </form>
 
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom"
-  [latitude]="latitude" [longitude]="longitude">
+  [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
     <agm-marker
       [latitude]="latitude"
       [longitude]="longitude"
@@ -158,9 +158,8 @@
               width: 23,
               height: 30
             } }"
-          >
-          <agm-info-window [disableAutoPan]="true">
-      
+          (markerClick)=select_marker(infoWindow)>
+          <agm-info-window #infoWindow [disableAutoPan]="false">
             <strong>{{crim.name}}</strong><br>
             {{crim.date}} <br>
             {{crim.time}}
