@@ -6,7 +6,6 @@ import { AgmCoreModule } from '@agm/core';
 
 import { DisableControlDirective } from '../directives/disablecontroldirective';
 import { MaterialModule } from './material.module';
-import { DisableControlDirective } from '../directives/disablecontroldirective';
 
 
 @NgModule({
