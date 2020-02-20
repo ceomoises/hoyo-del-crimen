@@ -46,7 +46,8 @@ export class MapComponent implements OnInit {
   public formLat:any;
   public formLong:any;
   public formCheckDay:any;
-
+  public infoWindowOpened;
+  public previous_info_window;
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService,
@@ -89,8 +90,7 @@ export class MapComponent implements OnInit {
     this.monthsList = yearMounths;
     this.months.setValue(this.monthsList);
   }
-  infoWindowOpened = null
-  previous_info_window = null
+
   
   current_location(a){
     this.latitude = a.coords.lat;
@@ -182,6 +182,8 @@ export class MapComponent implements OnInit {
 
 
   async getRequest (){
+    this.infoWindowOpened = null
+    this.previous_info_window = null
     this.requestOption = true;
     try {
       const state = await this._locationService.getState(this.latitude,this.longitude);
