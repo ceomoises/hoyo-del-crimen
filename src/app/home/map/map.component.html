@@ -92,14 +92,6 @@
 <span>Crimenes entre: </span>
 <br/>
   <form #form="ngForm">
-    <!-- <button (click)="previousHour()" *ngIf="time1 != '00:00'">-</button>
-    <button (click)="previousHour()" *ngIf="time1 === '00:00'" disabled>-</button>
-    <input type="text" [(ngModel)]="time1" name="time1" />
-    <input type="text" [(ngModel)]="time2" name="time2" />
-    <button (click)="nextHour()" *ngIf="time2 != '24:00'" >+</button>
-    <button (click)="nextHour()" *ngIf="time2 === '24:00'" disabled>+</button>
-    <br/> -->
-
     <button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
     <button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
     <input type="text" [(ngModel)]="query.start_date" name="date1"/>
