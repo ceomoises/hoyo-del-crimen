@@ -91,17 +91,17 @@ export class MapComponent implements OnInit {
     this.months.setValue(this.monthsList);
   }
 
-  
+
   current_location(a){
     this.latitude = a.coords.lat;
     this.longitude = a.coords.lng;
- 
+
   }
   close_window(){
   if (this.previous_info_window != null ) {
     this.previous_info_window.close()
-    
-    }    
+
+    }
   }
 
   select_marker(infoWindow){
@@ -135,17 +135,12 @@ export class MapComponent implements OnInit {
     console.log(this.crimes);
   }
 
-  // Dibujamos con respecto al tiempo
+  // Le sumamos a los tiempos 1 hora
   nextHour(){
-    //obtenemos los minutos y agregamos 60min
-    let time1 = moment.duration(this.time1).asMinutes()+60;
-    let time2 = moment.duration(this.time2).asMinutes()+60;
-    console.log (this.time1);
-    console.log (this.time2);
-    //pasamos nuestros minutos al formato de "horas y minutos"
-    this.time1 = moment.duration({m:time1}).format("HH:mm");
-    this.time2 = moment.duration({m:time2}).format("HH:mm");
-
+    let time1 = moment(this.time2,'HH:mm');
+    let time2 = moment(this.time2,'HH:mm');
+    this.time2 = time2.add(60,'minutes').format('HH:mm');
+    this.time1 = (time2.minutes()==59)? time1.add(1,'minutes').format("HH:mm"):time1.format("HH:mm");
     this.filterCrimes();
   }
 
@@ -160,12 +155,11 @@ export class MapComponent implements OnInit {
   }
 
   filterCrimes(){
+    console.log (`[${this.time1}]-[${this.time2}]`);
     let crimesAux: Array<Crimen> = [];
     // Convertimos el tiempo 1 y 2 en horas
     let time1 = moment.duration(this.time1).asHours();
     let time2 = moment.duration(this.time2).asHours();
-    console.log (this.time1);
-    console.log (this.time2);
     // Filtramos los crimenes
     for(let i in this.crimes){
       // Obtenemos la hora del crimen
