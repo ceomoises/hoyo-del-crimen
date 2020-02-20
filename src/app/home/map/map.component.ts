@@ -93,6 +93,7 @@ export class MapComponent implements OnInit {
 
   
   current_location(a){
+    this.getRequest();
     this.latitude = a.coords.lat;
     this.longitude = a.coords.lng;
  
