@@ -22,20 +22,20 @@
         (input)="longitude = +$event.target.value"  />
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
-      <mat-form-field appearance="outline" class="ml-lg-3">
+      <mat-form-field appearance="outline" class="mx-3">
         <mat-label>Latitude:</mat-label>
         <input matInput [formControl]="formLat" [disableControl]="!swap" placeholder="Ex. 19.3804" [value]="latitude"
         (input)="latitude = +$event.target.value"/>
       </mat-form-field>
       <!-- COMPONENTE DE AÑOS CON mat-select -->
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="mr-3">
         <mat-label>Seleccionar Años</mat-label>
         <mat-select [formControl]="ages" [disableControl]="!swap" multiple>
           <mat-option *ngFor="let age of agesList" [value]="age">{{age}}</mat-option>
         </mat-select>
       </mat-form-field>
       <!-- COMPONENTE DE MESES CON mat-select -->
-      <mat-form-field appearance="outline" class="ml-lg-3">
+      <mat-form-field appearance="outline">
         <mat-label>Seleccionar Meses</mat-label>
         <mat-select [formControl]="months" (selectionChange)="mounthsSelecteds = $event.value; filterCrimes()" multiple>
           <mat-select-trigger>
@@ -55,21 +55,21 @@
       <strong>Filtrar por hora</strong><br/>
       <span class="lead">Diferencia por </span>
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
-      <mat-form-field appearance="standard" style="width:40px" class="ml-lg-2">
+      <mat-form-field appearance="standard" style="width:40px" class="mx-3">
         <mat-label>horas</mat-label>
         <input type="number" value="24" min="1" max="24" matInput/>
       </mat-form-field>
-      <button mat-raised-button class="ml-lg-3">Siguiente hora</button>
+      <button mat-raised-button>Siguiente hora</button>
       <br/>
       <!-- COMPONENTE INICIO DE HORAS CON matInput -->
       <span class="lead">Inicio</span>
-      <mat-form-field appearance="outline" style="width:100px" class="ml-lg-2">
+      <mat-form-field appearance="outline" style="width:100px" class="mx-3">
         <mat-label>hora:min</mat-label>
         <input type="time" value="00:00" (blur)="time1 = $event.target.value; filterCrimes()" matInput/>
       </mat-form-field>
-      <span class="lead ml-lg-3">Fin</span>
+      <span class="lead">Fin</span>
       <!-- COMPONENTE FIN DE HORAS CON matInput -->
-      <mat-form-field appearance="outline" style="width:100px" class="ml-lg-2">
+      <mat-form-field appearance="outline" style="width:100px" class="mx-3">
         <mat-label>hora:min</mat-label>
         <input type="time" value="23:59" (blur)="time2 = $event.target.value; filterCrimes()" matInput/>
       </mat-form-field>
@@ -153,8 +153,8 @@
             {{crim.date}} <br>
             {{crim.time}}
           </agm-info-window>
-        
-        
+
+
         </agm-marker>
           </div>
       </div>
