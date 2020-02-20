@@ -30,21 +30,22 @@ export class MapComponent implements OnInit {
   public myMarker: any;
   public myCrimes: any;
   public time1: string;
-  public time2:string;
+  public time2: string;
   public query:any;
   public options:any;
   public CrimesList:Array<string>;
   public IconsMap:Array<string>;
-  public daysSelecteds:Array<any>;
   public mounthsSelecteds:Array<any>;
   public requestOption:boolean;
   public swap:boolean;
+  public daysSelecteds:any;
   public ages:any;
   public agesList:any;
   public months:any;
   public monthsList:any;
   public formLat:any;
   public formLong:any;
+  public formCheckDay:any;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -56,12 +57,16 @@ export class MapComponent implements OnInit {
     this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
-    this.time1 = "00:00"; this.time2 = "01:00";
+    this.time1 = "00:00"; this.time2 = "23:59";
     this.query = { start_date:2019, end_date:2019}
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
     this.CrimesList = CrimesList;
     this.IconsMap = IconsMap;
+
+    this.formCheckDay = new FormControl ();
+    //this.daysSelecteds = new FormControl ();
     this.daysSelecteds = weekDays;
+    // this.daysSelecteds.setValue (weekDays);
     this.mounthsSelecteds = yearMounths;
 
     this.crimesShown = [];
@@ -81,8 +86,7 @@ export class MapComponent implements OnInit {
     this.requestOption = true;
 
     this.months = new FormControl();
-    this.monthsList = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio',
-    'Agosto', 'Septiembre', 'Octubre','Noviembre','Diciembre'];
+    this.monthsList = yearMounths;
     this.months.setValue(this.monthsList);
   }
   infoWindowOpened = null
@@ -128,6 +132,7 @@ export class MapComponent implements OnInit {
       console.log(error);
     }
     this.requestOption = false;
+    console.log(this.crimes);
   }
 
   // Dibujamos con respecto al tiempo
@@ -135,22 +140,10 @@ export class MapComponent implements OnInit {
     //obtenemos los minutos y agregamos 60min
     let time1 = moment.duration(this.time1).asMinutes()+60;
     let time2 = moment.duration(this.time2).asMinutes()+60;
+    console.log (this.time1);
+    console.log (this.time2);
     //pasamos nuestros minutos al formato de "horas y minutos"
     this.time1 = moment.duration({m:time1}).format("HH:mm");
-    this.time2 = moment.duration({m:time2}).format("HH:mm");
-
-    this.filterCrimes();
-  }
-
-  previousHour(){
-    //obtenemos los minutos y le quitamos 60min
-    let time1 = moment.duration(this.time1).asMinutes()-60;
-    let time2 = moment.duration(this.time2).asMinutes()-60;
-    //pasamos nuestros minutos al formato de "horas y minutos"
-    if (time1 != 0)
-      this.time1 = moment.duration({m:time1}).format("HH:mm");
-    else
-      this.time1 = "00:00";
     this.time2 = moment.duration({m:time2}).format("HH:mm");
 
     this.filterCrimes();
@@ -171,6 +164,8 @@ export class MapComponent implements OnInit {
     // Convertimos el tiempo 1 y 2 en horas
     let time1 = moment.duration(this.time1).asHours();
     let time2 = moment.duration(this.time2).asHours();
+    console.log (this.time1);
+    console.log (this.time2);
     // Filtramos los crimenes
     for(let i in this.crimes){
       // Obtenemos la hora del crimen
@@ -208,18 +203,11 @@ export class MapComponent implements OnInit {
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
     let mounth = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     let daysAvailables = [];
-    let mounthsAvaibles = [];
 
     //Obtenemos los dias seleccionados por el usuario
     for (let i in this.daysSelecteds){
       if (this.daysSelecteds[i].value)
         daysAvailables.push(this.daysSelecteds[i].day);
-    }
-
-    //Obtenemos los meses selccionado por el usuario
-    for (let j in this.mounthsSelecteds){
-      if (this.mounthsSelecteds[j].value)
-        mounthsAvaibles.push(this.mounthsSelecteds[j].mounth);
     }
 
     // Obtenemos el dia y mes del crimen
@@ -230,12 +218,17 @@ export class MapComponent implements OnInit {
     // Filtramos por dias y meses seleccionados
     for (let dayNum in daysAvailables){
       if (daysAvailables[dayNum]===crimeDay){
-        for (let mounthNum in mounthsAvaibles){
-          if (mounthsAvaibles[mounthNum]==crimeMounth)
+        for (let mounthNum in this.mounthsSelecteds){
+          if (this.mounthsSelecteds [mounthNum]==crimeMounth)
             return true;
         }
       }
     }
     return false;
+  }
+
+  funcionPrueba (event:any){
+    console.log(event);
+    // console.log(this.monthsList);
   }
 }

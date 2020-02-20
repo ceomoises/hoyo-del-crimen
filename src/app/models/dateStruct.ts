@@ -8,17 +8,17 @@ export const weekDays:Array<any> = [
     {day: "Domingo",value:  true}
 ];
 
-export const yearMounths:Array<any> = [
-    {mounth: "Enero", value: true},
-    {mounth: "Febrero", value: true},
-    {mounth: "Marzo", value: true},
-    {mounth: "Abril", value: true},
-    {mounth: "Mayo", value: true},
-    {mounth: "Junio", value: true},
-    {mounth: "Julio", value: true},
-    {mounth: "Agosto", value: true},
-    {mounth: "Septiembre", value: true},
-    {mounth: "Octubre", value: true},
-    {mounth: "Noviembre", value: true},
-    {mounth: "Diciembre", value: true}
+export const yearMounths:Array<string> = [
+    "Enero", 
+    "Febrero", 
+    "Marzo", 
+    "Abril", 
+    "Mayo", 
+    "Junio", 
+    "Julio", 
+    "Agosto", 
+    "Septiembre", 
+    "Octubre", 
+    "Noviembre", 
+    "Diciembre",
 ];
