@@ -1,6 +1,6 @@
 export const IconsMap: Array<string> = [
-    "http://localhost:4200/assets/img/subway_d.svg",
     "http://localhost:4200/assets/img/subway.svg",
+    "http://localhost:4200/assets/img/subway_d.svg",
     "http://localhost:4200/assets/img/bus_d.svg",
     "http://localhost:4200/assets/img/bus.svg",
     "http://localhost:4200/assets/img/taxi.svg",

@@ -1,11 +1,11 @@
-export const weekDays:Array<any> = [
-    {day: "Lunes", value: true},
-    {day: "Martes", value: true},
-    {day: "Miercoles", value: true},
-    {day: "Jueves", value: true},
-    {day: "Viernes", value: true},
-    {day: "Sabado", value: true},
-    {day: "Domingo",value:  true}
+export const weekDays:Array<string> = [
+    "Lunes",
+    "Martes",
+    "Miercoles",
+    "Jueves",
+    "Viernes",
+    "Sabado", 
+    "Domingo"
 ];
 
 export const yearMounths:Array<string> = [
