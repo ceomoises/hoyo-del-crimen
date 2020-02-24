@@ -5,13 +5,10 @@ agm-map {
   opacity: 0.75;
   font-size: 0.75em;
 }
-<<<<<<< HEAD
 button:focus{
   outline: none;
 }
-=======
 
 table {
   width: 70%;
 }
->>>>>>> master
