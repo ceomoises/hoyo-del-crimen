@@ -7,8 +7,10 @@ import * as moment from 'moment';
 import 'moment-duration-format';
 import { IconsMap } from 'src/app/models/iconsMap';
 import { CrimesList } from 'src/app/models/crimesList';
-
 import { FormControl } from '@angular/forms';
+
+import { SelectionModel } from "@angular/cdk/collections";
+import {MatTableDataSource} from '@angular/material/table';
 import { weekDays, yearMounths } from '../../models/dateStruct';
 
 @Component({
@@ -38,7 +40,8 @@ export class MapComponent implements OnInit {
   public mounthsSelecteds:Array<any>;
   public requestOption:boolean;
   public swap:boolean;
-  public daysSelecteds:any;
+  public daysList: MatTableDataSource <string>;
+  public daysSelecteds: Array <string>;
   public ages:any;
   public agesList:any;
   public months:any;
@@ -48,6 +51,9 @@ export class MapComponent implements OnInit {
   public formCheckDay:any;
   public infoWindowOpened;
   public previous_info_window;
+  public titles: Array <string>;
+  public selection: SelectionModel <String>;
+
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService,
@@ -65,9 +71,9 @@ export class MapComponent implements OnInit {
     this.IconsMap = IconsMap;
 
     this.formCheckDay = new FormControl ();
-    //this.daysSelecteds = new FormControl ();
-    this.daysSelecteds = weekDays;
-    // this.daysSelecteds.setValue (weekDays);
+    //this.daysList = new FormControl ();
+    this.daysList = new MatTableDataSource <string> (weekDays);
+    // this.daysList.setValue (weekDays);
     this.mounthsSelecteds = yearMounths;
 
     this.crimesShown = [];
@@ -88,7 +94,12 @@ export class MapComponent implements OnInit {
 
     this.months = new FormControl();
     this.monthsList = yearMounths;
-    this.months.setValue(this.monthsList);
+    this.months.setValue(yearMounths);
+
+    this.selection = new SelectionModel <String> (true, []);
+    this.titles = ['Select', 'Day'];
+    this.daysList.data.forEach(row => this.selection.select(row));
+    this.daysSelecteds =  weekDays;
   }
 
   
@@ -204,13 +215,6 @@ export class MapComponent implements OnInit {
     //Dias de la semana y meses de año
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
     let mounth = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    let daysAvailables = [];
-
-    //Obtenemos los dias seleccionados por el usuario
-    for (let i in this.daysSelecteds){
-      if (this.daysSelecteds[i].value)
-        daysAvailables.push(this.daysSelecteds[i].day);
-    }
 
     // Obtenemos el dia y mes del crimen
     let crimeDate = new Date (date);
@@ -218,8 +222,8 @@ export class MapComponent implements OnInit {
     let crimeMounth = mounth[crimeDate.getMonth()];
 
     // Filtramos por dias y meses seleccionados
-    for (let dayNum in daysAvailables){
-      if (daysAvailables[dayNum]===crimeDay){
+    for (let dayNum in this.daysSelecteds){
+      if (this.daysSelecteds[dayNum]===crimeDay){
         for (let mounthNum in this.mounthsSelecteds){
           if (this.mounthsSelecteds [mounthNum]==crimeMounth)
             return true;
@@ -229,8 +233,23 @@ export class MapComponent implements OnInit {
     return false;
   }
 
+  //Compara si el número de elementos seleccionados coincide con el número total de filas
+  isAllSelected (){
+    const numSelected = this.selection.selected.length;
+    const numRows = this.daysList.data.length;
+    return numSelected === numRows;
+  }
+
+  //Selecciona todas las filas si no están todas seleccionadas; caso contrario, los deja sin seleccion.
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.daysList.data.forEach(row => this.selection.select(row));
+  }
+
   funcionPrueba (event:any){
-    console.log(event);
+    console.log(this.selection.selected);
+    this.selection.selected;
     // console.log(this.monthsList);
   }
 }
