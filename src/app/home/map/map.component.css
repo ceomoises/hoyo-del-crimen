@@ -5,6 +5,9 @@ agm-map {
   opacity: 0.75;
   font-size: 0.75em;
 }
+button:focus{
+  outline: none;
+}
 
 table {
   width: 70%;

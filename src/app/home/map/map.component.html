@@ -57,21 +57,21 @@
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
       <mat-form-field appearance="standard" style="width:40px" class="mx-3">
         <mat-label>horas</mat-label>
-        <input type="number" value="24" min="1" max="24" matInput/>
+        <input type="number" value="1" min="1" max="24" matInput/>
       </mat-form-field>
-      <button mat-raised-button>Siguiente hora</button>
+      <button mat-raised-button (click)="nextHour()">Siguiente hora</button>
       <br/>
       <!-- COMPONENTE INICIO DE HORAS CON matInput -->
       <span class="lead">Inicio</span>
       <mat-form-field appearance="outline" style="width:100px" class="mx-3">
         <mat-label>hora:min</mat-label>
-        <input type="time" value="00:00" (blur)="time1 = $event.target.value; filterCrimes()" matInput/>
+        <input type="time" [value]="time1" (blur)="time1 = $event.target.value; filterCrimes()" matInput/>
       </mat-form-field>
       <span class="lead">Fin</span>
       <!-- COMPONENTE FIN DE HORAS CON matInput -->
       <mat-form-field appearance="outline" style="width:100px" class="mx-3">
         <mat-label>hora:min</mat-label>
-        <input type="time" value="23:59" (blur)="time2 = $event.target.value; filterCrimes()" matInput/>
+        <input type="time" [value]="time2" (blur)="time2 = $event.target.value; filterCrimes()" matInput/>
       </mat-form-field>
       <!-- COMPONENTE POR DIAS -->
       <p><b>Filtrar por día</b></p>
