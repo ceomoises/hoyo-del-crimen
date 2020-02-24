@@ -249,8 +249,7 @@ export class MapComponent implements OnInit {
   }
 
   funcionPrueba (event:any){
-    console.log(this.selection.selected);
-    this.selection.selected;
+    console.log(event);
     // console.log(this.monthsList);
   }
 }
