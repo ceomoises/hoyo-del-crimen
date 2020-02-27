@@ -15,7 +15,8 @@ export const CrimesList:Array<string> = [
     "ROBO DE VEHICULO AUTOMOTOR C.V.",
     "SECUESTRO",
     "VIOLACION",
-    "LESIONES POR ARMA DE FUEGO"
+    "LESIONES POR ARMA DE FUEGO",
+    "HOMICIDIO DOLOSO"
 ]
 
 export const classTransport = [
