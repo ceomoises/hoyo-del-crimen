@@ -50,14 +50,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    
+
       <div>
         <span class="lead">Clasificación general: </span>
         <button mat-raised-button (click)="classificationOption(1)" >Todos</button>
         <button mat-raised-button (click)="classificationOption(2)" >Transporte</button>
         <button mat-raised-button (click)="classificationOption(3)" >Peaton</button>
       </div>
-          
+
     <button mat-raised-button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
 
     </form>
@@ -83,15 +83,16 @@
         <mat-label>hora:min</mat-label>
         <input type="time" [value]="time2" (blur)="time2 = $event.target.value; filterCrimes()" matInput/>
       </mat-form-field>
-      <!-- COMPONENTE POR DIAS -->
+      <!-- TABLA QUE CONTIENE LOS DIAS -->
       <p><b>Filtrar por día</b></p>
-      <table class="table" style="width:350px" >
+      <table class="table" style="width:350px">
         <tr>
           <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
         </tr>
         <tr>
           <td *ngFor="let daySelected of daysSelecteds">
-            <mat-checkbox [formControl]="formCheckDay" [(ngModel)]="daySelected.value" name="daySelected.day" (change)="filterCrimes ()"></mat-checkbox>
+          <mat-checkbox [(ngModel)]="daySelected.value" [name]="daySelected.day" (change)="filterCrimes()"></mat-checkbox>
+        </tr>
       </table>
       <button mat-raised-button (click)="reset()">Reset</button>
     </form>
@@ -111,9 +112,6 @@
 
     <br/><br/>
   </form>
-
-
-
 
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom" [disableDoubleClickZoom]="true"
   [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
@@ -153,10 +151,8 @@
             {{crim.date}} <br>
             {{crim.time}}
           </agm-info-window>
-
-
-        </agm-marker>
-          </div>
+          </agm-marker>
+        </div>
       </div>
     </div>
 </agm-map>

@@ -10,7 +10,7 @@ import { CrimesList } from 'src/app/models/crimesList';
 import { FormControl } from '@angular/forms';
 
 import { SelectionModel } from "@angular/cdk/collections";
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource} from '@angular/material/table';
 import { weekDays, yearMounths } from '../../models/dateStruct';
 import { listCrimes, classTransport, classPeaton } from '../../models/crimesList';
 
@@ -59,8 +59,6 @@ export class MapComponent implements OnInit {
     private _locationService: LocationService,
     private _http: HttpClient
   ){
-    // Primero configuramos el texto de nuestros marcadores
-    this.urlNominatim = "https://nominatim.openstreetmap.org/reverse?format=jsonv2";
     this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
@@ -71,7 +69,7 @@ export class MapComponent implements OnInit {
     this.CrimesList = CrimesList;
     this.IconsMap = IconsMap;
 
-    this.formCheckDay = new FormControl ();
+    this.formCheckDay = new FormControl();
     this.daysSelecteds = weekDays;
     this.mounthsSelecteds = yearMounths;
 
@@ -263,7 +261,7 @@ export class MapComponent implements OnInit {
       if (!this.daysSelecteds[i].value)
       this.daysSelecteds[i].value = true;
     }
-    
+
     this.query = { start_date:2019, end_date:2019};
     this.time1 = "00:00"; this.time2 = "23:59";
     this.swap = false;
@@ -307,7 +305,7 @@ export class MapComponent implements OnInit {
             this.crimesShown.push(crime);
           }
         }
-      }  
+      }
     }
     console.log(this.crimesShown)
   }
