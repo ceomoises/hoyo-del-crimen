@@ -10,5 +10,16 @@ button:focus{
 }
 
 table {
-  width: 70%;
+  height: 30%;
 }
+
+#table {
+  transform:rotate(-90deg);  
+}
+#table th, #table td{
+  transform:rotate(90deg);
+}
+
+td, th {
+height: 50px;
+} 

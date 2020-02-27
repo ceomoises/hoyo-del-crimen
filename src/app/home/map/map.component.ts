@@ -53,6 +53,7 @@ export class MapComponent implements OnInit {
   public previous_info_window;
   public titles: Array <string>;
   public selection: SelectionModel <String>;
+  public numHour: number;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -65,6 +66,7 @@ export class MapComponent implements OnInit {
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
 
     this.time1 = "00:00"; this.time2 = "23:59";
+    this.numHour = 1;
     this.query = { start_date:2019, end_date:2019}
     this.options = { enableHighAccuracy:true, timeout:5000, maximumAge:0 }
     this.CrimesList = CrimesList;
@@ -187,7 +189,7 @@ export class MapComponent implements OnInit {
   }
 
 
-  async getRequest (){
+  async getRequest(){
     this.infoWindowOpened = null
     this.previous_info_window = null
     this.requestOption = true;
@@ -240,6 +242,49 @@ export class MapComponent implements OnInit {
     this.isAllSelected() ?
         this.selection.clear() :
         this.daysList.data.forEach(row => this.selection.select(row));
+  }
+
+  async validateInputCoordinates(lat, long){
+    this.infoWindowOpened = null
+    this.previous_info_window = null
+    this.requestOption = true;
+    try {
+      const state = await this._locationService.getState(lat,long);
+      console.log(state);
+      if(state==="Ciudad de México"){
+        this.longitude = long;
+        this.latitude = lat;
+        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
+        this.crimesShown = this.crimes;
+        console.log (this.crimes);
+      }else{
+        console.log('Ingreso una coordenada no valida');
+      }
+      this.requestOption = false;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  async reset (){
+    this.requestOption = true;
+    this.months.setValue(yearMounths);
+    this.daysList.data.forEach(row => this.selection.select(row));
+    this.query = { start_date:2019, end_date:2019};
+    this.time1 = "00:00"; this.time2 = "23:59";
+    this.swap = false;
+    this.numHour = 1;
+    try {
+      const position = await this._locationService.getPosition(this.options);
+      this.latitude = position.lat;
+      this.longitude = position.long;
+      this.accuracy = position.accy;
+      await this.getRequest ();
+    } catch (error) {
+      console.log(error);
+    }
+    this.requestOption = false;
+    console.log(this.crimes);
   }
 
   funcionPrueba (event:any){
