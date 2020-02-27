@@ -285,30 +285,15 @@ export class MapComponent implements OnInit {
       for (let classification of this.listCrimes){
         classification.show = true;
       }
-    }else if(option==2){
-      let values = classTransport;
-      for (let classification of this.listCrimes){
-        classification.show = false;
-      }
+    }else {
+      let values = (option==2) ? classTransport : classPeaton;
       for (let classification of this.listCrimes){
         for (let value of values){
-          if (value==classification.name)
-            classification.show = true;
+            classification.show = (value==classification.name) ? true : false;
         }
       }
-    }else if (option==3){
-      let values = classPeaton;
-      for (let classification of this.listCrimes){
-        classification.show = false;
-      }
-      for (let classification of this.listCrimes){
-        for (let value of values){
-          if (value==classification.name)
-            classification.show = true;
-        }
-      }      
     }
-    console.log(this.listCrimes);
+    console.log(this.listCrimes)
     this.classificationFilter();
   }
 
@@ -324,6 +309,16 @@ export class MapComponent implements OnInit {
       }  
     }
     console.log(this.crimesShown)
+  }
+
+  countCrimes(){
+    for(let crime of this.listCrimes){
+      crime.num = 0;
+    }
+
+    for (let classification of this.listCrimes){
+
+    }
   }
 
   funcionPrueba (event:any){

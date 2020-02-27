@@ -58,6 +58,8 @@
         <button mat-raised-button (click)="classificationOption(3)" >Peaton</button>
       </div>
           
+    <button mat-raised-button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
+
     </form>
     <form class="my-form2 col-lg-6">
       <strong>Filtrar por hora</strong><br/>
@@ -91,8 +93,7 @@
           <td *ngFor="let daySelected of daysSelecteds">
             <mat-checkbox [formControl]="formCheckDay" [(ngModel)]="daySelected.value" name="daySelected.day" (change)="filterCrimes ()"></mat-checkbox>
       </table>
-      <button mat-button (click)="reset()">Reset</button>
-
+      <button mat-raised-button (click)="reset()">Reset</button>
     </form>
   </div>
 </div>
@@ -109,7 +110,6 @@
     <br/>
 
     <br/><br/>
-    <button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
   </form>
 
 
