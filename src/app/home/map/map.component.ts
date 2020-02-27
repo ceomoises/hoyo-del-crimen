@@ -257,8 +257,12 @@ export class MapComponent implements OnInit {
   async reset (){
     this.requestOption = true;
     this.months.setValue(yearMounths);
-    //Seleccionamos de nuevo los dias
-    //this.daysList.data.forEach(row => this.selection.select(row));
+    //Reiniciamos de nuevo los dias
+    for (let i in this.daysSelecteds){
+      if (!this.daysSelecteds[i].value)
+      this.daysSelecteds[i].value = true;
+    }
+    
     this.query = { start_date:2019, end_date:2019};
     this.time1 = "00:00"; this.time2 = "23:59";
     this.swap = false;
