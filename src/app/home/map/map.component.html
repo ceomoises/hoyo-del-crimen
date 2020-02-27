@@ -57,6 +57,14 @@
         <button mat-raised-button (click)="classificationOption(2)" >Transporte</button>
         <button mat-raised-button (click)="classificationOption(3)" >Peaton</button>
       </div>
+
+      <!-- PROBABILIDADES -->
+      <div *ngIf="crimes">
+        <p *ngFor="let classification of listCrimes"> 
+          <span *ngIf="classification.num && classification.show">{{classification.name}}  {{ classification.num}}</span>
+        </p>
+        <br />
+      </div>
           
     <button mat-raised-button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
 
@@ -67,7 +75,7 @@
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
       <mat-form-field appearance="standard" style="width:40px" class="mx-3">
         <mat-label>horas</mat-label>
-        <input type="number" (click)="numHour = numHour + 1; funcionPrueba(numHour)" [value]="numHour" min="1" max="24" id='rangeHour' matInput/>
+        <input type="number" (click)="numHour = numHour + 1" [value]="numHour" min="1" max="24" id='rangeHour' matInput/>
       </mat-form-field>
       <button mat-raised-button (click)="nextHour()">Siguiente hora</button>
       <br/>
