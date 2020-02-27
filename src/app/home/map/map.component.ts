@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { SelectionModel } from "@angular/cdk/collections";
 import {MatTableDataSource} from '@angular/material/table';
 import { weekDays, yearMounths } from '../../models/dateStruct';
+import { listCrimes } from '../../models/crimesList';
 
 @Component({
   selector: 'app-map',
@@ -54,6 +55,7 @@ export class MapComponent implements OnInit {
   public titles: Array <string>;
   public selection: SelectionModel <String>;
   public numHour: number;
+  public listCrimes: Array <any>;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -102,6 +104,8 @@ export class MapComponent implements OnInit {
     this.titles = ['Select', 'Day'];
     this.daysList.data.forEach(row => this.selection.select(row));
     this.daysSelecteds =  weekDays;
+
+    this.listCrimes = listCrimes;
   }
 
 
@@ -286,6 +290,10 @@ export class MapComponent implements OnInit {
     }
     this.requestOption = false;
     console.log(this.crimes);
+  }
+
+  classificationFilter(){
+    this.listCrimes
   }
 
   funcionPrueba (event:any){
