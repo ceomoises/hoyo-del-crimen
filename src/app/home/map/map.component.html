@@ -57,7 +57,7 @@
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
       <mat-form-field appearance="standard" style="width:40px" class="mx-3">
         <mat-label>horas</mat-label>
-        <input type="number" (click)="numHour = numHour + 1; funcionPrueba(numHour)" [value]="numHour" min="1" max="24" id='rangeHour' matInput/>
+        <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" matInput/>
       </mat-form-field>
       <button mat-raised-button (click)="nextHour()">Siguiente hora</button>
       <br/>

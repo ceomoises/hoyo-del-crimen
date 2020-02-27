@@ -151,9 +151,10 @@ export class MapComponent implements OnInit {
 
   // Le sumamos a los tiempos 1 hora
   nextHour(){
+    console.log("Horas Saltadas: "+this.numHour);
     let time1 = moment(this.time2,'HH:mm');
     let time2 = moment(this.time2,'HH:mm');
-    this.time2 = time2.add(60,'minutes').format('HH:mm');
+    this.time2 = time2.add(60*this.numHour,'minutes').format('HH:mm');
     this.time1 = (time2.minutes()==59)? time1.add(1,'minutes').format("HH:mm"):time1.format("HH:mm");
     this.filterCrimes();
   }
@@ -265,7 +266,7 @@ export class MapComponent implements OnInit {
       console.log(error);
     }
   }
-  
+
   async reset (){
     this.requestOption = true;
     this.months.setValue(yearMounths);
