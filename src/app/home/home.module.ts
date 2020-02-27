@@ -7,7 +7,6 @@ import { AgmCoreModule } from '@agm/core';
 import { DisableControlDirective } from '../directives/disablecontroldirective';
 import { MaterialModule } from './material.module';
 
-
 @NgModule({
   declarations: [MapComponent, DisableControlDirective],
   exports: [MapComponent, AgmCoreModule],
