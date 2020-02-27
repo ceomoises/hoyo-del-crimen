@@ -6,7 +6,7 @@ export const CrimesList:Array<string> = [
     "ROBO A BORDO DE TAXI C.V.",
     "ROBO A CASA HABITACION C.V.",
     "ROBO A CUENTAHABIENTE C.V.",
-    "ROBO A NEGOCIO S.V.",
+    "ROBO A NEGOCIO C.V.",
     "ROBO A REPARTIDOR S.V.",
     "ROBO A REPARTIDOR C.V.",
     "ROBO A TRANSEUNTE S.V.",
