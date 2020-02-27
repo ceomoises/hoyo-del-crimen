@@ -6,7 +6,7 @@ export const CrimesList:Array<string> = [
     "ROBO A BORDO DE TAXI C.V.",
     "ROBO A CASA HABITACION C.V.",
     "ROBO A CUENTAHABIENTE C.V.",
-    "ROBO A NEGOCIO S.V.",
+    "ROBO A NEGOCIO C.V.",
     "ROBO A REPARTIDOR S.V.",
     "ROBO A REPARTIDOR C.V.",
     "ROBO A TRANSEUNTE S.V.",
@@ -15,7 +15,8 @@ export const CrimesList:Array<string> = [
     "ROBO DE VEHICULO AUTOMOTOR C.V.",
     "SECUESTRO",
     "VIOLACION",
-    "LESIONES POR ARMA DE FUEGO"
+    "LESIONES POR ARMA DE FUEGO",
+    "HOMICIDIO DOLOSO"
 ]
 
 export const classTransport = [
@@ -41,7 +42,7 @@ export let listCrimes: Array <any> = [
     {name: "ROBO A BORDO DE TAXI C.V." , num: 0, show: true},
     {name: "ROBO A CASA HABITACION C.V." , num: 0, show: true},
     {name: "ROBO A CUENTAHABIENTE C.V." , num: 0, show: true},
-    {name: "ROBO A NEGOCIO S.V." , num: 0, show: true},
+    {name: "ROBO A NEGOCIO C.V." , num: 0, show: true},
     {name: "ROBO A REPARTIDOR S.V." , num: 0, show: true},
     {name: "ROBO A REPARTIDOR C.V." , num: 0, show: true},
     {name: "ROBO A TRANSEUNTE S.V." , num: 0, show: true},

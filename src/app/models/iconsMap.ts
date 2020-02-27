@@ -16,5 +16,6 @@ export const IconsMap: Array<string> = [
     "http://localhost:4200/assets/img/kidnapping.svg",
     "http://localhost:4200/assets/img/rape.svg",
     "http://localhost:4200/assets/img/gun.svg",
+    "http://localhost:4200/assets/img/death.svg",
 ]
 
