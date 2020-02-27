@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 import { SelectionModel } from "@angular/cdk/collections";
 import {MatTableDataSource} from '@angular/material/table';
 import { weekDays, yearMounths } from '../../models/dateStruct';
-import { listCrimes } from '../../models/crimesList';
+import { listCrimes, classTransport, classPeaton } from '../../models/crimesList';
 
 @Component({
   selector: 'app-map',
@@ -41,8 +41,7 @@ export class MapComponent implements OnInit {
   public mounthsSelecteds:Array<any>;
   public requestOption:boolean;
   public swap:boolean;
-  public daysList: MatTableDataSource <string>;
-  public daysSelecteds: Array <string>;
+  public daysSelecteds: any;
   public ages:any;
   public agesList:any;
   public months:any;
@@ -52,8 +51,6 @@ export class MapComponent implements OnInit {
   public formCheckDay:any;
   public infoWindowOpened;
   public previous_info_window;
-  public titles: Array <string>;
-  public selection: SelectionModel <String>;
   public numHour: number;
   public listCrimes: Array <any>;
 
@@ -75,9 +72,7 @@ export class MapComponent implements OnInit {
     this.IconsMap = IconsMap;
 
     this.formCheckDay = new FormControl ();
-    //this.daysList = new FormControl ();
-    this.daysList = new MatTableDataSource <string> (weekDays);
-    // this.daysList.setValue (weekDays);
+    this.daysSelecteds = weekDays;
     this.mounthsSelecteds = yearMounths;
 
     this.crimesShown = [];
@@ -99,11 +94,6 @@ export class MapComponent implements OnInit {
     this.months = new FormControl();
     this.monthsList = yearMounths;
     this.months.setValue(yearMounths);
-
-    this.selection = new SelectionModel <String> (true, []);
-    this.titles = ['Select', 'Day'];
-    this.daysList.data.forEach(row => this.selection.select(row));
-    this.daysSelecteds =  weekDays;
 
     this.listCrimes = listCrimes;
   }
@@ -217,14 +207,22 @@ export class MapComponent implements OnInit {
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
     let mounth = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
+    let daysAvailables = [];
+
+    //Obtenemos los dias seleccionados por el usuario
+    for (let i in this.daysSelecteds){
+      if (this.daysSelecteds[i].value)
+        daysAvailables.push(this.daysSelecteds[i].day);
+    }
+
     // Obtenemos el dia y mes del crimen
     let crimeDate = new Date (date);
     let crimeDay = days[crimeDate.getDay()];
     let crimeMounth = mounth[crimeDate.getMonth()];
 
     // Filtramos por dias y meses seleccionados
-    for (let dayNum in this.daysSelecteds){
-      if (this.daysSelecteds[dayNum]===crimeDay){
+    for (let dayNum in daysAvailables){
+      if (daysAvailables[dayNum]===crimeDay){
         for (let mounthNum in this.mounthsSelecteds){
           if (this.mounthsSelecteds [mounthNum]==crimeMounth)
             return true;
@@ -232,20 +230,6 @@ export class MapComponent implements OnInit {
       }
     }
     return false;
-  }
-
-  //Compara si el número de elementos seleccionados coincide con el número total de filas
-  isAllSelected (){
-    const numSelected = this.selection.selected.length;
-    const numRows = this.daysList.data.length;
-    return numSelected === numRows;
-  }
-
-  //Selecciona todas las filas si no están todas seleccionadas; caso contrario, los deja sin seleccion.
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.daysList.data.forEach(row => this.selection.select(row));
   }
 
   async validateInputCoordinates(lat, long){
@@ -273,7 +257,12 @@ export class MapComponent implements OnInit {
   async reset (){
     this.requestOption = true;
     this.months.setValue(yearMounths);
-    this.daysList.data.forEach(row => this.selection.select(row));
+    //Reiniciamos de nuevo los dias
+    for (let i in this.daysSelecteds){
+      if (!this.daysSelecteds[i].value)
+      this.daysSelecteds[i].value = true;
+    }
+    
     this.query = { start_date:2019, end_date:2019};
     this.time1 = "00:00"; this.time2 = "23:59";
     this.swap = false;
@@ -291,8 +280,45 @@ export class MapComponent implements OnInit {
     console.log(this.crimes);
   }
 
+  classificationOption(option: number){
+    if (option==1){
+      for (let classification of this.listCrimes){
+        classification.show = true;
+      }
+    }else {
+      let values = (option==2) ? classTransport : classPeaton;
+      for (let classification of this.listCrimes){
+        for (let value of values){
+            classification.show = (value==classification.name) ? true : false;
+        }
+      }
+    }
+    console.log(this.listCrimes)
+    this.classificationFilter();
+  }
+
   classificationFilter(){
-    this.listCrimes
+    this.crimesShown = [];
+    for(let classification of this.listCrimes){
+      if (classification.show){
+        for(let crime of this.crimes){
+          if(crime.name==classification.name){
+            this.crimesShown.push(crime);
+          }
+        }
+      }  
+    }
+    console.log(this.crimesShown)
+  }
+
+  countCrimes(){
+    for(let crime of this.listCrimes){
+      crime.num = 0;
+    }
+
+    for (let classification of this.listCrimes){
+
+    }
   }
 
   funcionPrueba (event:any){
