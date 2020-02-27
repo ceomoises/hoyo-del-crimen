@@ -133,6 +133,7 @@ export class MapComponent implements OnInit {
       if(state==="Ciudad de México"){
         this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance);
         this.crimesShown = this.crimes;
+        this.countCrimes();
       }else{
         console.log ("CrimeZone: Location out of range");
       }
@@ -169,15 +170,20 @@ export class MapComponent implements OnInit {
     let time1 = moment.duration(this.time1).asHours();
     let time2 = moment.duration(this.time2).asHours();
     // Filtramos los crimenes
-    for(let i in this.crimes){
-      // Obtenemos la hora del crimen
-      let crimeHour = moment.duration(this.crimes[i].time).asHours();
-      // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
-      if(crimeHour>=time1 && crimeHour<=time2){
-        if (this.validateCrimeDate(this.crimes[i].date))
-          crimesAux.push(this.crimes[i]);
-      }
+    for(let classification of this.listCrimes){
+      if (classification.show)
+        for(let crime of this.crimes){
+          // Obtenemos la hora del crimen
+          let crimeHour = moment.duration(crime.time).asHours();
+          // Comprobamos que la hora del crimen este entre el tiempo 1 y 2
+          if(crimeHour>=time1 && crimeHour<=time2){
+            if (crime.name==classification.name)
+              if (this.validateCrimeDate(crime.date))
+                crimesAux.push(crime);
+          }
+        }
     }
+
     console.log(crimesAux);
     this.crimesShown = crimesAux;
   }
@@ -192,7 +198,8 @@ export class MapComponent implements OnInit {
       if(state==="Ciudad de México"){
         this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
         this.crimesShown = this.crimes;
-        console.log (this.crimes);
+        this.countCrimes ();
+        console.log(this.crimes);
       }else{
         console.log ("CrimeZone: Location outside");
       }
@@ -244,6 +251,7 @@ export class MapComponent implements OnInit {
         this.latitude = lat;
         this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
         this.crimesShown = this.crimes;
+        this.countCrimes ();
         console.log (this.crimes);
       }else{
         console.log('Ingreso una coordenada no valida');
@@ -293,22 +301,7 @@ export class MapComponent implements OnInit {
         }
       }
     }
-    console.log(this.listCrimes)
-    this.classificationFilter();
-  }
-
-  classificationFilter(){
-    this.crimesShown = [];
-    for(let classification of this.listCrimes){
-      if (classification.show){
-        for(let crime of this.crimes){
-          if(crime.name==classification.name){
-            this.crimesShown.push(crime);
-          }
-        }
-      }  
-    }
-    console.log(this.crimesShown)
+    this.filterCrimes();
   }
 
   countCrimes(){
@@ -317,12 +310,10 @@ export class MapComponent implements OnInit {
     }
 
     for (let classification of this.listCrimes){
-
+      for (let crime of this.crimes){
+        if (crime.name==classification.name)
+          classification.num++;
+      }
     }
-  }
-
-  funcionPrueba (event:any){
-    console.log(event);
-    // console.log(this.monthsList);
   }
 }
