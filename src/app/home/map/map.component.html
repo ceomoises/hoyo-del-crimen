@@ -58,6 +58,14 @@
         <button mat-raised-button (click)="classificationOption(3)" >Peaton</button>
       </div>
 
+      <!-- PROBABILIDADES -->
+      <div *ngIf="crimes">
+        <p *ngFor="let classification of listCrimes">
+          <span *ngIf="classification.num && classification.show">{{classification.name}}  {{ classification.num}}</span>
+        </p>
+        <br />
+      </div>
+
     <button mat-raised-button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
 
     </form>
