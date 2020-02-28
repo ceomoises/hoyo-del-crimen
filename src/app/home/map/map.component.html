@@ -125,19 +125,6 @@
     </span>
   </div>
 </div>
-<span>Crimenes entre: </span>
-<br/>
-  <form #form="ngForm">
-    <button (click)="previousYear ()" *ngIf="query.start_date > 2015">-</button>
-    <button (click)="previousYear()" *ngIf="query.start_date === 2015" disabled>-</button>
-    <input type="text" [(ngModel)]="query.start_date" name="date1"/>
-    <input type="text" [(ngModel)]="query.end_date" name="date2"/>
-    <button (click)="nextYear()" *ngIf="query.end_date < 2019" >+</button>
-    <button (click)="nextYear()" *ngIf="query.end_date === 2019" disabled>+</button>
-    <br/>
-
-    <br/><br/>
-  </form>
 
 <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom" [disableDoubleClickZoom]="true"
   [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
