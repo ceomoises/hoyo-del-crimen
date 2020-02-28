@@ -17,7 +17,7 @@ import { listCrimes, classTransport, classPeaton } from '../../models/crimesList
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  styleUrls: ['./map.component.scss'],
   providers: [PeticionesService, LocationService]
 })
 
