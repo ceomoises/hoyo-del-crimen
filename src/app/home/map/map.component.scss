@@ -33,6 +33,9 @@
   .custom-slider .ng5-slider .ng5-slider-selection {
     background-color: #ea3455;
   }
+  .custom-slider .ng5-slider.animate .ng5-slider-bubble{
+    left: 0 !important;
+  }
 }
 agm-map {
     height: 500px;

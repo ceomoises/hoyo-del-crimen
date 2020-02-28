@@ -107,7 +107,6 @@ export class MapComponent implements OnInit {
       step: 1,
       noSwitching: true,
       showTicksValues: true,
-      showTicks: true,
       draggableRange: true
     };
 

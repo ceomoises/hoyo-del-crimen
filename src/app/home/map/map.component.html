@@ -6,35 +6,47 @@
 
 <div class="container-fluid">
   <div class="row">
-    <form class="col-5 overflow-auto pl-5" style="height:650px">
-      <p><strong>Información Importante</strong></p>
+    <div class="col-lg-4 overflow-auto" style="height:650px">
+      <strong>Obtener Ubicación:</strong>
+      <button mat-icon-button>
+        <mat-icon>my_location</mat-icon>
+      </button>
       <ul>
         <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
       </ul>
       <mat-slide-toggle labelPosition='before' [checked]="swap"
-      (input)="swap = $event.target.checked"><b>Cambiar Ubicación</b></mat-slide-toggle>
+      (input)="swap = $event.target.checked"><b>Editar Ubicación: </b></mat-slide-toggle>
+
+      <button mat-raised-button (click)="getRequest()" [disabled]="requestOption">
+      <mat-icon>edit_location</mat-icon>Actualizar</button>
+
       <br/>
       <!-- COMPONENTE DE LONGITUD matInput -->
       <mat-form-field appearance="outline" class="mt-3">
         <mat-label>Longitude:</mat-label>
-        <input matInput  [formControl]="formLong" [disableControl]="!swap" placeholder="Ex. -99.0888" [value]="longitude"
-        (blur)="validateInputCoordinates(latitude, +$event.target.value)" id="inputLat" />
+        <input matInput placeholder="Ex. -99.0888"
+          [formControl]="formLong"
+          [disableControl]="!swap"
+          [value]="longitude"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
       <mat-form-field appearance="outline" class="mx-3">
         <mat-label>Latitude:</mat-label>
-        <input matInput [formControl]="formLat" [disableControl]="!swap" placeholder="Ex. 19.3804" [value]="latitude"
-        (blur)="validateInputCoordinates(+$event.target.value, longitude)" id="inputLong"/>
+        <input matInput placeholder="Ex. 19.3804"
+          [formControl]="formLat"
+          [disableControl]="!swap"
+          [value]="latitude"/>
       </mat-form-field>
 
       <p><b>Seleccionar Años:</b></p>
-      <div class="custom-slider">
-        <ng5-slider style="width:360px"
+      <div class="custom-slider text-center" >
+        <ng5-slider
           [(value)]="minValue"
           [(highValue)]="maxValue"
           [options]="sliderOptions">
         </ng5-slider>
       </div>
+
       <!-- COMPONENTE DE MESES CON mat-select -->
       <p><b>Seleccionar Meses:</b></p>
       <mat-form-field appearance="outline">
@@ -54,9 +66,11 @@
       </mat-form-field>
       <!-- TABLA QUE CONTIENE LOS DIAS -->
       <p><b>Seleccionar Días:</b></p>
-      <table class="table" style="width:360px">
+      <table class="table">
         <tr>
-          <th *ngFor="let daySelected of daysSelecteds"> {{ daySelected.day | slice:0:1}} </th>
+          <th *ngFor="let daySelected of daysSelecteds">
+            {{ daySelected.day | slice:0:1}}
+          </th>
         </tr>
         <tr>
           <td *ngFor="let daySelected of daysSelecteds">
@@ -98,11 +112,9 @@
         </button>
       </div>
 
-    <button mat-raised-button (click)="getRequest()" [disabled]="requestOption" >Actualizar datos</button>
-
-    </form>
-
-    <div class="col-lg-7">
+    </div>
+    <!--Aquí empieza el 2º LADO -->
+    <div class="col-lg-8">
       <span *ngFor="let crim of listCrimes">
         <button [matBadge]="crim.num" matBadgePosition="before" matBadgeColor="accent">
           <span class="iconCrime"></span>
@@ -153,5 +165,8 @@
           </div>
       </agm-map>
     </div>
+    <!--Aquí termina el 2º LADO -->
   </div>
+  <!--Aquí termina row -->
 </div>
+<!--Aquí termina container-fluid -->
