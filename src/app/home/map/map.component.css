@@ -8,18 +8,3 @@ agm-map {
 button:focus{
   outline: none;
 }
-
-table {
-  height: 30%;
-}
-
-#table {
-  transform:rotate(-90deg);  
-}
-#table th, #table td{
-  transform:rotate(90deg);
-}
-
-td, th {
-height: 50px;
-} 

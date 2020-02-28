@@ -53,6 +53,9 @@ export class MapComponent implements OnInit {
   public previous_info_window;
   public numHour: number;
   public listCrimes: Array <any>;
+  public minValue: number;
+  public maxValue: number;
+  public sliderOptions:any;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -94,6 +97,20 @@ export class MapComponent implements OnInit {
     this.months.setValue(yearMounths);
 
     this.listCrimes = listCrimes;
+
+    this.minValue = 2019;
+    this.maxValue = 2019;
+
+    this.sliderOptions = {
+      floor: 2015,
+      ceil: 2019,
+      step: 1,
+      noSwitching: true,
+      showTicksValues: true,
+      showTicks: true,
+      draggableRange: true
+    };
+
   }
 
 
