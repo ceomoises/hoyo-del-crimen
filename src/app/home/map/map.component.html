@@ -39,8 +39,8 @@
       </mat-form-field>
 
       <p><b>Seleccionar Años:</b></p>
-      <div class="custom-slider text-center" >
-        <ng5-slider
+      <div class="custom-slider text-center">
+        <ng5-slider style="max-width: 85%;"
           [(value)]="minValue"
           [(highValue)]="maxValue"
           [options]="sliderOptions">
@@ -64,12 +64,13 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <!-- TABLA QUE CONTIENE LOS DIAS -->
       <p><b>Seleccionar Días:</b></p>
-      <table class="table">
+      <table class="table" style="max-width: 95%;">
         <tr>
           <th *ngFor="let daySelected of daysSelecteds">
-            {{ daySelected.day | slice:0:1}}
+            {{ daySelected.day | slice:0:1 }}
           </th>
         </tr>
         <tr>
@@ -77,37 +78,46 @@
           <mat-checkbox [(ngModel)]="daySelected.value" [name]="daySelected.day" (change)="filterCrimes()"></mat-checkbox>
         </tr>
       </table>
+
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
       <strong>Seleccionar Horas:</strong><br/>
       <span class="lead">Diferencia por </span>
-      <mat-form-field appearance="standard" style="width:40px" class="mx-3">
+      <mat-form-field appearance="standard" style="width:35px" class="mx-2">
         <mat-label>horas</mat-label>
         <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" matInput/>
       </mat-form-field>
-      <button mat-raised-button (click)="nextHour()">Siguiente hora</button>
+
+      <button mat-raised-button (click)="nextHour(0)">
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+      <button mat-raised-button (click)="nextHour(1)" class="mx-2">
+        <mat-icon>navigate_next</mat-icon>
+      </button>
       <br/>
+
       <!-- COMPONENTE INICIO DE HORAS CON matInput -->
       <span class="lead">Inicio</span>
-      <mat-form-field appearance="outline" style="width:100px" class="mx-3">
+      <mat-form-field appearance="outline" style="width:100px" class="mx-2">
         <mat-label>hora:min</mat-label>
-        <input type="time" [value]="time1" (blur)="time1 = $event.target.value; filterCrimes()" matInput/>
+        <input type="time" [value]="time1" (input)="time1=$event.target.value" matInput/>
       </mat-form-field>
       <span class="lead">Fin</span>
       <!-- COMPONENTE FIN DE HORAS CON matInput -->
-      <mat-form-field appearance="outline" style="width:100px" class="mx-3">
+      <mat-form-field appearance="outline" style="width:100px" class="mx-2">
         <mat-label>hora:min</mat-label>
-        <input type="time" [value]="time2" (blur)="time2 = $event.target.value; filterCrimes()" matInput/>
+        <input type="time" [value]="time2" (input)="time2=$event.target.value" matInput/>
       </mat-form-field>
 
-      <button mat-raised-button (click)="reset()">Reset</button>
-
+      <!-- <button mat-raised-button (click)="reset()">Reset</button> -->
       <br><strong>Seleccionar Clasificador:</strong><br/>
       <div>
-        <button mat-raised-button (click)="classificationOption(1)" >Todos</button>
-        <button mat-fab (click)="classificationOption(3)">
+        <button mat-fab (click)="classificationOption(1)" class="m-2">
+          <mat-icon>undo</mat-icon>
+        </button>
+        <button mat-fab (click)="classificationOption(3)" class="m-2">
           <mat-icon>directions_run</mat-icon>
         </button>
-        <button mat-fab (click)="classificationOption(2)">
+        <button mat-fab (click)="classificationOption(2)" class="m-2">
           <mat-icon>directions_bus</mat-icon>
         </button>
       </div>
