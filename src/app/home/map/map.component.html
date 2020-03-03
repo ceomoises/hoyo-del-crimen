@@ -7,8 +7,8 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-4 overflow-auto" style="height:650px">
-      <strong>Obtener Ubicación</strong>
-      <button mat-icon-button>
+      <strong>Obtener Ubicación:</strong>
+      <button mat-icon-button (click)="reset()">
         <mat-icon>my_location</mat-icon>
       </button>
 
@@ -42,9 +42,10 @@
       <p><b>Seleccionar Años:</b></p>
       <div class="custom-slider text-center">
         <ng5-slider style="max-width: 85%;"
-          [(value)]="minValue"
-          [(highValue)]="maxValue"
-          [options]="sliderOptions">
+          [(value)]="query.start_date"
+          [(highValue)]="query.end_date"
+          [options]="sliderOptions"
+          (click)="consola(query.start_date)">
         </ng5-slider>
       </div>
 
@@ -136,10 +137,7 @@
     <!--Aquí empieza el 2º LADO -->
     <div class="col-lg-8">
       <span *ngFor="let crim of listCrimes">
-        <button [matBadge]="crim.num" matBadgePosition="before" matBadgeColor="accent">
-          <span class="iconCrime"></span>
-          {{crim.name}}
-        </button>
+            <mat-icon class="iconCrime" [matBadge]="crim.num" matBadgePosition="before" matBadgeColor="accent" [svgIcon]=crim.name></mat-icon>
       </span>
       <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom" [disableDoubleClickZoom]="true"
         [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
