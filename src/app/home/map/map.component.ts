@@ -9,8 +9,6 @@ import { IconsMap } from 'src/app/models/iconsMap';
 import { CrimesList } from 'src/app/models/crimesList';
 import { FormControl } from '@angular/forms';
 
-import { SelectionModel } from "@angular/cdk/collections";
-import { MatTableDataSource} from '@angular/material/table';
 import { weekDays, yearMounths } from '../../models/dateStruct';
 import { listCrimes, classTransport, classPeaton } from '../../models/crimesList';
 import { MatIconRegistry } from '@angular/material';
@@ -41,22 +39,18 @@ export class MapComponent implements OnInit {
   public CrimesList:Array<string>;
   public IconsMap:Array<string>;
   public mounthsSelecteds:Array<any>;
-  public requestOption:boolean;
+  public requestOption:boolean;//Cambiar el nombre por waitRequest
   public swap:boolean;
   public daysSelecteds: any;
-  public ages:any;
-  public agesList:any;
   public months:any;
   public monthsList:any;
   public formLat:any;
   public formLong:any;
   public formCheckDay:any;
-  public infoWindowOpened;
-  public previous_info_window;
+  public infoWindowOpened:any;
+  public previous_info_window:any;
   public numHour: number;
   public listCrimes: Array <any>;
-  public minValue: number;
-  public maxValue: number;
   public sliderOptions:any;
 
   constructor(
@@ -97,9 +91,6 @@ export class MapComponent implements OnInit {
     this.formLat = new FormControl();
     this.formLong = new FormControl();
 
-    this.ages = new FormControl();
-    this.agesList = ['2019', '2018', '2017', '2016', '2015'];
-    this.ages.setValue(['2019']);
     this.requestOption = true;
 
     this.months = new FormControl();
@@ -108,11 +99,8 @@ export class MapComponent implements OnInit {
 
     this.listCrimes = listCrimes;
 
-    this.minValue = 2019;
-    this.maxValue = 2019;
-
     this.sliderOptions = {
-      floor: 2015,
+      floor: 2016,
       ceil: 2019,
       step: 1,
       noSwitching: true,
