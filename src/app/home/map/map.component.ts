@@ -15,7 +15,7 @@ import { weekDays, yearMounths } from '../../models/dateStruct';
 import { listCrimes, classTransport, classPeaton } from '../../models/crimesList';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-DomSanitizer
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
