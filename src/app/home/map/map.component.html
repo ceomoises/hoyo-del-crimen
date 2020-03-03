@@ -23,7 +23,7 @@
 
       <br/>
       <!-- COMPONENTE DE LONGITUD matInput -->
-      <mat-form-field appearance="outline" color="accent" class="mt-3">
+      <mat-form-field appearance="outline" color="accent" class="mr-3">
         <mat-label>Longitude:</mat-label>
         <input matInput placeholder="Ex. -99.0888"
           [formControl]="formLong"
@@ -31,17 +31,21 @@
           [value]="longitude"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
-      <mat-form-field appearance="outline" color="accent" class="mx-xl-3">
+      <mat-form-field appearance="outline" color="accent">
         <mat-label>Latitude:</mat-label>
         <input matInput placeholder="Ex. 19.3804"
           [formControl]="formLat"
           [disableControl]="requestOption"
           [value]="latitude"/>
       </mat-form-field>
-
-      <p><b>Seleccionar Años:</b></p>
-      <div class="custom-slider text-center">
-        <ng5-slider style="max-width: 85%;"
+      <p>
+        <b>Seleccionar Años</b>
+        <button mat-icon-button>
+          <mat-icon>hdr_strong</mat-icon>
+        </button>
+      </p>
+      <div class="custom-slider ml-3">
+        <ng5-slider style="max-width: 380px;"
           [(value)]="query.start_date"
           [(highValue)]="query.end_date"
           [options]="sliderOptions">
@@ -78,7 +82,7 @@
           <mat-icon>check_circle_outline</mat-icon>
         </button>
       </p>
-      <table class="table" style="max-width: 95%;">
+      <table class="table" style="max-width: 400px;">
         <tr>
           <th *ngFor="let daySelected of daysSelecteds">
             {{ daySelected.day | slice:0:1 }}
@@ -96,7 +100,7 @@
           <mat-icon>update</mat-icon>
         </button>
       <br/>
-      <span class="lead">Diferencia por </span>
+      <span>Diferencia por </span>
       <mat-form-field appearance="standard" color="accent" style="width:35px" class="mx-2">
         <mat-label>horas</mat-label>
         <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" matInput/>
@@ -140,8 +144,15 @@
     </div>
     <!--Aquí empieza el 2º LADO -->
     <div class="col-lg-8">
-      <span *ngFor="let crim of listCrimes">
-            <mat-icon class="iconCrime" [matBadge]="crim.num" matBadgePosition="before" matBadgeColor="accent" [svgIcon]=crim.name></mat-icon>
+      <span *ngFor="let crim of listCrimes; let i = index">
+          <mat-icon *ngIf="crim.num != 0" 
+          [matBadge]="crim.num" 
+          matBadgePosition="before" 
+          matBadgeColor="accent"
+          class="iconCrime"
+          [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
+          >
+          </mat-icon>
       </span>
       <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom" [disableDoubleClickZoom]="true"
         [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
