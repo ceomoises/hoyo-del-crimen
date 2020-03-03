@@ -177,16 +177,6 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
 
-  nextYear (){
-    this.query.start_date++;
-    this.query.end_date++;
-  }
-
-  previousYear (){
-    this.query.start_date--;
-    this.query.end_date--;
-  }
-
   filterCrimes(){
     console.log (`[${this.time1}]-[${this.time2}]`);
     let crimesAux: Array<Crimen> = [];
@@ -288,6 +278,8 @@ export class MapComponent implements OnInit {
 
   async reset (){
     this.requestOption = true;
+    this.query.start_date = 2019;
+    this.query.end_date = 2019;
     this.months.setValue(yearMounths);
     //Reiniciamos de nuevo los dias
     for (let i in this.daysSelecteds){
@@ -328,11 +320,6 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
 
-  /**
-   * Este metodo cuenta el total de crimenes de hay alrededor de la zona.
-   * 
-   * @retuns Almacena el numero de delitos
-   */
   countCrimes(){
     for(let crime of this.listCrimes){
       crime.num = 0;
@@ -344,5 +331,9 @@ export class MapComponent implements OnInit {
           classification.num++;
       }
     }
+  }
+
+  consola (event:any){
+    console.log (event);
   }
 }
