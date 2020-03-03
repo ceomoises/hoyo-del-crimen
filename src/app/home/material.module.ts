@@ -6,7 +6,8 @@ import {
   MatButtonModule,
   MatTableModule,
   MatCheckboxModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatIconModule
 } from '@angular/material';
 
 @NgModule({
@@ -17,7 +18,8 @@ import {
     MatButtonModule,
     MatTableModule,
     MatCheckboxModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatIconModule
   ],
   exports:[
     MatSlideToggleModule,
@@ -26,7 +28,8 @@ import {
     MatButtonModule,
     MatTableModule,
     MatCheckboxModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatIconModule
   ]
 })
 export class MaterialModule{}

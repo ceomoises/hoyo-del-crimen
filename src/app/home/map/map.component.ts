@@ -13,7 +13,9 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { MatTableDataSource} from '@angular/material/table';
 import { weekDays, yearMounths } from '../../models/dateStruct';
 import { listCrimes, classTransport, classPeaton } from '../../models/crimesList';
-
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+DomSanitizer
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -57,10 +59,18 @@ export class MapComponent implements OnInit {
   constructor(
     private _peticionesService: PeticionesService,
     private _locationService: LocationService,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
   ){
     this.myMarker = { color:'white', fontSize:'8px', fontWeight:'bold', text:':v' };
     this.myCrimes = { color:'white', fontSize:'8px', fontWeight:'bold', text:'x_x'};
+    for (let i = 0; i < CrimesList.length; i++) {
+      this.matIconRegistry.addSvgIcon(
+        CrimesList[i],
+        this.domSanitizer.bypassSecurityTrustResourceUrl(IconsMap[i])
+      );
+    }
 
     this.time1 = "00:00"; this.time2 = "23:59";
     this.numHour = 1;

@@ -110,8 +110,8 @@
   <div class="col-lg-6">
     <span *ngFor="let crim of listCrimes">
       <button [matBadge]="crim.num" matBadgePosition="before" matBadgeColor="accent">
-        <span class="iconCrime"></span>
-        {{crim.name}}
+        <span></span>
+        <mat-icon [svgIcon]=crim.name></mat-icon>
       </button>
     </span>
   </div>
