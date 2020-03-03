@@ -14,5 +14,9 @@
   "exclude": [
     "src/test.ts",
     "src/**/*.spec.ts"
-  ]
+  ],
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docFunction"
+  }
 }

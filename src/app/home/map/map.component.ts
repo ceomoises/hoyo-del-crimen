@@ -187,16 +187,6 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
 
-  nextYear (){
-    this.query.start_date++;
-    this.query.end_date++;
-  }
-
-  previousYear (){
-    this.query.start_date--;
-    this.query.end_date--;
-  }
-
   filterCrimes(){
     console.log (`[${this.time1}]-[${this.time2}]`);
     let crimesAux: Array<Crimen> = [];
@@ -298,6 +288,8 @@ export class MapComponent implements OnInit {
 
   async reset (){
     this.requestOption = true;
+    this.query.start_date = 2019;
+    this.query.end_date = 2019;
     this.months.setValue(yearMounths);
     //Reiniciamos de nuevo los dias
     for (let i in this.daysSelecteds){
@@ -349,5 +341,9 @@ export class MapComponent implements OnInit {
           classification.num++;
       }
     }
+  }
+
+  consola (event:any){
+    console.log (event);
   }
 }
