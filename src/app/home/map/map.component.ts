@@ -308,10 +308,13 @@ export class MapComponent implements OnInit {
         classification.show = true;
       }
     }else {
+      for (let classification of this.listCrimes){
+        classification.show = false;
+      }
       let values = (option==2) ? classTransport : classPeaton;
       for (let classification of this.listCrimes){
         for (let value of values){
-            classification.show = (value==classification.name) ? true : false;
+            classification.show = (value==classification.name) ? true : classification.show;
         }
       }
     }
