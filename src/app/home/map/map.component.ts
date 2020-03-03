@@ -17,7 +17,7 @@ import { listCrimes, classTransport, classPeaton } from '../../models/crimesList
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  styleUrls: ['./map.component.scss'],
   providers: [PeticionesService, LocationService]
 })
 
@@ -107,7 +107,6 @@ export class MapComponent implements OnInit {
       step: 1,
       noSwitching: true,
       showTicksValues: true,
-      showTicks: true,
       draggableRange: true
     };
 
@@ -160,12 +159,21 @@ export class MapComponent implements OnInit {
   }
 
   // Le sumamos a los tiempos 1 hora
-  nextHour(){
+  nextHour(sum:number){
     console.log("Horas Saltadas: "+this.numHour);
-    let time1 = moment(this.time2,'HH:mm');
-    let time2 = moment(this.time2,'HH:mm');
-    this.time2 = time2.add(60*this.numHour,'minutes').format('HH:mm');
-    this.time1 = (time2.minutes()==59)? time1.add(1,'minutes').format("HH:mm"):time1.format("HH:mm");
+    let time1,time2;
+    if(sum){
+      time1 = moment(this.time2,'HH:mm');
+      time2 = moment(this.time2,'HH:mm');
+      this.time2 = time2.add(60*this.numHour,'minutes').format('HH:mm');
+      this.time1 = time1.add(1,'minutes').format("HH:mm");
+    }else{
+      time1 = moment(this.time1,'HH:mm');
+      time2 = moment(this.time2,'HH:mm');
+      this.time2 = time2.subtract(60*this.numHour,'minutes').format("HH:mm");
+      time1 = moment(this.time2,'HH:mm');
+      this.time1 = time1.subtract(59*this.numHour,'minutes').format('HH:mm');
+    }
     this.filterCrimes();
   }
 
