@@ -152,7 +152,7 @@
           matBadgePosition="before" 
           matBadgeColor="accent"
           [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
-          (click)="crim.show = !crim.show"
+          (click)="crim.show = !crim.show; filterCrimes()"
           [ngClass]="{'iconCrime-disable': crim.show == false, 
                       'iconCrime': crim.show == true
           }"
