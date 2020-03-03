@@ -48,15 +48,14 @@
         <ng5-slider style="max-width: 380px;"
           [(value)]="query.start_date"
           [(highValue)]="query.end_date"
-          [options]="sliderOptions"
-          (click)="consola(query.start_date)">
+          [options]="sliderOptions">
         </ng5-slider>
       </div>
 
       <!-- COMPONENTE DE MESES CON mat-select -->
       <p>
         <b>Seleccionar Meses</b>
-        <button mat-icon-button>
+        <button mat-icon-button (click)="months.setValue (mounthsSelecteds.length == 12 ? [] : monthsList); mounthsSelecteds = mounthsSelecteds.length == 12 ? [] : monthsList; filterCrimes();">
           <mat-icon>event_available</mat-icon>
         </button>
       </p>
