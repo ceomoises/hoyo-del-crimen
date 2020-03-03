@@ -11,14 +11,15 @@
       <button mat-icon-button (click)="reset()">
         <mat-icon>my_location</mat-icon>
       </button>
+
       <ul>
         <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
       </ul>
-      <mat-slide-toggle labelPosition='before' [checked]="swap"
-      (input)="swap = $event.target.checked"><b>Editar Ubicación: </b></mat-slide-toggle>
 
-      <button mat-raised-button (click)="getRequest()" [disabled]="requestOption">
-      <mat-icon>edit_location</mat-icon>Actualizar</button>
+      <b>Seleccionar Ubicación</b>
+      <button mat-icon-button (click)="getRequest()" [disabled]="requestOption">
+        <mat-icon>sync</mat-icon>
+      </button>
 
       <br/>
       <!-- COMPONENTE DE LONGITUD matInput -->
@@ -81,7 +82,11 @@
       </table>
 
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
-      <strong>Seleccionar Horas:</strong><br/>
+      <strong>Seleccionar Horas</strong>
+        <button mat-icon-button aria-label="Example icon-button with a heart icon">
+          <mat-icon>update</mat-icon>
+        </button>
+      <br/>
       <span class="lead">Diferencia por </span>
       <mat-form-field appearance="standard" style="width:35px" class="mx-2">
         <mat-label>horas</mat-label>
@@ -94,10 +99,6 @@
       <button mat-raised-button (click)="nextHour(1)" class="mx-2">
         <mat-icon>navigate_next</mat-icon>
       </button>
-
-      <!-- <mat-icon>fast_forward</mat-icon> -->
-
-
       <br/>
 
       <!-- COMPONENTE INICIO DE HORAS CON matInput -->
