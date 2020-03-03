@@ -31,7 +31,7 @@
           [value]="longitude"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
-      <mat-form-field appearance="outline" color="accent" class="mx-md-3">
+      <mat-form-field appearance="outline" color="accent" class="mx-xl-3">
         <mat-label>Latitude:</mat-label>
         <input matInput placeholder="Ex. 19.3804"
           [formControl]="formLat"
@@ -50,7 +50,12 @@
       </div>
 
       <!-- COMPONENTE DE MESES CON mat-select -->
-      <p><b>Seleccionar Meses:</b></p>
+      <p>
+        <b>Seleccionar Meses</b>
+        <button mat-icon-button>
+          <mat-icon>event_available</mat-icon>
+        </button>
+      </p>
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Meses:</mat-label>
         <mat-select [formControl]="months" (selectionChange)="mounthsSelecteds = $event.value; filterCrimes()" multiple>
