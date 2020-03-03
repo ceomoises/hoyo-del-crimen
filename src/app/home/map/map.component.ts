@@ -320,6 +320,11 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
 
+  /**
+   * Este metodo cuenta el total de crimenes de hay alrededor de la zona.
+   * 
+   * @retuns Almacena el numero de delitos
+   */
   countCrimes(){
     for(let crime of this.listCrimes){
       crime.num = 0;
