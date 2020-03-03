@@ -131,8 +131,15 @@
     </div>
     <!--Aquí empieza el 2º LADO -->
     <div class="col-lg-8">
-      <span *ngFor="let crim of listCrimes">
-            <mat-icon class="iconCrime" [matBadge]="crim.num" matBadgePosition="before" matBadgeColor="accent" [svgIcon]=crim.name></mat-icon>
+      <span *ngFor="let crim of listCrimes; let i = index">
+          <mat-icon *ngIf="crim.num != 0" 
+          [matBadge]="crim.num" 
+          matBadgePosition="before" 
+          matBadgeColor="accent"
+          class="iconCrime"
+          [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
+          >
+          </mat-icon>
       </span>
       <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom" [disableDoubleClickZoom]="true"
         [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
