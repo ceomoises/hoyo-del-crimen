@@ -215,10 +215,10 @@ export class MapComponent implements OnInit {
       }else{
         console.log ("CrimeZone: Location outside");
       }
-      this.requestOption = false;
     } catch (error) {
       console.log(error);
     }
+    this.requestOption = false;
   }
 
   validateCrimeDate(date:string):boolean{
@@ -249,29 +249,6 @@ export class MapComponent implements OnInit {
       }
     }
     return false;
-  }
-
-  async validateInputCoordinates(lat, long){
-    this.infoWindowOpened = null
-    this.previous_info_window = null
-    this.requestOption = true;
-    try {
-      const state = await this._locationService.getState(lat,long);
-      console.log(state);
-      if(state==="Ciudad de México"){
-        this.longitude = long;
-        this.latitude = lat;
-        this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
-        this.crimesShown = this.crimes;
-        this.countCrimes ();
-        console.log (this.crimes);
-      }else{
-        console.log('Ingreso una coordenada no valida');
-      }
-      this.requestOption = false;
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   async reset (){

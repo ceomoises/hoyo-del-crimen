@@ -28,7 +28,8 @@
         <input matInput placeholder="Ex. -99.0888"
           [formControl]="formLong"
           [disableControl]="requestOption"
-          [value]="longitude"/>
+          [value]="longitude"
+          (blur)="longitude = +$event.target.value"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
       <mat-form-field appearance="outline" color="accent">
@@ -36,7 +37,8 @@
         <input matInput placeholder="Ex. 19.3804"
           [formControl]="formLat"
           [disableControl]="requestOption"
-          [value]="latitude"/>
+          [value]="latitude"
+          (blur)="latitude = +$event.target.value"/>
       </mat-form-field>
       <p>
         <b>Seleccionar Años</b>
