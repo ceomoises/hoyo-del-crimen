@@ -28,7 +28,8 @@
         <input matInput placeholder="Ex. -99.0888"
           [formControl]="formLong"
           [disableControl]="requestOption"
-          [value]="longitude"/>
+          [value]="longitude"
+          (blur)="longitude = +$event.target.value"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
       <mat-form-field appearance="outline" color="accent">
@@ -36,7 +37,8 @@
         <input matInput placeholder="Ex. 19.3804"
           [formControl]="formLat"
           [disableControl]="requestOption"
-          [value]="latitude"/>
+          [value]="latitude"
+          (blur)="latitude = +$event.target.value"/>
       </mat-form-field>
       <p>
         <b>Seleccionar Años</b>
@@ -78,7 +80,7 @@
       <!-- TABLA QUE CONTIENE LOS DIAS -->
       <p>
         <b>Seleccionar Días</b>
-        <button mat-icon-button aria-label="Example icon-button with a heart icon">
+        <button mat-icon-button (click)="selectDays()" aria-label="Example icon-button with a heart icon">
           <mat-icon>check_circle_outline</mat-icon>
         </button>
       </p>
@@ -150,7 +152,7 @@
           matBadgePosition="before"
           matBadgeColor="accent"
           [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
-          (click)="crim.show = !crim.show"
+          (click)="crim.show = !crim.show; filterCrimes()"
           [ngClass]="{'iconCrime-disable': crim.show == false,
                       'iconCrime': crim.show == true
           }"
