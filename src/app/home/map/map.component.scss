@@ -36,6 +36,15 @@
   .custom-slider .ng5-slider.animate .ng5-slider-bubble{
     left: 0 !important;
   }
+  .mat-badge-medium .mat-badge-content {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 9px;
+  }
+  .mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -8px;
+  }
 }
 agm-map {
     height: 500px;
@@ -48,9 +57,9 @@ button:focus{
   outline: none;
 }
 .iconCrime{
-  height: 52px;
-  width: 40px;
-  margin: 10px;
+  height: 42px;
+  width: 30px;
+  margin: 0px 6px 0px 6px;
   background-size: contain;
   cursor: pointer
 }
