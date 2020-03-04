@@ -39,7 +39,7 @@ export class MapComponent implements OnInit {
   public CrimesList:Array<string>;
   public IconsMap:Array<string>;
   public mounthsSelecteds:Array<any>;
-  public requestOption:boolean;//Cambiar el nombre por waitRequest
+  public requestOption:boolean;//Cambiar el nombre por waitingRequest
   public swap:boolean;
   public daysSelecteds: any;
   public months:any;
@@ -309,6 +309,19 @@ export class MapComponent implements OnInit {
           classification.num++;
       }
     }
+  }
+
+  selectDays (){
+    let countDaysSelecteds = 0;
+    for (let day of this.daysSelecteds){
+      if (day.value)
+        countDaysSelecteds++;
+    }
+
+    for (let day of this.daysSelecteds){
+      day.value = (this.daysSelecteds.length==countDaysSelecteds) ? false : true;
+    }
+    this.filterCrimes ();
   }
 
   consola (event:any){
