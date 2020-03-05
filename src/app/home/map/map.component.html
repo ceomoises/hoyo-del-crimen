@@ -17,7 +17,7 @@
       </ul>
 
       <b>Actualizar Ubicación</b>
-      <button mat-icon-button (click)="getRequest()" [disabled]="requestOption">
+      <button mat-icon-button (click)="getRequest(formLat.value, formLong.value)" [disabled]="requestOption">
         <mat-icon>sync</mat-icon>
       </button>
 
@@ -29,7 +29,7 @@
           [formControl]="formLong"
           [disableControl]="requestOption"
           [value]="longitude"
-          (blur)="longitude = +$event.target.value"/>
+          (blur)="formLong.value = +$event.target.value"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
       <mat-form-field appearance="outline" color="accent">
@@ -38,7 +38,7 @@
           [formControl]="formLat"
           [disableControl]="requestOption"
           [value]="latitude"
-          (blur)="latitude = +$event.target.value"/>
+          (blur)="formLat.value = +$event.target.value"/>
       </mat-form-field>
       <p>
         <b>Seleccionar Años</b>
