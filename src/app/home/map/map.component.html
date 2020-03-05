@@ -47,7 +47,7 @@
         </button>
       </p>
       <div class="custom-slider ml-3">
-        <ng5-slider style="max-width: 380px;"
+        <ng5-slider style="max-width: 320px;"
           [(value)]="query.start_date"
           [(highValue)]="query.end_date"
           [options]="sliderOptions">
@@ -84,7 +84,7 @@
           <mat-icon>check_circle_outline</mat-icon>
         </button>
       </p>
-      <table class="table" style="max-width: 400px;">
+      <table class="table" style="max-width: 350px;">
         <tr>
           <th *ngFor="let daySelected of daysSelecteds">
             {{ daySelected.day | slice:0:1 }}
@@ -147,13 +147,13 @@
     <!--Aquí empieza el 2º LADO -->
     <div class="col-lg-8">
       <span *ngFor="let crim of listCrimes; let i = index" >
-          <mat-icon *ngIf="crim.num != 0" 
-          [matBadge]="crim.num" 
-          matBadgePosition="before" 
+          <mat-icon *ngIf="crim.num != 0"
+          [matBadge]="crim.num"
+          matBadgePosition="before"
           matBadgeColor="accent"
           [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
           (click)="crim.show = !crim.show; filterCrimes()"
-          [ngClass]="{'iconCrime-disable': crim.show == false, 
+          [ngClass]="{'iconCrime-disable': crim.show == false,
                       'iconCrime': crim.show == true
           }"
           >
