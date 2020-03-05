@@ -176,6 +176,8 @@ export class MapComponent implements OnInit {
   }
 
   filterCrimes(){
+    this.infoWindowOpened = null
+    this.previous_info_window = null
     console.log (`[${this.time1}]-[${this.time2}]`);
     let crimesAux: Array<Crimen> = [];
     // Convertimos el tiempo 1 y 2 en horas
