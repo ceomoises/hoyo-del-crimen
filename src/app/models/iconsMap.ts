@@ -6,7 +6,7 @@ export const IconsMap: Array<string> = [
     "http://localhost:4200/assets/img/taxi.svg",//TP-T
     "http://localhost:4200/assets/img/house.svg",//NA
     "http://localhost:4200/assets/img/account.svg",//ST
-    "http://localhost:4200/assets/img/store.svg",//NA
+    "http://localhost:4200/assets/img/store_d.svg",//NA
     "http://localhost:4200/assets/img/deliver.svg",//Pendiente
     "http://localhost:4200/assets/img/deliver_d.svg",//Pendiente
     "http://localhost:4200/assets/img/crime.svg",//ST
@@ -17,5 +17,7 @@ export const IconsMap: Array<string> = [
     "http://localhost:4200/assets/img/rape.svg",//NA
     "http://localhost:4200/assets/img/gun.svg",//
     "http://localhost:4200/assets/img/death.svg",
+    "http://localhost:4200/assets/img/transport.svg",
+    "http://localhost:4200/assets/img/transport_d.svg"
 ]
 

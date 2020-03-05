@@ -81,7 +81,7 @@ export class MapComponent implements OnInit {
     this.mounthsSelecteds = yearMounths;
 
     this.crimesShown = [];
-    this.distance = 250;
+    this.distance = 500;
     this.zoom = 17;
 
     this.longitude = 0;
