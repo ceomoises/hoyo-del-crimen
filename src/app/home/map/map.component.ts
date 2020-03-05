@@ -201,12 +201,14 @@ export class MapComponent implements OnInit {
   }
 
 
-  async getRequest(){
+  async getRequest(lat?, long?){
     this.infoWindowOpened = null
     this.previous_info_window = null
     this.requestOption = true;
     try {
-      const state = await this._locationService.getState(this.latitude,this.longitude);
+      this.latitude = (lat==null) ? this.latitude: lat;
+      this.longitude = (long==null) ? this.longitude: long;
+      const state = await this._locationService.getState( this.latitude, this.longitude);
       if(state==="Ciudad de México"){
         this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
         this.crimesShown = this.crimes;
@@ -325,6 +327,7 @@ export class MapComponent implements OnInit {
   }
 
   consola (event:any){
-    console.log (event);
+    console.log (this.formLat.value);
+    console.log (this.formLong.value);
   }
 }

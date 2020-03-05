@@ -17,7 +17,7 @@
       </ul>
 
       <b>Actualizar Ubicación</b>
-      <button mat-icon-button (click)="getRequest()" [disabled]="requestOption">
+      <button mat-icon-button (click)="getRequest(formLat.value, formLong.value)" [disabled]="requestOption">
         <mat-icon>sync</mat-icon>
       </button>
 
@@ -29,7 +29,7 @@
           [formControl]="formLong"
           [disableControl]="requestOption"
           [value]="longitude"
-          (blur)="longitude = +$event.target.value"/>
+          (blur)="formLong.value = +$event.target.value"/>
       </mat-form-field>
       <!-- COMPONENTE DE LATITUD matInput -->
       <mat-form-field appearance="outline" color="accent">
@@ -38,7 +38,7 @@
           [formControl]="formLat"
           [disableControl]="requestOption"
           [value]="latitude"
-          (blur)="latitude = +$event.target.value"/>
+          (blur)="formLat.value = +$event.target.value"/>
       </mat-form-field>
       <p>
         <b>Seleccionar Años</b>
@@ -47,7 +47,7 @@
         </button>
       </p>
       <div class="custom-slider ml-3">
-        <ng5-slider style="max-width: 380px;"
+        <ng5-slider style="max-width: 320px;"
           [(value)]="query.start_date"
           [(highValue)]="query.end_date"
           [options]="sliderOptions">
@@ -84,7 +84,7 @@
           <mat-icon>check_circle_outline</mat-icon>
         </button>
       </p>
-      <table class="table" style="max-width: 400px;">
+      <table class="table" style="max-width: 350px;">
         <tr>
           <th *ngFor="let daySelected of daysSelecteds">
             {{ daySelected.day | slice:0:1 }}
@@ -102,29 +102,28 @@
           <mat-icon>update</mat-icon>
         </button>
       <br/>
-      <span>Diferencia por </span>
-      <mat-form-field appearance="standard" color="accent" style="width:35px" class="mx-2">
-        <mat-label>horas</mat-label>
-        <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" matInput/>
-      </mat-form-field>
-
-      <button mat-raised-button (click)="nextHour(0)">
+      <span class="lead mr-2">Diferencia por </span>
+      <button mat-raised-button (click)="nextHour(0)" class="buton-arrow">
         <mat-icon>navigate_before</mat-icon>
       </button>
-      <button mat-raised-button (click)="nextHour(1)" class="mx-2">
+      <mat-form-field appearance="standard" color="accent" style="width:32px" class="mx-2">
+        <mat-label>horas</mat-label>
+        <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" class="text-right" matInput/>
+      </mat-form-field>
+      <button mat-raised-button (click)="nextHour(1)" class="buton-arrow">
         <mat-icon>navigate_next</mat-icon>
       </button>
       <br/>
 
       <!-- COMPONENTE INICIO DE HORAS CON matInput -->
       <span class="lead">Inicio</span>
-      <mat-form-field appearance="outline" color="accent" style="width:100px" class="mx-2">
+      <mat-form-field appearance="outline" color="accent" style="width:95px" class="mx-2">
         <mat-label>hora:min</mat-label>
         <input type="time" [value]="time1" (input)="time1=$event.target.value" matInput/>
       </mat-form-field>
       <span class="lead">Fin</span>
       <!-- COMPONENTE FIN DE HORAS CON matInput -->
-      <mat-form-field appearance="outline" color="accent" style="width:100px" class="mx-2">
+      <mat-form-field appearance="outline" color="accent" style="width:95px" class="mx-2">
         <mat-label>hora:min</mat-label>
         <input type="time" [value]="time2" (input)="time2=$event.target.value" matInput/>
       </mat-form-field>
@@ -146,19 +145,21 @@
     </div>
     <!--Aquí empieza el 2º LADO -->
     <div class="col-lg-8">
-      <span *ngFor="let crim of listCrimes; let i = index" >
-          <mat-icon *ngIf="crim.num != 0" 
-          [matBadge]="crim.num" 
-          matBadgePosition="before" 
-          matBadgeColor="accent"
-          [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
-          (click)="crim.show = !crim.show; filterCrimes()"
-          [ngClass]="{'iconCrime-disable': crim.show == false, 
-                      'iconCrime': crim.show == true
-          }"
-          >
-          </mat-icon>
-      </span>
+      <div class="icons-container">
+        <span *ngFor="let crim of listCrimes; let i = index" >
+            <mat-icon *ngIf="crim.num != 0"
+            [matBadge]="crim.num"
+            matBadgePosition="before"
+            matBadgeColor="accent"
+            [ngStyle]="{background: 'url(' +IconsMap[i]+ ') no-repeat top left'}"
+            (click)="crim.show = !crim.show; filterCrimes()"
+            [ngClass]="{'iconCrime-disable': crim.show == false,
+                        'iconCrime': crim.show == true
+            }"
+            >
+            </mat-icon>
+        </span>
+      </div>
       <agm-map *ngIf="latitude!=null || longitude!=null" [zoom]="zoom" [disableDoubleClickZoom]="true"
         [latitude]="latitude" [longitude]="longitude" (mapClick)="close_window($event)" (mapDblClick) ="current_location($event)" [mapTypeControl]='true' [fullscreenControl]='true'>
           <agm-marker
