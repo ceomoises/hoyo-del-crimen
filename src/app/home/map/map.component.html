@@ -14,12 +14,12 @@
         <mat-icon>my_location</mat-icon>
       </button>
 
-      <ul>
+      <ul class="lista">
         <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
-        <li style="position:absolute;">
-            Tu ubicación tiene un radio de
-            <span (click)="changeEdit(1)" [ngStyle]="{'opacity': !this.editable ? '1' : '0' }"> {{distance}}m</span>
-            <input #name type="number" [(ngModel)]="distance" (blur)="changeEdit(0)" [readonly]="!editable" [ngStyle]="{'opacity': this.editable ? '1' : '0' }" class="selectable">
+        <li>
+          <span>Tu ubicación tiene un radio de </span>
+          <span *ngIf="!editable" (click)="changeEdit()">{{distance}}</span>
+          <input #name [ngClass]="{'selectable':editable,'notselectable': !editable }" [(ngModel)]="distance" (blur)="editDist()" type="number">
         </li>
       </ul>
 

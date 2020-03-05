@@ -77,19 +77,18 @@ button:focus{
 .icons-container{
   min-height: 49px;
 }
+.lista{
+  margin-bottom: 0;
+}
 .selectable{
-  position: absolute;
-  right: -7px;
-  top: -2px;
   width: 50px;
   margin: 0;
   padding: 0;
   outline: none;
-  pointer-events:none;
-}
-.visible{
   opacity: 1;
 }
-.notvisible{
-  opacity: 0;
+.notselectable{
+  width:0;
+  opacity:0;
+  pointer-events:none;
 }

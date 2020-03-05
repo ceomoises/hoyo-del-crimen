@@ -51,7 +51,8 @@ export class MapComponent implements OnInit {
   public listCrimes: Array <any>;
   public sliderOptions:any;
   public editable:boolean;
-  public dist:number;
+  public dist:string;
+  public focus:string;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -83,7 +84,7 @@ export class MapComponent implements OnInit {
 
     this.requestOption = true;
     this.editable = false;
-    this.dist = this.distance;
+    this.dist = ""+this.distance;
 
     this.months = new FormControl();
     this.monthsList = yearMounths;
@@ -325,9 +326,16 @@ export class MapComponent implements OnInit {
     console.log (this.formLong.value);
   }
 
-  @ViewChild("name",{static: true}) nameField: ElementRef;
-  changeEdit(focus):void{
+  @ViewChild("name",{static: false}) nameField: ElementRef;
+  changeEdit():void{
     this.editable = !this.editable;
-    (focus)?this.nameField.nativeElement.focus():"";
+    this.nameField.nativeElement.focus();
   }
+  editDist(){
+    console.log("editando distancia");
+    this.editable = !this.editable;
+  }
+
+
+
 }
