@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PeticionesService } from '../../services/peticiones.service';
 import { LocationService } from '../../services/location.service';
 import { Crimen } from 'src/app/models/crimen';
@@ -50,6 +50,8 @@ export class MapComponent implements OnInit {
   public numHour: number;
   public listCrimes: Array <any>;
   public sliderOptions:any;
+  public editable:boolean;
+  public dist:number;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -80,6 +82,8 @@ export class MapComponent implements OnInit {
     this.formLong = new FormControl();
 
     this.requestOption = true;
+    this.editable = false;
+    this.dist = this.distance;
 
     this.months = new FormControl();
     this.monthsList = yearMounths;
@@ -319,5 +323,11 @@ export class MapComponent implements OnInit {
   consola (event:any){
     console.log (this.formLat.value);
     console.log (this.formLong.value);
+  }
+
+  @ViewChild("name",{static: true}) nameField: ElementRef;
+  changeEdit(focus):void{
+    this.editable = !this.editable;
+    (focus)?this.nameField.nativeElement.focus():"";
   }
 }

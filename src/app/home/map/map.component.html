@@ -7,6 +7,8 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-4 overflow-auto" style="height:650px">
+
+
       <strong>Obtener Ubicación:</strong>
       <button mat-icon-button (click)="reset()">
         <mat-icon>my_location</mat-icon>
@@ -14,6 +16,11 @@
 
       <ul>
         <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
+        <li style="position:absolute;">
+            Tu ubicación tiene un radio de
+            <span (click)="changeEdit(1)" [ngStyle]="{'opacity': !this.editable ? '1' : '0' }"> {{distance}}m</span>
+            <input #name type="number" [(ngModel)]="distance" (blur)="changeEdit(0)" [readonly]="!editable" [ngStyle]="{'opacity': this.editable ? '1' : '0' }" class="selectable">
+        </li>
       </ul>
 
       <b>Actualizar Ubicación</b>
