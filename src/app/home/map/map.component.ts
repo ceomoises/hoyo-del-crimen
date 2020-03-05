@@ -140,8 +140,6 @@ export class MapComponent implements OnInit {
       this.latitude = position.lat;
       this.longitude = position.long;
       this.accuracy = position.accy;
-      this.formLat.value = this.latitude;
-      this.formLong.value = this.longitude;
       const state = await this._locationService.getState(this.latitude,this.longitude);
       console.log(state);
       if(state==="Ciudad de México"){
