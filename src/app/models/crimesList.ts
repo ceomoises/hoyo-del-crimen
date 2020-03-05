@@ -16,7 +16,9 @@ export const CrimesList:Array<string> = [
     "SECUESTRO",
     "VIOLACION",
     "LESIONES POR ARMA DE FUEGO",
-    "HOMICIDIO DOLOSO"
+    "HOMICIDIO DOLOSO",
+    "ROBO A TRANSPORTISTA C.V.",
+    "ROBO A TRANSPORTISTA S.V."
 ]
 
 export const classTransport = [
@@ -52,5 +54,7 @@ export let listCrimes: Array <any> = [
     {name: "SECUESTRO" , num: 0, show: true},
     {name: "VIOLACION" , num: 0, show: true},
     {name: "LESIONES POR ARMA DE FUEGO" , num: 0, show: true},
-    {name: "HOMICIDIO DOLOSO" , num: 0, show: true}
+    {name: "HOMICIDIO DOLOSO" , num: 0, show: true},
+    {name: "ROBO A TRANSPORTISTA C.V." , num: 0, show: true},
+    {name: "ROBO A TRANSPORTISTA S.V." , num: 0, show: true},
 ]
