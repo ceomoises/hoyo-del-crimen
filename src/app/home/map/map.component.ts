@@ -327,15 +327,9 @@ export class MapComponent implements OnInit {
   }
 
   @ViewChild("name",{static: false}) nameField: ElementRef;
-  changeEdit():void{
+  changeEdit(focus):void{
     this.editable = !this.editable;
-    this.nameField.nativeElement.focus();
+    (focus)?this.nameField.nativeElement.focus():"";
   }
-  editDist(){
-    console.log("editando distancia");
-    this.editable = !this.editable;
-  }
-
-
 
 }
