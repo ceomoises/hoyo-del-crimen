@@ -170,7 +170,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;&quot;Detector de Zonas Peligrosas&quot;&#x27;</code>
+                            <i>Default value : </i><code>&#x27;Detector de Zonas Peligrosas&#x27;</code>
                         </td>
                     </tr>
                         <tr>
@@ -196,7 +196,7 @@
   styleUrls: [&#x27;./app.component.css&#x27;]
 })
 export class AppComponent {
-  title &#x3D; &#x27;&quot;Detector de Zonas Peligrosas&quot;&#x27;;
+  title &#x3D; &#x27;Detector de Zonas Peligrosas&#x27;;
 }
 </code></pre>
     </div>
@@ -207,14 +207,20 @@ export class AppComponent {
 &lt;!DOCTYPE html&gt;
 &lt;html lang&#x3D;&quot;en&quot;&gt;
 &lt;head&gt;
-    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
-    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;
-    &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;ie&#x3D;edge&quot;&gt;
-    &lt;title&gt;Document&lt;/title&gt;
+  &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+  &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;
+  &lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;ie&#x3D;edge&quot;&gt;
+  &lt;title&gt;Document&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-    &lt;h1&gt;Bienvenido al {{title}}&lt;/h1&gt;
-    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+  &lt;div class&#x3D;&quot;container&quot;&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col&quot;&gt;
+        &lt;h1 class&#x3D;&quot;text-center py-3&quot;&gt;{{title}}&lt;/h1&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;router-outlet&gt;&lt;/router-outlet&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
@@ -252,9 +258,9 @@ export class AppComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta http-equiv="X-UA-Compatible" content="ie=edge">    <title>Document</title></head><body>    <h1>Bienvenido al {{title}}</h1>    <router-outlet></router-outlet></body></html></div>'
+        var COMPONENT_TEMPLATE = '<div><!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <meta http-equiv="X-UA-Compatible" content="ie=edge">  <title>Document</title></head><body>  <div class="container">    <div class="row">      <div class="col">        <h1 class="text-center py-3">{{title}}</h1>      </div>    </div>  </div>  <router-outlet></router-outlet></body></html></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'NoPageComponent', 'selector': 'app-no-page'}];
-    var DIRECTIVES = [];
+    var DIRECTIVES = [{'name': 'DisableControlDirective', 'selector': '[disableControl]'}];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>
 <script src="../js/tree.js"></script>

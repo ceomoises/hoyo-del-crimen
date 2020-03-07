@@ -167,7 +167,13 @@ export class MapComponent implements OnInit {
     }
     this.filterCrimes();
   }
-
+   /**
+   *Filtra los crimenes.
+   *
+   * @remarks
+   * This is our math utilities lib for shared projects.
+   *
+   */
   filterCrimes(){
     this.infoWindowOpened = null
     this.previous_info_window = null

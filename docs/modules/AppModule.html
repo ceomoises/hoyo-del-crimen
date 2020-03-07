@@ -239,7 +239,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BrowserModule } from &#x27;@angular/platform-browser&#x27;;
 import { NgModule } from &#x27;@angular/core&#x27;;
-import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
 import { RouterModule } from &#x27;@angular/router&#x27;;
 import { routes } from &#x27;./app.router&#x27;;
 
@@ -251,6 +251,7 @@ import { HomeComponent } from &#x27;./home/home.component&#x27;;
 import { HttpClientModule, HttpClientJsonpModule } from &#x27;@angular/common/http&#x27;;
 import { NoPageComponent } from &#x27;./no-page/no-page.component&#x27;;
 import { HomeModule } from &#x27;./home/home.module&#x27;;
+import { BrowserAnimationsModule } from &#x27;@angular/platform-browser/animations&#x27;;
 
 @NgModule({
   declarations: [
@@ -265,7 +266,9 @@ import { HomeModule } from &#x27;./home/home.module&#x27;;
     AppRoutingModule,
     HttpClientModule, // Modulos importantes de Http
     HttpClientJsonpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
