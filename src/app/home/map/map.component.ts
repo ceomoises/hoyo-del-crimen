@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PeticionesService } from '../../services/peticiones.service';
 import { LocationService } from '../../services/location.service';
 import { Crimen } from 'src/app/models/crimen';
@@ -50,6 +50,9 @@ export class MapComponent implements OnInit {
   public numHour: number;
   public listCrimes: Array <any>;
   public sliderOptions:any;
+  public editable:boolean;
+  public dist:string;
+  public focus:string;
 
   constructor(
     private _peticionesService: PeticionesService,
@@ -80,6 +83,8 @@ export class MapComponent implements OnInit {
     this.formLong = new FormControl();
 
     this.requestOption = true;
+    this.editable = false;
+    this.dist = ""+this.distance;
 
     this.months = new FormControl();
     this.monthsList = yearMounths;
@@ -162,8 +167,16 @@ export class MapComponent implements OnInit {
     }
     this.filterCrimes();
   }
-
+   /**
+   *Filtra los crimenes.
+   *
+   * @remarks
+   * This is our math utilities lib for shared projects.
+   *
+   */
   filterCrimes(){
+    this.infoWindowOpened = null
+    this.previous_info_window = null
     console.log (`[${this.time1}]-[${this.time2}]`);
     let crimesAux: Array<Crimen> = [];
     // Convertimos el tiempo 1 y 2 en horas
@@ -319,4 +332,11 @@ export class MapComponent implements OnInit {
     console.log (this.formLat.value);
     console.log (this.formLong.value);
   }
+
+  @ViewChild("name",{static: false}) nameField: ElementRef;
+  changeEdit(focus):void{
+    this.editable = !this.editable;
+    (focus)?this.nameField.nativeElement.focus():"";
+  }
+
 }

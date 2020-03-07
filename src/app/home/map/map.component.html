@@ -7,13 +7,21 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-4 overflow-auto" style="height:650px">
+
+
       <strong>Obtener Ubicación:</strong>
       <button mat-icon-button (click)="reset()">
         <mat-icon>my_location</mat-icon>
       </button>
 
-      <ul>
+      <ul class="lista">
         <li>Tu ubicación puede tener un error de {{accuracy}}m</li>
+        <li>
+          <span>Tu ubicación tiene un radio de </span>
+          <span *ngIf="!editable" (click)="changeEdit(1)">{{distance}}</span>
+          <input #name [(ngModel)]="distance" [ngClass]="{'selectable':editable,'notselectable': !editable }" (blur)="changeEdit(0)" type="number">
+          <span>m</span>
+        </li>
       </ul>
 
       <b>Actualizar Ubicación</b>
@@ -98,7 +106,7 @@
 
       <!-- COMPONENTE DE LAS 24 HORAS CON matInput -->
       <strong>Seleccionar Horas</strong>
-        <button mat-icon-button (click)="filterCrimes()" aria-label="Example icon-button with a heart icon">
+        <button mat-icon-button (click)="filterCrimes()">
           <mat-icon>update</mat-icon>
         </button>
       <br/>
@@ -108,7 +116,7 @@
       </button>
       <mat-form-field appearance="standard" color="accent" style="width:32px" class="mx-2">
         <mat-label>horas</mat-label>
-        <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" class="text-right" matInput/>
+        <input type="number" [value]="numHour" (input)="numHour = $event.target.value" min="1" max="24" class="text-center" matInput/>
       </mat-form-field>
       <button mat-raised-button (click)="nextHour(1)" class="buton-arrow">
         <mat-icon>navigate_next</mat-icon>
