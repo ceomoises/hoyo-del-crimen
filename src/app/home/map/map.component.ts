@@ -167,7 +167,13 @@ export class MapComponent implements OnInit {
     }
     this.filterCrimes();
   }
-
+   /**
+   *Filtra los crimenes tomando en cuenta la fecha.
+   *
+   * @remarks
+   * This is our math utilities lib for shared projects.
+   *
+   */
   filterCrimes(){
     this.infoWindowOpened = null
     this.previous_info_window = null
@@ -203,6 +209,7 @@ export class MapComponent implements OnInit {
     try {
       this.latitude = (lat==null) ? this.latitude: lat;
       this.longitude = (long==null) ? this.longitude: long;
+      this.accuracy = 0;
       const state = await this._locationService.getState( this.latitude, this.longitude);
       if(state==="Ciudad de México"){
         this.crimes = await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);

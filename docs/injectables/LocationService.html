@@ -144,15 +144,15 @@
                                         <tbody>
                                                 <tr>
                                                         <td>_http</td>
-                                                  
+
                                                         <td>
                                                                         <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
                                                         </td>
-                                                  
+
                                                     <td>
                                                             No
                                                     </td>
-                                                    
+
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -164,7 +164,7 @@
 </section>
 
             <section>
-    
+
     <h3 id="methods">
         Methods
     </h3>
@@ -192,16 +192,14 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">src/app/services/location.service.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/app/services/location.service.ts:18</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Regresa una promesa de tu geolalicación</p>
-</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -210,7 +208,6 @@
                                 <tr>
                                     <td>Name</td>
                                     <td>Optional</td>
-                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,10 +219,6 @@
                                     </td>
 
 
-                                    <td>
-                                        <p>las opciones de getCurrentPosition</p>
-
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -237,7 +230,6 @@
 
                     </div>
                     <div class="io-description">
-                        <p>tu geolocalización actual</p>
 
                     </div>
                 </td>
@@ -268,8 +260,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">src/app/services/location.service.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/services/location.service.ts:27</a></div>
                 </td>
             </tr>
 
@@ -306,7 +298,7 @@
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -336,8 +328,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">src/app/services/location.service.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="41"
+                            class="link-to-prism">src/app/services/location.service.ts:41</a></div>
                 </td>
             </tr>
 
@@ -386,11 +378,35 @@
                     <div>
                     </div>
                     <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
                         <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
 
                     </div>
                     <div class="io-description">
-                        
+
                     </div>
                 </td>
             </tr>
@@ -398,7 +414,7 @@
     </table>
 </section>
             <section>
-    
+
         <h3 id="inputs">
             Properties
         </h3>
@@ -452,13 +468,7 @@ export class LocationService {
     this.urlNominatim &#x3D; &quot;https://nominatim.openstreetmap.org/reverse?format&#x3D;jsonv2&quot;;
   }
 
-  /**
-  * Regresa una promesa de tu geolalicación
-  *
-  * @param options las opciones de getCurrentPosition
-  * @returns tu geolocalización actual
-  *
-  */
+  //Convierte getCurrentPosition a una Promesa
   private getCurrentPosition(options?):Promise&lt;any&gt;{
     return new Promise((resolve,reject)&#x3D;&gt;{
       window.navigator.geolocation.getCurrentPosition(
@@ -503,7 +513,7 @@ export class LocationService {
 
 
 
-                   
+
 
 
 
