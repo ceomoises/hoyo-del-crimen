@@ -16,8 +16,16 @@ export class PeticionesService {
     this.url = "https://hoyodecrimen.com/api/v1";
   }
 
-  // Regresa un arreglo de crimenes por fecha { start_date:"2019-01", end_date:"2019-12" }
-  async getCrimes(long:number,lat:number,dist:number,date?):Promise<any>{
+  /**
+  * Regresa un arreglo de crimenes por coordenada y fecha
+  *
+  * @param long La coordenada de longitud
+  * @param lat La coordenada de latitud
+  * @param date El objeto fecha `start_date`:"2019-01", `end_date`:"2019-12"
+  * @returns Un arreglo de crimenes
+  *
+  */
+  async getCrimes(long:number,lat:number,dist:number,date?):Promise<Crimen[]>{
     try {
       const params = (date!=null)?`?start_date=${date.start_date}-01&end_date=${date.end_date}-12`:``;
       const crimesUrl = `${this.url}/latlong/crimes/all/coords/${long}/${lat}/distance/${dist}${params}`;

@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LocationService {
   private urlNominatim:string;
 
@@ -17,8 +18,8 @@ export class LocationService {
   /**
   * Regresa una promesa de tu geolalicación
   *
-  * @param options las opciones de getCurrentPosition
-  * @returns tu geolocalización actual
+  * @param options Las opciones de getCurrentPosition
+  * @returns Tu geolocalización actual
   *
   */
   private getCurrentPosition(options?):Promise<any>{
@@ -29,7 +30,14 @@ export class LocationService {
         options);
     })
   }
-  // Obtiene tus coordenadas actuales
+
+  /**
+  * Regresa un objeto con tus cordenadas geograficas
+  *
+  * @param options Las opciones de getCurrentPosition
+  * @returns Las coordenadas de `lat`, `long` y la presición `accy`
+  *
+  */
   async getPosition(options?):Promise<any>{
     try{
       const res = await this.getCurrentPosition(options);
@@ -43,8 +51,15 @@ export class LocationService {
     }
   }
 
-  // Obtiene el estado de una ciudad segun sus coordenadas
-  async getState(lat:number, long:number):Promise<any>{
+  /**
+  * Regresa un string con el estado de una ciudad segun sus coordenadas
+  *
+  * @param lat La coordenada de latitud
+  * @param long La coordenada de longitud
+  * @returns El estado de las coordenadas `lat` y `long`
+  *
+  */
+  async getState(lat:number, long:number):Promise<string>{
     try{
       const url = `${this.urlNominatim}&lat=${lat}&lon=${long}`;
       let res = await this._http.get(url).toPromise();

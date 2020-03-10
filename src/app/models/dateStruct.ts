@@ -9,16 +9,6 @@ export const weekDays:Array<any> = [
 ];
 
 export const yearMounths:Array<string> = [
-    "Enero", 
-    "Febrero", 
-    "Marzo", 
-    "Abril", 
-    "Mayo", 
-    "Junio", 
-    "Julio", 
-    "Agosto", 
-    "Septiembre", 
-    "Octubre", 
-    "Noviembre", 
-    "Diciembre",
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
 ];
