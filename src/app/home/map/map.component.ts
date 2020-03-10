@@ -168,7 +168,7 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
    /**
-   *Filtra los crimenes.
+   *Filtra los crimenes tomando en cuenta la fecha.
    *
    * @remarks
    * This is our math utilities lib for shared projects.

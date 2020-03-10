@@ -444,8 +444,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="336"
-                            class="link-to-prism">src/app/home/map/map.component.ts:336</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="337"
+                            class="link-to-prism">src/app/home/map/map.component.ts:337</a></div>
                 </td>
             </tr>
 
@@ -510,8 +510,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="285"
-                            class="link-to-prism">src/app/home/map/map.component.ts:285</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="286"
+                            class="link-to-prism">src/app/home/map/map.component.ts:286</a></div>
                 </td>
             </tr>
 
@@ -619,8 +619,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="330"
-                            class="link-to-prism">src/app/home/map/map.component.ts:330</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="331"
+                            class="link-to-prism">src/app/home/map/map.component.ts:331</a></div>
                 </td>
             </tr>
 
@@ -689,8 +689,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="304"
-                            class="link-to-prism">src/app/home/map/map.component.ts:304</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="305"
+                            class="link-to-prism">src/app/home/map/map.component.ts:305</a></div>
                 </td>
             </tr>
 
@@ -802,7 +802,7 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Filtra los crimenes.</p>
+                    <div class="io-description"><p>Filtra los crimenes tomando en cuenta la fecha.</p>
 </div>
 
                     <div class="io-description">
@@ -1025,8 +1025,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="257"
-                            class="link-to-prism">src/app/home/map/map.component.ts:257</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="258"
+                            class="link-to-prism">src/app/home/map/map.component.ts:258</a></div>
                 </td>
             </tr>
 
@@ -1130,8 +1130,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="317"
-                            class="link-to-prism">src/app/home/map/map.component.ts:317</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="318"
+                            class="link-to-prism">src/app/home/map/map.component.ts:318</a></div>
                 </td>
             </tr>
 
@@ -1169,8 +1169,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="227"
-                            class="link-to-prism">src/app/home/map/map.component.ts:227</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="228"
+                            class="link-to-prism">src/app/home/map/map.component.ts:228</a></div>
                 </td>
             </tr>
 
@@ -1868,7 +1868,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="335" class="link-to-prism">src/app/home/map/map.component.ts:335</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="336" class="link-to-prism">src/app/home/map/map.component.ts:336</a></div>
                             </td>
                         </tr>
 
@@ -2359,7 +2359,7 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
    /**
-   *Filtra los crimenes.
+   *Filtra los crimenes tomando en cuenta la fecha.
    *
    * @remarks
    * This is our math utilities lib for shared projects.
@@ -2400,6 +2400,7 @@ export class MapComponent implements OnInit {
     try {
       this.latitude &#x3D; (lat&#x3D;&#x3D;null) ? this.latitude: lat;
       this.longitude &#x3D; (long&#x3D;&#x3D;null) ? this.longitude: long;
+      this.accuracy &#x3D; 0;
       const state &#x3D; await this._locationService.getState( this.latitude, this.longitude);
       if(state&#x3D;&#x3D;&#x3D;&quot;Ciudad de México&quot;){
         this.crimes &#x3D; await this._peticionesService.getCrimes(this.longitude,this.latitude,this.distance, this.query);
