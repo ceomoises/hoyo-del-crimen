@@ -76,7 +76,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#options">options</a>
+                                <a href="#urlNominatim">urlNominatim</a>
                             </li>
                         </ul>
                     </td>
@@ -91,7 +91,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getCurrentPosition">getCurrentPosition</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getPosition">getPosition</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getState">getState</a>
                             </li>
                         </ul>
                     </td>
@@ -111,15 +120,45 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor()</code>
+<code>constructor(_http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/services/location.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/services/location.service.ts:11</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_http</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -133,9 +172,86 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getCurrentPosition"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getCurrentPosition
+                        </b>
+                        <a href="#getCurrentPosition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCurrentPosition(options?)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/services/location.service.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Regresa una promesa de tu geolalicación</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <p>las opciones de getCurrentPosition</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>tu geolocalización actual</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getPosition"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Async</span>
                             getPosition
                         </b>
                         <a href="#getPosition"><span class="icon ion-ios-link"></span></a>
@@ -144,15 +260,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getPosition()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPosition(options?)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/location.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/services/location.service.ts:33</a></div>
                 </td>
             </tr>
 
@@ -161,8 +278,119 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
                         <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
 
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getState"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Async</span>
+                            getState
+                        </b>
+                        <a href="#getState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getState(lat: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, long: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">src/app/services/location.service.ts:47</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>lat</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>long</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -178,24 +406,24 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="options"></a>
+                        <a name="urlNominatim"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Private</span>
-                            options</b>
-                            <a href="#options"><span class="icon ion-ios-link"></span></a>
+                            urlNominatim</b>
+                            <a href="#urlNominatim"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/services/location.service.ts:8</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/services/location.service.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -209,33 +437,60 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { Observable } from &#x27;rxjs/Observable&#x27;;
+import { map } from &#x27;rxjs/operators&#x27;;
+// import &#x27;rxjs/add/operator/toPromise&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class LocationService {
+  private urlNominatim:string;
 
-  private options : any;
+  constructor (private _http: HttpClient){
+    this.urlNominatim &#x3D; &quot;https://nominatim.openstreetmap.org/reverse?format&#x3D;jsonv2&quot;;
+  }
 
-  constructor() {
-    this.options &#x3D; {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
+  /**
+  * Regresa una promesa de tu geolalicación
+  *
+  * @param options las opciones de getCurrentPosition
+  * @returns tu geolocalización actual
+  *
+  */
+  private getCurrentPosition(options?):Promise&lt;any&gt;{
+    return new Promise((resolve,reject)&#x3D;&gt;{
+      window.navigator.geolocation.getCurrentPosition(
+        res&#x3D;&gt;{ resolve(res);},
+        err&#x3D;&gt;{ reject(err);},
+        options);
+    })
+  }
+  // Obtiene tus coordenadas actuales
+  async getPosition(options?):Promise&lt;any&gt;{
+    try{
+      const res &#x3D; await this.getCurrentPosition(options);
+      return {lat:res.coords.latitude,long:res.coords.longitude,accy:res.coords.accuracy}
+    }catch(error){
+      switch (error.code){
+        case 1:throw new Error(&quot;You have rejected to your location&quot;);
+        case 2:throw new Error(&quot;Unable to determine your location&quot;);
+        case 3:throw new Error(&quot;Service timeout has been reached&quot;);
+      }
     }
   }
 
-  getPosition():Promise&lt;any&gt;{
-    return new Promise((resolve,reject)&#x3D;&gt;{
-      navigator.geolocation.getCurrentPosition(
-        res&#x3D;&gt;{
-          resolve({long:res.coords.longitude,lat:res.coords.latitude,aprox:res.coords.accuracy});
-        },err&#x3D;&gt;{
-          reject(&quot;Ocurrio un erro al obtener la ubicación&quot;);
-        },this.options)
-    })
+  // Obtiene el estado de una ciudad segun sus coordenadas
+  async getState(lat:number, long:number):Promise&lt;any&gt;{
+    try{
+      const url &#x3D; &#x60;${this.urlNominatim}&amp;lat&#x3D;${lat}&amp;lon&#x3D;${long}&#x60;;
+      let res &#x3D; await this._http.get(url).toPromise();
+      return res[&quot;address&quot;].state;
+    }catch(err){
+      throw new Error(&quot;Unable to determine your state&quot;);
+    }
   }
-
 }
 </code></pre>
     </div>

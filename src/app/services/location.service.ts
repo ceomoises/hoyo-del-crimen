@@ -14,7 +14,13 @@ export class LocationService {
     this.urlNominatim = "https://nominatim.openstreetmap.org/reverse?format=jsonv2";
   }
 
-  //Convierte getCurrentPosition a una Promesa
+  /**
+  * Regresa una promesa de tu geolalicación
+  *
+  * @param options las opciones de getCurrentPosition
+  * @returns tu geolocalización actual
+  *
+  */
   private getCurrentPosition(options?):Promise<any>{
     return new Promise((resolve,reject)=>{
       window.navigator.geolocation.getCurrentPosition(
