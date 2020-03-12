@@ -168,13 +168,10 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
    /**
-   *Filtra los crimenes tomando en cuenta la fecha.
-   *
-   * @remarks
-   * This is our math utilities lib for shared projects.
+   *Filtra los crimenes tomando en cuenta el rango de horas, dias de la semana, meses del año, años y clasificación seleccionadas por el usuario.
    *
    */
-  filterCrimes(){
+  filterCrimes(): void{
     this.infoWindowOpened = null
     this.previous_info_window = null
     console.log (`[${this.time1}]-[${this.time2}]`);
@@ -202,7 +199,11 @@ export class MapComponent implements OnInit {
   }
 
 
-  async getRequest(lat?, long?){
+  /**
+   * Realiza una solicitud con las coordenadas actuales o ingresadas, comprobando que se encuentre dentro de la Ciudad de México. 
+   * En caso de que se encuentre dentro de la Ciudad de México obtiene los crimenes alrededor de la ubicación y en caso contrario no regresa ningún crimen.
+   */
+  async getRequest(lat?, long?): Promise<void>{
     this.infoWindowOpened = null
     this.previous_info_window = null
     this.requestOption = true;
@@ -217,14 +218,23 @@ export class MapComponent implements OnInit {
         this.countCrimes ();
         console.log(this.crimes);
       }else{
+        this.crimes = [];
+        this.crimesShown = this.crimes;
+        this.countCrimes ();
         console.log ("CrimeZone: Location outside");
       }
     } catch (error) {
+      this.crimes = [];
+      this.crimesShown = this.crimes;
+      this.countCrimes ();
       console.log(error);
     }
     this.requestOption = false;
   }
 
+  /**
+   * Retorna la validación del dia y mes del crimen, true si se encuentra dentro del rango establecido por el usuario y falso en caso contrario.
+   */
   validateCrimeDate(date:string):boolean{
     //Dias de la semana y meses de año
     let days = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado", "Domingo"];
@@ -255,7 +265,10 @@ export class MapComponent implements OnInit {
     return false;
   }
 
-  async reset (){
+  /**
+   * Resetea a la ubicación actual (obtieniendo los respectivos crimenes) y regresa las opciones de filtros a los valores iniciales. 
+   */
+  async reset ():Promise <void>{
     this.requestOption = true;
     this.query.start_date = 2019;
     this.query.end_date = 2019;
@@ -283,7 +296,14 @@ export class MapComponent implements OnInit {
     console.log(this.crimes);
   }
 
-  classificationOption(option: number){
+
+  /**
+   * Clasifica los crimenes de la zona actual. Con las siguientes opciones:
+   * 1. No realiza ninguna clasificación.
+   * 2. Realiza la clasificación de transporte.
+   * 3. Realiza la clasificación de peaton.
+   */
+  classificationOption(option: number): void{
     if (option==1){
       for (let classification of this.listCrimes){
         classification.show = true;
@@ -302,7 +322,10 @@ export class MapComponent implements OnInit {
     this.filterCrimes();
   }
 
-  countCrimes(){
+  /**
+   * Cuenta el número de crímenes que se encuentran en cada tipo de crimen.
+   */
+  countCrimes(): void{
     for(let crime of this.listCrimes){
       crime.num = 0;
     }
@@ -315,7 +338,11 @@ export class MapComponent implements OnInit {
     }
   }
 
-  selectDays (){
+  /**
+   * Selecciona y deselecciona el filtro de días.
+   */
+
+  selectDays (): void{
     let countDaysSelecteds = 0;
     for (let day of this.daysSelecteds){
       if (day.value)
@@ -326,11 +353,6 @@ export class MapComponent implements OnInit {
       day.value = (this.daysSelecteds.length==countDaysSelecteds) ? false : true;
     }
     this.filterCrimes ();
-  }
-
-  consola (event:any){
-    console.log (this.formLat.value);
-    console.log (this.formLong.value);
   }
 
   @ViewChild("name",{static: false}) nameField: ElementRef;
